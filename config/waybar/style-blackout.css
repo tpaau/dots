@@ -1,0 +1,97 @@
+* {
+    border: none;
+    font-family: "Hack Nerd Font";
+    font-weight: bold;
+    font-size: 16px;
+    min-height: 0;
+}
+
+window#waybar {
+    background: rgba(0, 0, 0, 1);
+    color: #B1B5B4;
+    border: none;
+}
+
+tooltip {
+    background: #000000;
+    opacity: 1;
+    border-radius: 10px;
+    border-width: 2px;
+    border-style: none;
+}
+
+tooltip label{
+    color: #B1B5B4;
+}
+
+#workspaces button {
+    padding: 5px;
+    color: #B1B5B4;
+    margin-right: 5px;
+}
+
+#workspaces button.active {
+    color: #000000;
+    background: #a6e3a1;
+    border-radius: 10px;
+}
+
+#workspaces button:hover {
+    background: #11111b;
+    color: #cdd6f4;
+    border-radius: 10px;
+}
+
+#custom-lock_screen,
+#custom-light_dark,
+#custom-power_btn,
+#custom-power_profile,
+#custom-myhyprv,
+#window,
+#cpu,
+#disk,
+#custom-updates,
+#memory,
+#clock,
+#battery,
+#pulseaudio,
+#network,
+#tray,
+#temperature,
+#idle_inhibitor,
+#backlight {
+    background: rgba(40, 40, 40, 0);
+    opacity: 1;
+    padding: 0px 8px;
+    margin: 0px 3px;
+    border: 0px;
+}
+#custom-lock_screen {
+    background: rgba(40, 40, 40, 0);
+}
+
+#tray {
+    background: rgba(255, 0, 0, 0);
+}
+
+#temperature.critical {
+    color: #9c6c83;
+}
+
+#pulseaudio.microphone {
+    margin-right: 16px;
+}
+
+#custom-music-player {
+    margin-right: 16px;
+}
+
+#tray { 
+    margin-right: 16px;
+}
+
+#window {
+    border-radius: 10px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
