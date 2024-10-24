@@ -37,23 +37,16 @@ somewhere else, you need to modify their paths.
 
 ## Screenshots
 
-
 # Coding Setup
 ![Coding Setup](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/screenshot-20241024-161953.png?raw=true)
-
-
 
 
 # Neofetch
 ![Neofetch](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/screenshot-20241024-162031.png?raw=true)
 
 
-
-
 # App Launcher (wofi)
 ![Wofi](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/screenshot-20241024-162108.png?raw=true)
-
-
 
 
 # My custom terminal glitch effect!
