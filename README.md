@@ -34,3 +34,10 @@ somewhere else, you need to modify their paths.
 * Neofetch config base: `https://github.com/AlguienSasaki/Dotfiles`
 * Fish config based on garuda linux default fish config
 * Waybar, wofi, mako, hypr, swaylock and wlogout config files based on default HyprV config files
+
+## Screenshots
+
+![Coding Setup](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/screenshot-20241024-161953.png?raw=true)
+![Neofetch](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/screenshot-20241024-162031.png?raw=true)
+![Wofi](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/screenshot-20241024-162108.png?raw=true)
+![glitch-effect](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/screenshot-20241024-162108.png?raw=true)
