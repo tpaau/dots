@@ -40,4 +40,4 @@ somewhere else, you need to modify their paths.
 ![Coding Setup](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/screenshot-20241024-161953.png?raw=true)
 ![Neofetch](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/screenshot-20241024-162031.png?raw=true)
 ![Wofi](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/screenshot-20241024-162108.png?raw=true)
-![glitch-effect](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/screenshot-20241024-162108.png?raw=true)
+![glitch-effect](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/screenshot-20241024-162446.png)
