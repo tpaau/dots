@@ -8,7 +8,7 @@
     "height": 20,
     "modules-left": [
         "custom/power_btn",
-        "custom/lock_screen",
+        "custom/lock_screen"
         /*"hyprland/window"*/
     ],
     "modules-center": [
@@ -29,9 +29,9 @@
         "backlight",
         "tray",
         "custom/power_profile",
-        "hyprland/language",
-        "custom/myhyprv",
-        "custom/light_dark"
+        "hyprland/language"
+        /*"custom/myhyprv",*/
+        /*"custom/light_dark"*/
     ],
     
     "include": [
@@ -190,6 +190,7 @@
 	"tooltip": false,
 	"interval": 1
     },
+
 
     "custom/updates": {
         "format": "{}",

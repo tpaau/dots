@@ -29,7 +29,8 @@ while true; do
     if [ "$player_status" = "Playing" ]; then
     artist=$(playerctl metadata artist)
     title=$(playerctl metadata title)
-    shortened_text=$(shorten_text "♫ $title - $artist")
+    song_elapsed=$(/home/mikolaj/.config/HyprV/waybar/scripts/song-percent.sh)
+    shortened_text=$(shorten_text "♫ [$song_elapsed] $title - $artist")
     echo "$shortened_text"
     elif [ "$player_status" = "Paused" ]; then
         echo "▶ paused"

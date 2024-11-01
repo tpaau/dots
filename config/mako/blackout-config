@@ -44,9 +44,9 @@ default-timeout=5000
 [urgency=high]
 anchor=center
 on-notify=exec mpv /usr/share/sounds/Yaru/stereo/dialog-warning.oga
-border-color=#0000ff
+border-color=#A53856
 text-color=#B1B5B4
-background-color=#A53856
+background-color=#000000
 default-timeout=0
 
 [category=mpd]
