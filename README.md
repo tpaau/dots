@@ -31,7 +31,7 @@ somewhere else, you need to modify their paths.
 
 ## Credits
 
-* Neofetch config base: `https://github.com/AlguienSasaki/Dotfiles`
+* Neofetch config base: https://github.com/AlguienSasaki/Dotfiles
 * Fish config based on garuda linux default fish config
 * Waybar, wofi, mako, hypr, swaylock and wlogout config files based on default HyprV config files
 
