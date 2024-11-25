@@ -12,24 +12,21 @@ function fish_prompt
     set_color blue
     echo -n (prompt_pwd)
     set_color normal
-    echo -n " ["
-    set_color red
-    echo -n $status
-    set_color normal
-    echo -n '] >> '
+    echo -n ' >> '
 end
 
 
+# Some command replacements
 alias ls 'eza -l --color=always --icons'
 alias la 'eza -la --color=always --icons'
+alias grep 'grep -i'
 
-alias del0 'find . -type f -size 0c -delete'
-alias randmac 'python3 ~/Documents/pythonscripts/randmac/rand_mac.py' # generate a random MAC address
+# Custom commands
+alias del0 'find . -type f -size 0c -delete' # Delete empty files
+alias randmac 'python3 ~/Documents/pythonscripts/randmac/rand_mac.py'
 alias pinga 'ping -A'
 alias myip 'curl api.ipify.org' #show ip
 alias exitip 'torsocks curl api.ipify.org' #show exit node ip
-alias gtfo 'echo "Getting the fuck out." ; shutdown -P now'
-
 
 # Get fastest mirrors
 alias mirror 'sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist'

@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+#
+# Modified version of the waybar brightness script.
+#
+
 iDIR="$HOME/.config/HyprV/mako/icons"
 
 # Get brightness

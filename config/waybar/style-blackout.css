@@ -86,6 +86,10 @@ tooltip label{
     margin-right: 16px;
 }
 
+#custom-cpu_percent {
+    margin-left: 30px;
+}
+
 #tray { 
     margin-right: 16px;
 }

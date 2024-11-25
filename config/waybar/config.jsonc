@@ -8,7 +8,8 @@
     "height": 20,
     "modules-left": [
         "custom/power_btn",
-        "custom/lock_screen"
+        "custom/lock_screen",
+        "custom/cpu_percent"
         /*"hyprland/window"*/
     ],
     "modules-center": [
@@ -21,7 +22,7 @@
         "pulseaudio",
         "pulseaudio#microphone",
 
-        "cpu",
+        /*"cpu",*/
         "temperature",
         "battery",
         "memory",
@@ -98,14 +99,24 @@
         }
     },
 
-  "custom/music-player": 
-  {
-    "exec": "~/.config/HyprV/waybar/scripts/music-player.sh",
-    "interval": 0,
-    "format": "{}",
-    "tooltip": false,
-    "on-click": "~/.config/HyprV/waybar/scripts/music-player.sh click"
-  },
+    "custom/music-player": 
+    {
+        "exec": "~/.config/HyprV/waybar/scripts/music-player.sh",
+        "interval": 0,
+        "format": "{}",
+        "tooltip": false,
+        "on-click": "~/.config/HyprV/waybar/scripts/music-player.sh click"
+    },
+
+    "custom/cpu_percent": 
+    {
+        "exec": "/home/mikolaj/.config/HyprV/waybar/scripts/cpu_percent.py",
+        "interval": 0,
+        "format": "{}",
+        "tooltip": false,
+        "format-alt-click": "click-right",
+        "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"
+    },
 
     "cpu": {
         "interval": 1,
