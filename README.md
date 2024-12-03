@@ -38,17 +38,13 @@ somewhere else, you need to modify their paths.
 
 ## Screenshots
 
-![Coding Setup](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/screenshot-20241024-161953.png?raw=true)
-Coding Setup
+![Coding Setup](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/nvim-setup.png?raw=true)
+Neovim Setup
 
 
-![Neofetch](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/screenshot-20241024-162031.png?raw=true)
+![Neofetch](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/neofetch-config.png?raw=true)
 Neofetch
 
 
-![Wofi](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/screenshot-20241024-162108.png?raw=true)
-App Launcher (wofi)
-
-
-![glitch-effect](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/screenshot-20241024-162446.png)
+![glitch-effect](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/glitch-effect.png)
 My custom terminal glitch effect!
