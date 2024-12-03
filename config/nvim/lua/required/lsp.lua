@@ -44,10 +44,11 @@ end
 vim.api.nvim_create_autocmd("LspAttach", {
   pattern = "*",
   callback = function()
-    vim.api.nvim_set_hl(0, 'Function', { fg = '#7AA3AB', ctermfg = 14 })
+    vim.api.nvim_set_hl(0, 'Function', { fg = '#7a9d9d', ctermfg = 14 })
     vim.api.nvim_set_hl(0, '@variable', { fg = '#B1B5B4', ctermfg = 14 })
-    vim.api.nvim_set_hl(0, 'TSFunction', { fg = '#7F9384', ctermfg = 14 })
-    vim.api.nvim_set_hl(0, 'LspFunction', { fg = '#7F9384', ctermfg = 14 })
+    vim.api.nvim_set_hl(0, 'Type', { fg = '#87AFD7', ctermfg = 14 })
+    vim.api.nvim_set_hl(0, 'TSFunction', { fg = '#7a9d9d', ctermfg = 14 })
+    vim.api.nvim_set_hl(0, 'LspFunction', { fg = '#7a9d9d', ctermfg = 14 })
   end,
 })
 

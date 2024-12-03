@@ -16,14 +16,17 @@ use({
 	end
 })
 
-
+-- visually display editing history
 use('mbbill/undotree')
 
+-- colorize hexcodes
 use 'norcalli/nvim-colorizer.lua'
 
+-- mason
 use 'williamboman/mason.nvim'
 use 'williamboman/mason-lspconfig.nvim'
 
+-- treesitter
 use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
 
 -- Configuring LSP servers
@@ -41,5 +44,14 @@ use({
   },
 })
 use("onsails/lspkind.nvim")
+
+-- automatically close brackets and quotes
+use 'windwp/nvim-autopairs'
+
+--custom status bar
+use {
+  'nvim-lualine/lualine.nvim',
+  requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+}
 
 end)
