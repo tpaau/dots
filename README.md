@@ -15,7 +15,7 @@
 * Lock: Swaylock
 * Session Management: Wlogout
 * Notifications: Mako
-* Text Editior: Neovim
+* IDE: Neovim
 
 
 ## Installing
