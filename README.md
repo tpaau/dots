@@ -34,6 +34,7 @@ somewhere else, you need to modify their paths.
 * Neofetch config base: https://github.com/AlguienSasaki/Dotfiles
 * Fish config based on garuda linux default fish config
 * Waybar, wofi, mako, hypr, swaylock and wlogout config files based on default HyprV config files
+* nvim config created with help from ThePrimeagen (https://m.youtube.com/watch?v=w7i4amO_zaE)
 
 ## Screenshots
 
