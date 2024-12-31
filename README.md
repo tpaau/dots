@@ -31,10 +31,10 @@ somewhere else, you need to modify their paths.
 
 ## Credits
 
-* Neofetch config base: https://github.com/AlguienSasaki/Dotfiles
 * Fish config based on garuda linux default fish config
 * Waybar, wofi, mako, hypr, swaylock and wlogout config files based on default HyprV config files
 * nvim config created with help from ThePrimeagen (https://m.youtube.com/watch?v=w7i4amO_zaE)
+* OLD: Neofetch config base: https://github.com/AlguienSasaki/Dotfiles
 
 ## Screenshots
 
@@ -42,9 +42,5 @@ somewhere else, you need to modify their paths.
 Neovim Setup
 
 
-![Neofetch](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/neofetch-config.png?raw=true)
-Neofetch
-
-
-![glitch-effect](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/glitch-effect.png)
-My custom terminal glitch effect!
+![Fastfetch](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/fastfetch-config.png?raw=true)
+Fastfetch
