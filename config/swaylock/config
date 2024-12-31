@@ -1,33 +1,36 @@
+# global config
 daemonize
 show-failed-attempts
-color=1f1d2e80
 font="Hack Nerd Font"
-indicator-radius=70
-indicator-thickness=9
-line-color=000000
-ring-color=000000
-inside-color=000000
-key-hl-color=9BA8AB
-separator-color=00000000
-text-color=B1B5B4
-text-caps-lock-color=""
-line-ver-color=72797A
-ring-ver-color=72797A
-inside-ver-color=000000
-text-ver-color=72797A
-ring-wrong-color=8F8689
-text-wrong-color=8F8689
-inside-wrong-color=000000
-inside-clear-color=000000
-text-clear-color=72797A
-ring-clear-color=72797A
-line-clear-color=72797A
-line-wrong-color=8F8689
-bs-hl-color=000000
-grace=2
-grace-no-mouse
-grace-no-touch
-datestr=%a, %B %e
-timestr=%I:%M %p
-fade-in=0.1
 ignore-empty-password
+
+# global colors
+color=F6F3E9
+indicator-radius=70
+indicator-thickness=10
+line-color=1c1c1c
+ring-color=1c1c1c
+inside-color=F6F3E9
+key-hl-color=F6F3E9
+bs-hl-color=1c1c1c
+separator-color=1c1c1c
+text-color=1c1c1c
+text-caps-lock-color=cf355b
+
+# verification colors
+line-ver-color=1c1c1c
+ring-ver-color=1c1c1c
+inside-ver-color=F6F3E9
+text-ver-color=1c1c1c
+
+# authentication failed colors
+ring-wrong-color=cf355b
+text-wrong-color=cf355b
+inside-wrong-color=1c1c1c
+line-wrong-color=1c1c1c
+
+# clear colors
+inside-clear-color=F6F3E9
+text-clear-color=1c1c1c
+ring-clear-color=ffffff
+line-clear-color=1c1c1c

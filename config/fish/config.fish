@@ -21,25 +21,22 @@ alias ls 'eza -l --color=always --icons'
 alias la 'eza -la --color=always --icons'
 alias grep 'grep -i'
 
+
+# Launch programs with flatpak
+alias steam 'flatpak run com.valvesoftware.Steam'
+alias discord 'flatpak run com.discordapp.Discord'
+alias obs-flat 'flatpak run flathub com.obsproject.Studio'
+alias mullvad 'flatpak run net.mullvad.MullvadBrowser'
+
+
 # Custom commands
-alias del0 'find . -type f -size 0c -delete' # Delete empty files
+alias del0 'find . -type f -size 0c -delete'
+alias setrandmac 'sudo ip link set wlp4s0 down && sudo macchanger -r wlp4s0 && sudo ip link set wlp4s0 up'
 alias randmac 'python3 ~/Documents/pythonscripts/randmac/rand_mac.py'
-alias pinga 'ping -A'
-alias myip 'curl api.ipify.org' #show ip
-alias exitip 'torsocks curl api.ipify.org' #show exit node ip
+alias myip 'curl api.ipify.org'
+
 
 # Get fastest mirrors
 alias mirror 'sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist'
 alias mirror-tor 'sudo torify reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist'
-alias nano 'nvim'
-alias newsboat 'torify newsboat'
-
-
-# Still working on it
-function hexdec
-    printf "%d\n" "0x$argv"
-end
-
-function dechex
-    printf "%x\n" "$argv"
-end
+alias nano 'nvim' # I don't wanna change 'nano' to 'nvim' when I'm pasting something from ChatGPT

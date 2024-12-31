@@ -9,6 +9,11 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.softtabstop = 4
 vim.o.showmode = false
+vim.opt.shortmess:append("F")
+
+-- enable spell
+vim.o.spell = true
+vim.o.spelllang = "en_us"
 
 -- it needs to be after `vim.opt.termguicolors = true`
 require'colorizer'.setup()

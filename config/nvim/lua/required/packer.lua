@@ -22,15 +22,18 @@ use('mbbill/undotree')
 -- colorize hexcodes
 use 'norcalli/nvim-colorizer.lua'
 
--- mason
-use 'williamboman/mason.nvim'
-use 'williamboman/mason-lspconfig.nvim'
-
 -- treesitter
 use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
 
 -- Configuring LSP servers
 use("neovim/nvim-lspconfig")
+
+-- rust tools
+use 'simrat39/rust-tools.nvim'
+
+-- mason
+use 'williamboman/mason.nvim'
+use 'williamboman/mason-lspconfig.nvim'
 
 -- Autocompletion
 use("hrsh7th/cmp-nvim-lsp")
