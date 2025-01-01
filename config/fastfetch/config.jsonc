@@ -17,8 +17,13 @@
             "outputColor": "cyan" 
         },
         {
+            "type": "host",
+            "key": "├─ 󰍹 host",
+            "format": "{2}"
+        },
+        {
             "type": "os",
-            "key": "├─ 󰍹 OS",
+            "key": "├─ ⚙ OS",
             "format": "{2}"
         },
         {
