@@ -1,35 +1,35 @@
 {
     "label" : "lock",
-    "action" : "swaylock -i ~/Pictures/wallpapers/86-vadilena-milize-handler.png",
-    "text" : "lock"
+    "action" : "swaylock",
+    "text" : "Lock"
 }
 
 {
     "label" : "hibernate",
     "action" : "systemctl hibernate",
-    "text" : "hibernate"
+    "text" : "Hibernate"
 }
 
 {
     "label" : "logout",
     "action" : "hyprctl dispatch exit 0",
-    "text" : "logout"
+    "text" : "Logout"
 }
 
 {
     "label" : "shutdown",
     "action" : "systemctl poweroff",
-    "text" : "shutdown"
+    "text" : "Shutdown"
 }
 
 {
     "label" : "suspend",
     "action" : "systemctl suspend",
-    "text" : "suspend"
+    "text" : "Suspend"
 }
 
 {
     "label" : "reboot",
     "action" : "systemctl reboot",
-    "text" : "reboot"
+    "text" : "Reboot"
 }

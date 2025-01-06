@@ -8,7 +8,7 @@ function fish_prompt
     echo -n (whoami) 
     set_color white
     echo -n "@"
-    echo -n "arch "
+    echo -n (hostname) ""
     set_color blue
     echo -n (prompt_pwd)
     set_color normal

@@ -1,12 +1,12 @@
 {   
+    "logo":
+    {
+        "type": "sixel",
+    },
+
     "display": 
     {
         "separator": " → "
-    },
-
-    "logo":
-    {
-        "type": "small"
     },
 
     "modules": 
@@ -19,7 +19,7 @@
         {
             "type": "host",
             "key": "├─ 󰍹 host",
-            "format": "{1}"
+            "format": "{2}"
         },
         {
             "type": "os",
@@ -81,6 +81,5 @@
             "key": " ",
             "symbol": "circle"
         }, 
-        "break",
     ]
 }

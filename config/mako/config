@@ -1,0 +1,57 @@
+# GLOBAL
+max-history=100
+sort=-time
+
+# BINDING OPTIONS
+on-button-left=dismiss
+on-button-middle=none
+on-button-right=dismiss-all
+on-touch=dismiss
+
+# BEHAVIOR
+markup=1
+actions=1
+history=1
+default-timeout=5000
+ignore-timeout=0
+max-visible=3
+layer=overlay
+
+# STYLE
+text-alignment=center
+anchor=top-right
+width=250
+height=100
+margin=10
+padding=15
+border-size=0
+border-radius=7
+icons=1
+max-icon-size=55
+icon-location=left
+font=Hack Nerd Font
+background-color=#000000
+text-color=#b4b4b4
+border-color=#1c1c1c
+progress-color=over #000000CC
+
+[urgency=low]
+default-timeout=2000
+
+[urgency=normal]
+on-notify=exec mpv /usr/share/sounds/freedesktop/stereo/message.oga
+default-timeout=8000
+
+[urgency=high]
+anchor=top-center
+border-size=3
+on-notify=exec mpv /usr/share/sounds/Yaru/stereo/dialog-warning.oga
+border-color=#A53856
+text-color=#A53856
+background-color=#000000
+default-timeout=0
+
+[category=mpd]
+border-color=#f9e2af
+default-timeout=2000
+group-by=category
