@@ -32,54 +32,54 @@ I'm currently working on an installation script.
 
 This is a brief list of requirements, it might be incomplete.
 
-<summary>Essential requirements</summary>
+<details>
+    <summary>Essential requirements</summary>
 
-* hyprland
-* kitty
-* waybar
-* mako
-* swaylock-effects
-* wofi
-* hyprpaper
-* playerctl
-* libnotify
-* nerd-fonts
-* python3
-* python-psutil
+    * hyprland
+    * kitty
+    * waybar
+    * mako
+    * swaylock-effects
+    * wofi
+    * hyprpaper
+    * playerctl
+    * libnotify
+    * nerd-fonts
+    * python3
+    * python-psutil
+</details>
 
-</summary>
+<details>
+    <summary>Optional requirements</summary>
 
-<summary>Optional requirements</summary>
-
-* neovim
-* fastfetch
-* fish
-
-</summary>
+    * neovim
+    * fastfetch
+    * fish
+</details>
 
 
 ## Screenshots
 
-<summary>outdated</summary>
+<details>
+    <summary>outdated</summary>
 
-![Coding Setup](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/nvim-setup.png?raw=true)
-Neovim Setup
+    ![Coding Setup](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/nvim-setup.png?raw=true)
+    Neovim Setup
 
 
-![Fastfetch](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/fastfetch-config.png?raw=true)
-Fastfetch
-
-</summary>
+    ![Fastfetch](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/fastfetch-config.png?raw=true)
+    Fastfetch
+</details>
 
 
 ## TODO
 
-<summary>list</summary>
+<details>
+    <summary>list</summary>
 
-* Add an installation script
-* Make sure requirements list is complete
-
-</summary>
+    * Add an installation script
+    * Make sure requirements list is complete
+</details>
 
 
 ## Credits
