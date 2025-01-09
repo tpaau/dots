@@ -1,6 +1,6 @@
 # Dotfiles
 
-**My desktop dotfiles, feel free to use in your own rices!**
+**My Hyprland desktop dotfiles, feel free to use in your own rices!**
 
 
 ## My Setup
@@ -18,14 +18,44 @@
 * IDE: Neovim
 
 
+## Project Status
+
+This project is still in development. It may contain bugs and unfinished features.
+
+
 ## Installing
 
-First you need to clone the repo with:
-```
-git clone https://github.com/tpaau-17DB/Dotfiles.git
-```
+I'm currently working on an installation script.
 
-Then you can start copying the dotfiles to your programs config files.
+
+## Requirements
+
+This is a brief list of requirements, it might be incomplete.
+
+<summary>Essential requirements</summary>
+
+* hyprland
+* kitty
+* waybar
+* mako
+* swaylock-effects
+* wofi
+* hyprpaper
+* playerctl
+* libnotify
+* nerd-fonts
+* python3
+* python-psutil
+
+</details>
+
+<summary>Optional requirements</summary>
+
+* neovim
+* fastfetch
+* fish
+
+</details>
 
 
 ## Credits
@@ -37,9 +67,22 @@ Then you can start copying the dotfiles to your programs config files.
 
 ## Screenshots
 
+<summary>outdated</summary>
+
 ![Coding Setup](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/nvim-setup.png?raw=true)
 Neovim Setup
 
 
 ![Fastfetch](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/fastfetch-config.png?raw=true)
 Fastfetch
+
+</details>
+
+## TODO
+
+<summary>list</summary>
+
+* Add an installation script
+* Make sure requirements list is complete
+
+</details>
