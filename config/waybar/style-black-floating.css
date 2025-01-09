@@ -25,8 +25,8 @@ tooltip label {
 }
 
 /*modules-left*/
-#custom-lock_screen,
 #custom-power_btn,
+#custom-lock_screen,
 #custom-cpu_percent {
     padding: 0 6px;
     margin: 0 3px;
@@ -34,10 +34,15 @@ tooltip label {
 
 /*modules-center*/
 
+#idle_inhibitor,
 #workspaces,
 #clock {
     padding: 0 3px;
     margin: 0 3px;
+}
+
+#idle_inhibitor {
+    margin-right: 6px;
 }
 
 #workspaces button {
@@ -60,6 +65,7 @@ tooltip label {
 /*modules-right*/
 #custom-music_player,
 #pulseaudio,
+#bluetooth,
 #temperature,
 #battery,
 #memory,
@@ -92,7 +98,6 @@ tooltip label {
 .modules-left {
     margin-left: 6px;
 }
-
 
 .modules-right {
     margin-right: 6px;

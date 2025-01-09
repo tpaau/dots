@@ -12,14 +12,56 @@
         "custom/cpu_percent",
     ],
     "modules-center": [
+        "idle_inhibitor",
         "hyprland/workspaces",
         "clock"
     ],
     "modules-right": [
         "custom/music_player",
-        "group/right-part",
+        "pulseaudio",
+        "pulseaudio#microphone",
+        "bluetooth",
+        "temperature",
+        "battery",
+        "memory",
+        "backlight",
+        "tray",
+        "hyprland/language",
     ],
    
+    // modules are listed from left to right
+
+    "custom/power_btn": {
+        "format": "",
+        "on-click": "sh -c '(wlogout --protocol layer-shell)' & disown",
+        "tooltip": false
+    },
+
+    "custom/lock_screen": {
+        "format": "",
+        "on-click": "bash -c ~/.config/shell-scripts/lock-screen.sh & disown",
+        "tooltip": false
+    },
+
+    "custom/cpu_percent": 
+    {
+        "exec": "/home/mikolaj/.config/shell-scripts/cpu_percent.py",
+        "interval": 0,
+        "format": "{}",
+        "tooltip": false,
+        "format-alt-click": "click-right",
+        "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"
+    },
+   
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "󰛐",
+            "deactivated": "󰛑"
+        },
+        "tooltip": false
+    },
+
     "clock": {
         "format": "{:%H:%M}",
         "rotate": 0,
@@ -45,31 +87,6 @@
         }
     },
 
-    "memory": {
-        "format": "",
-	    "interval": 1,
-        "tooltip": true,
-        "tooltip-format": "{}%",
-    },
-
-    "hyprland/language": {
-        "interval": 30,
-        "format": "{}",
-        "signal": 8
-    },
-
-    "custom/power_btn": {
-        "format": "",
-        "on-click": "sh -c '(wlogout --protocol layer-shell)' & disown",
-        "tooltip": false
-    },
-
-    "custom/lock_screen": {
-        "format": "",
-        "on-click": "bash -c ~/.config/shell-scripts/lock-screen.sh & disown",
-        "tooltip": false
-    },
-
     "custom/music_player": 
     {
         "exec": "~/.config/shell-scripts/music-player.sh",
@@ -77,37 +94,6 @@
         "format": "{}",
         "tooltip": false,
         "on-click": "~/.config/shell-scripts/music-player.sh click"
-    },
-
-    "custom/theme_switcher":
-    {
-        "format": " ",
-        "tooltip": false,
-        "on-click": "~/.config/shell-scripts/theme-switcher/theme-switcher.sh next",
-    },
-
-    "custom/cpu_percent": 
-    {
-        "exec": "/home/mikolaj/.config/shell-scripts/cpu_percent.py",
-        "interval": 0,
-        "format": "{}",
-        "tooltip": false,
-        "format-alt-click": "click-right",
-        "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"
-    },
-
-    "battery": {
-        "states": {
-            "good": 80,
-            "warning": 30,
-            "critical": 20
-        },
-        "format": "{icon}",
-        "format-charging": " {capacity}%",
-        "format-plugged": " {capacity}%",
-        "format-alt-click": "click-right",
-        "format-alt": "{icon} {capacity}%",
-        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
     },
 
     "pulseaudio": {
@@ -128,7 +114,7 @@
             "default": ["", "", ""]
         },
         "tooltip": true,
-        "tooltip-format": "{icon}   at {volume}%"
+        "tooltip-format": "{icon} at {volume}%"
     },
 
     "pulseaudio#microphone": {
@@ -142,6 +128,47 @@
         "scroll-step": 5,
         "tooltip": true,
         "tooltip-format": " at {volume}%"
+    },
+
+    "bluetooth": {
+        "format": "",
+        "format-connected": "",
+        "format-connected-battery": "{device_battery_percentage}%",
+        "format-no-controller": "!",
+        "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
+    },
+
+    "temperature": {
+	    "thermal-zone": 0,
+        "critical-threshold": 80,
+        "format": "",
+	    "format-critical": " {temperatureC}°C",
+	    "tooltip": false,
+	    "interval": 1
+    },
+
+    "battery": {
+        "states": {
+            "good": 80,
+            "warning": 30,
+            "critical": 20
+        },
+        "format": "{icon}",
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-alt-click": "click-right",
+        "format-alt": "{icon} {capacity}%",
+        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+    },
+
+    "memory": {
+        "format": "",
+	    "interval": 1,
+        "tooltip": true,
+        "tooltip-format": "{}%",
     },
 
     "backlight": {
@@ -161,26 +188,9 @@
         "tooltip": false
     },
 
-    "temperature": {
-	    "thermal-zone": 0,
-        "critical-threshold": 80,
-        "format": "",
-	    "format-critical": " {temperatureC}°C",
-	    "tooltip": false,
-	    "interval": 1
-    },
-
-    "group/right-part": {
-        "orientation": "horizontal",
-        "modules": [
-            "pulseaudio",
-            "pulseaudio#microphone",
-            "temperature",
-            "battery",
-            "memory",
-            "backlight",
-            "tray",
-            "hyprland/language",
-        ]
+    "hyprland/language": {
+        "interval": 30,
+        "format": "{}",
+        "signal": 8
     },
 }
