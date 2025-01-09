@@ -47,7 +47,7 @@ This is a brief list of requirements, it might be incomplete.
 * python3
 * python-psutil
 
-</details>
+</summary>
 
 <summary>Optional requirements</summary>
 
@@ -55,15 +55,8 @@ This is a brief list of requirements, it might be incomplete.
 * fastfetch
 * fish
 
-</details>
+</summary>
 
-
-## Credits
-
-* Fish config based on garuda linux default fish config
-* Waybar, wofi, mako, hypr, swaylock and wlogout config files based on default HyprV config files
-* nvim config created with help from ThePrimeagen (https://m.youtube.com/watch?v=w7i4amO_zaE)
-* OLD: Neofetch config base: https://github.com/AlguienSasaki/Dotfiles
 
 ## Screenshots
 
@@ -76,7 +69,8 @@ Neovim Setup
 ![Fastfetch](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/fastfetch-config.png?raw=true)
 Fastfetch
 
-</details>
+</summary>
+
 
 ## TODO
 
@@ -85,4 +79,13 @@ Fastfetch
 * Add an installation script
 * Make sure requirements list is complete
 
-</details>
+</summary>
+
+
+## Credits
+
+* Fish config based on garuda linux default fish config
+* Waybar, wofi, mako, hypr, swaylock and wlogout config files based on default HyprV config files
+* nvim config created with help from ThePrimeagen (https://m.youtube.com/watch?v=w7i4amO_zaE)
+* OLD: Neofetch config base: https://github.com/AlguienSasaki/Dotfiles
+
