@@ -25,7 +25,13 @@ This project is still in development. It may contain bugs and unfinished feature
 
 ## Installing
 
-I'm currently working on an installation script.
+To install the dotfiles, run:
+```
+./install.sh
+```
+
+The script will ask you to overwrite some files in `~/.config/`.
+Do not agree if you have some custom dotfiles and you did not back them up.
 
 
 ## Requirements
@@ -77,8 +83,10 @@ Fastfetch
 <details>
 <summary>list</summary>
 
-* Add an installation script
 * Make sure requirements list is complete
+* More themes
+* Make sure everything werks
+
 </details>
 
 

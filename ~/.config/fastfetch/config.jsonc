@@ -1,0 +1,86 @@
+{   
+    "display": 
+    {
+        "separator": " → "
+    },
+
+    "logo":
+    {
+        "type": "small"
+    },
+
+    "modules": 
+    [
+        {
+            "type": "custom",
+            "format": "╭─────system─────",
+            "outputColor": "cyan" 
+        },
+        {
+            "type": "host",
+            "key": "├─ 󰍹 host",
+            "format": "{1}"
+        },
+        {
+            "type": "os",
+            "key": "├─ ⚙ OS",
+            "format": "{2}"
+        },
+        {
+            "type": "kernel",
+            "key": "└─  kernel",
+            "format": "{2}"
+        },
+
+        "break",
+        {
+            "type": "custom",
+            "format": "╭────software────",
+            "outputColor": "cyan" 
+        },
+        {
+            "type": "packages",
+            "key": "├─ 󰏖 packages",
+        },
+        {
+            "type": "shell",
+            "key": "├─ 󰞷 shell",
+            "format": "{0}"
+        },
+        {
+            "type": "wm",
+            "key": "└─ 󰧨 wm",
+            "format": "{2}",
+        },
+
+        "break",
+        {
+            "type": "custom",
+            "format": "╭────hardware────",
+            "outputColor": "cyan" 
+        },
+        {
+            "type": "cpu",
+            "key": "├─  CPU",
+            "format": "{1}"
+        },
+        {
+            "type": "gpu",
+            "key": "├─ 󰢮 GPU",
+            "format": "{2}"
+        },
+        {
+            "type": "memory",
+            "key": "└─  RAM",
+            "format": "{2}"
+        },
+        "break",
+
+        {
+            "type": "colors",
+            "key": " ",
+            "symbol": "circle"
+        }, 
+        "break",
+    ]
+}

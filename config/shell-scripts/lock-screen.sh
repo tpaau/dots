@@ -1,1 +1,0 @@
-/usr/share/hyprdots/shell-scripts/lock-screen.sh
