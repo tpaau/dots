@@ -60,7 +60,7 @@ while true; do
     elif [ "$player_status" = "Paused" ]; then
         echo "▶ paused"
     else
-        echo "☐ stopped"
+        echo "n/a"
     fi
     
     sleep 0.1

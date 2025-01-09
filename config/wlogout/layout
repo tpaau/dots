@@ -1,35 +1,29 @@
 {
     "label" : "lock",
-    "action" : "swaylock -i ~/Pictures/wallpapers/86-vadilena-milize-handler.png",
-    "text" : "lock"
+    "action" : "bash -c /usr/share/hyprdots/shell-scripts/lock-screen.sh",
 }
 
 {
     "label" : "hibernate",
-    "action" : "systemctl hibernate",
-    "text" : "hibernate"
+    "action" : "bash -c /usr/share/hyprdots/shell-scripts/lock-screen.sh && systemctl hibernate",
 }
 
 {
     "label" : "logout",
     "action" : "hyprctl dispatch exit 0",
-    "text" : "logout"
 }
 
 {
     "label" : "shutdown",
     "action" : "systemctl poweroff",
-    "text" : "shutdown"
 }
 
 {
     "label" : "suspend",
-    "action" : "systemctl suspend",
-    "text" : "suspend"
+    "action" : "bash -c /usr/share/hyprdots/shell-scripts/lock-screen.sh && systemctl suspend",
 }
 
 {
     "label" : "reboot",
     "action" : "systemctl reboot",
-    "text" : "reboot"
 }

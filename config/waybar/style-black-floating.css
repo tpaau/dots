@@ -10,7 +10,7 @@
 
 /* Waybar Styles */
 window#waybar {
-    background: black;
+    background: transparent;
     color: #b9b9b9;
 }
 
@@ -25,33 +25,19 @@ tooltip label {
 }
 
 /*modules-left*/
-#custom-lock_screen {
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
-#custom-power_btn {
-    margin-right: 10px;
-    margin-left: 8px;
-}
-
+#custom-lock_screen,
+#custom-power_btn,
 #custom-cpu_percent {
-    margin-left: 10px;
+    padding: 0 6px;
+    margin: 0 3px;
 }
 
 /*modules-center*/
-#custom-theme_switcher {
-    padding: 0px 6px;
-    margin: 3px 2px;
-    border-radius: 16px;
-    color: #b9b9b9;
-    background-color: #b9b9b9;
-}
 
-#workspaces {
-    background: #000;
-    margin: 2px 18px 3px 1px;
-    padding: 0px 2px;
+#workspaces,
+#clock {
+    padding: 0 3px;
+    margin: 0 3px;
 }
 
 #workspaces button {
@@ -72,6 +58,7 @@ tooltip label {
 }
 
 /*modules-right*/
+#custom-music_player,
 #pulseaudio,
 #temperature,
 #battery,
@@ -83,10 +70,30 @@ tooltip label {
     margin: 0 3px;
 }
 
-#custom-music_player {
-    margin-right: 16px;
+#language {
+    margin-right: 0px;
 }
 
 #temperature.critical {
     color: #9c6c83;
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+    border-radius: 16px;
+    background-color: #000;
+    border: 0px solid transparent;
+    margin-top: 8px;
+    margin-bottom: 3px;
+    padding: 2px 8px;
+}
+
+.modules-left {
+    margin-left: 6px;
+}
+
+
+.modules-right {
+    margin-right: 6px;
 }
