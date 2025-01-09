@@ -66,6 +66,8 @@ This is a brief list of requirements, it might be incomplete.
 
 ## Screenshots
 
+![Screenshot](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/overlord-screen.png?raw=true)
+
 <details>
 <summary>outdated</summary>
 
