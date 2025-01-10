@@ -28,60 +28,59 @@ source /etc/os-release
 
 if [[ $ID == "arch" ]]; then
     echo ""
-    read -p "The script detected that you use Arch BTW. Do you want to automatically install dependencies?
-[Y/n] " choice
+    read -p "The script detected that you use Arch BTW.
+Do you want to automatically install dependencies? [Y/n] " choice
     choice="${choice:-Y}"
     case "$choice" in
-    [Yy]* )
-        sudo pacman --needed -S $PACMAN_PACKAGES
+        [Yy]* )
+            sudo pacman --needed -S $PACMAN_PACKAGES
 
-        if [[ $status -ne 0 ]]; then
-            echo "failed to install packages using pacman."
-            exit 1
-        fi
+            if [[ $status -ne 0 ]]; then
+                echo "failed to install packages using pacman."
+                exit 1
+            fi
 
-        aur_helper="not found"
-        if command -v yay &> /dev/null; then
-            aur_helper="yay"
-        else
-            echo "Not supported AUR helpers found."
-            echo "You'll have to install following dependencies manually:"
-            echo $AUR_PACKAGES
-        fi
+            aur_helper="not found"
+            if command -v yay &> /dev/null; then
+                aur_helper="yay"
+            else
+                echo "Not supported AUR helpers found."
+                echo "You'll have to install following dependencies manually:"
+                echo $AUR_PACKAGES
+            fi
 
-        echo "Using an AUR helper: $aur_helper"
-        $aur_helper --needed -S $AUR_PACKAGES
+            echo "Using an AUR helper: $aur_helper"
+            $aur_helper --needed -S $AUR_PACKAGES
 
-        if [[ $STATUS -ne 0 ]]; then
-            echo "Failed to install some packages using $aur_helper."
-            exit 1
-        fi
-      ;;
-    [Nn]* )
-      echo "Got it."
-      ;;
-    * )
-      echo "Invalid input. Please answer with 'y' or 'n'."
-      exit 1
-      ;;
+            if [[ $STATUS -ne 0 ]]; then
+                echo "Failed to install some packages using $aur_helper."
+                exit 1
+            fi
+        ;;
+        [Nn]* )
+            echo "Got it."
+        ;;
+        * )
+            echo "Invalid input. Please answer with 'y' or 'n'."
+        exit 1
+        ;;
     esac
 fi
 
 read -p "This script will overwrite some files in '$TARGET_PATH/', '$WALLPAPERS_PATH/' and '/usr/share/hyprdots'.
-Proceed anyway?
-[Y/n] " choice
+Proceed anyway? [Y/n] " choice
 choice="${choice:-Y}"
 case "$choice" in
-[Yy]* )
-  echo "Proceeding."
-  ;;
-[Nn]* )
-  exit 0
-  ;;
-* )
-  echo "Invalid input. Please answer with 'y' or 'n'."
-  exit 1
-  ;;
+    [Yy]* )
+        echo "Proceeding."
+    ;;
+    [Nn]* )
+        exit 0
+    ;;
+    * )
+        echo "Invalid input. Please answer with 'y' or 'n'."
+        exit 1
+    ;;
 esac
 
 echo "Copying files from config/ to $TARGET_PATH"
