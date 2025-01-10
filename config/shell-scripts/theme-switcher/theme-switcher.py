@@ -56,6 +56,7 @@ def help_message():
 def switch_theme(current_theme: str):
     exec(f"cp {themes.AVAILABLE_THEMES[current_theme].waybar_style} {WAYBAR_STYLE_DIR}")
     exec(f"cp {themes.AVAILABLE_THEMES[current_theme].mako_conf} {MAKO_CONFIG_DIR}")
+    exec(f"kitten themes --reload-in=all {themes.AVAILABLE_THEMES[current_theme].kitty_theme}")
 
 
 def main():

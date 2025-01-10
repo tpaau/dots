@@ -104,10 +104,13 @@ To install the dotfiles, run:
 ./install.sh
 ```
 
+If the script detects that you use Arch Linux,
+it will attempt to install all dependencies using
+`pacman` and `yay`.
+
 
 ## Credits
 
 * Fish config based on Garuda Linux default fish config
 * Waybar, wofi, mako, hypr, swaylock and wlogout config files based on default HyprV config files (https://github.com/soldoestech/hyprv4)
-* nvim config created with help from ThePrimeagen (https://m.youtube.com/watch?v=w7i4amO_zaE)
 * OLD: Neofetch config base: https://github.com/AlguienSasaki/Dotfiles
