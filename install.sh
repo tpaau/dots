@@ -3,7 +3,7 @@
 TARGET_PATH="$HOME/.config"
 WALLPAPERS_PATH="$HOME/Pictures/wallpapers"
 
-PACMAN_PACKAGES="\
+REQUIRED_PACKAGES="\
             hyprland\
             kitty\
             waybar\
@@ -20,9 +20,8 @@ PACMAN_PACKAGES="\
             libnotify\
             neovim\
             fastfetch\
-            fish"
-
-AUR_PACKAGES="swaylock-effects"
+            fish\
+            swaylock-effects"
 
 source /etc/os-release
 
@@ -33,18 +32,11 @@ Do you want to automatically install dependencies? [Y/n] " choice
     choice="${choice:-Y}"
     case "$choice" in
         [Yy]* )
-            sudo pacman --needed -S $PACMAN_PACKAGES
-
-            if [[ $status -ne 0 ]]; then
-                echo "failed to install packages using pacman."
-                exit 1
-            fi
-
             aur_helper="not found"
             if command -v yay &> /dev/null; then
                 aur_helper="yay"
             else
-                echo "Not supported AUR helpers found."
+                echo "No supported AUR helpers found."
                 echo "You'll have to install following dependencies manually:"
                 echo $AUR_PACKAGES
             fi
