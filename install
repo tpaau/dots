@@ -4,29 +4,28 @@ TARGET_PATH="$HOME/.config"
 WALLPAPERS_PATH="$HOME/Pictures/wallpapers"
 
 REQUIRED_PACKAGES="\
-            hyprland\
-            kitty\
-            waybar\
-            mako\
-            wofi\
-            hyprpaper\
-            nemo\
-            playerctl\
-            nerd-fonts\
-            python3\
-            python-psutil\
-            wl-clipboard\
-            grim\
-            libnotify\
-            neovim\
-            fastfetch\
-            fish\
-            swaylock-effects"
+    hyprland\
+    kitty\
+    waybar\
+    mako\
+    wofi\
+    hyprpaper\
+    nemo\
+    playerctl\
+    nerd-fonts\
+    python3\
+    python-psutil\
+    wl-clipboard\
+    grim\
+    libnotify\
+    neovim\
+    fastfetch\
+    fish\
+    swaylock-effects"
 
 source /etc/os-release
 
 if [[ $ID == "arch" ]]; then
-    echo ""
     read -p "The script detected that you use Arch BTW.
 Do you want to automatically install dependencies? [Y/n] " choice
     choice="${choice:-Y}"
@@ -60,8 +59,8 @@ Do you want to automatically install dependencies? [Y/n] " choice
 fi
 
 read -p "This script will overwrite some files in '$TARGET_PATH/', '$WALLPAPERS_PATH/' and '/usr/share/hyprdots'.
-Proceed anyway? [Y/n] " choice
-choice="${choice:-Y}"
+Proceed anyway? [y/N] " choice
+choice="${choice:-N}"
 case "$choice" in
     [Yy]* )
         echo "Proceeding."
