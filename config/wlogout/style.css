@@ -12,7 +12,7 @@ button {
     border-radius: 16;
 	text-decoration-color: #b9b9b9;
     color: #b9b9b9;
-	background-color: #0f0f0f;
+	background-color: #000000;
 	border-style: solid;
 	border-width: 0px;
 	background-repeat: no-repeat;
@@ -21,7 +21,7 @@ button {
 }
 
 button:focus, button:active {
-	background-color: #070707;
+	background-color: #101010;
 	outline-style: none;
 }
 

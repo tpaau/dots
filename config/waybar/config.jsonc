@@ -145,7 +145,7 @@
 
     "temperature": {
 	    "thermal-zone": 0,
-        "critical-threshold": 80,
+        "critical-threshold": 90,
         "format": "",
 	    "format-critical": " {temperatureC}°C",
 	    "tooltip": false,
