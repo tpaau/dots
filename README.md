@@ -8,17 +8,16 @@ DISCLAIMER: This project is still in development. It may contain bugs and unfini
 
 ## My Setup
 
-* OS: Arch Linux
-* Shell: Fish
-* Terminal: Kitty
-* DE: Hyprland
-* Bar: Waybar
-* Font: Hack Nerd Font
-* Launcher: Wofi
-* Lock: Swaylock
-* Session Management: Wlogout
-* Notification Daemon: Mako
-* IDE: Neovim
+* **OS**: Arch Linux
+* **Shell**: Fish
+* **Terminal**: Kitty
+* **Compositor**: Hyprland
+* **Bar**: Waybar
+* **Font**: Hack Nerd Font
+* **Launcher**: Wofi
+* **Lock**: Swaylock
+* **Session Management**: Wlogout
+* **Notifications**: Mako
 
 
 ## Screenshots
@@ -78,14 +77,11 @@ This is a brief list of requirements, it might be incomplete.
 * swaylock-effects
 * wofi
 * hyprpaper
-* nemo
 * playerctl
 * libnotify
-* nerd-fonts
 * python3
 * python-psutil
 * wl-clipboard
-* grim
 </details>
 
 <details>
@@ -94,6 +90,8 @@ This is a brief list of requirements, it might be incomplete.
 * neovim
 * fastfetch
 * fish
+* grim
+* nerd-fonts
 </details>
 
 
@@ -111,6 +109,5 @@ it will attempt to install all dependencies using
 
 ## Credits
 
-* Fish config based on Garuda Linux default fish config
 * Waybar, wofi, mako, hypr, swaylock and wlogout config files based on default HyprV config files (https://github.com/soldoestech/hyprv4)
 * OLD: Neofetch config base: https://github.com/AlguienSasaki/Dotfiles
