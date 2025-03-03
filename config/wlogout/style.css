@@ -26,25 +26,25 @@ button:focus, button:active {
 }
 
 #lock {
-    background-image: image(url("/usr/share/hyprdots/wlogout/lock.png"));
+    background-image: image(url("/usr/share/tpaau-17DB-dots/wlogout/lock.png"));
 }
 
 #logout {
-    background-image: image(url("/usr/share/hyprdots/wlogout/logout.png"));
+    background-image: image(url("/usr/share/tpaau-17DB-dots/wlogout/logout.png"));
 }
 
 #suspend {
-    background-image: image(url("/usr/share/hyprdots/wlogout/suspend.png"));
+    background-image: image(url("/usr/share/tpaau-17DB-dots/wlogout/suspend.png"));
 }
 
 #hibernate {
-    background-image: image(url("/usr/share/hyprdots/wlogout/hibernate.png"));
+    background-image: image(url("/usr/share/tpaau-17DB-dots/wlogout/hibernate.png"));
 }
 
 #shutdown {
-    background-image: image(url("/usr/share/hyprdots/wlogout/shutdown.png"));
+    background-image: image(url("/usr/share/tpaau-17DB-dots/wlogout/shutdown.png"));
 }
 
 #reboot {
-    background-image: image(url("/usr/share/hyprdots/wlogout/reboot.png"));
+    background-image: image(url("/usr/share/tpaau-17DB-dots/wlogout/reboot.png"));
 }

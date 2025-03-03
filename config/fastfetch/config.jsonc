@@ -19,7 +19,7 @@
         {
             "type": "host",
             "key": "├─ 󰍹 host",
-            "format": "{1}"
+            "format": "{2}"
         },
         {
             "type": "os",
@@ -79,7 +79,6 @@
         {
             "type": "colors",
             "key": " ",
-            "symbol": "circle"
         }, 
         "break",
     ]

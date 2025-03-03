@@ -17,6 +17,7 @@ REQUIRED_PACKAGES="\
     python-psutil\
     wl-clipboard\
     grim\
+    slurp\
     libnotify\
     neovim\
     fastfetch\
@@ -58,7 +59,7 @@ Do you want to automatically install dependencies? [Y/n] " choice
     esac
 fi
 
-read -p "This script will overwrite some files in '$TARGET_PATH/', '$WALLPAPERS_PATH/' and '/usr/share/hyprdots'.
+read -p "This script will overwrite some files in '$TARGET_PATH/', '$WALLPAPERS_PATH/' and '/usr/share/tpaau-17DB-dots'.
 Proceed anyway? [y/N] " choice
 choice="${choice:-N}"
 case "$choice" in
@@ -110,6 +111,6 @@ echo "Copying wallpapers."
 mkdir -p $HOME/Pictures/wallpapers/
 cp wallpapers/* $WALLPAPERS_PATH
 
-echo "Copying some files to /usr/share/hyprdots/"
-sudo bash -c "mkdir -p /usr/share/hyprdots/ &&
-    cp -r config/usr.share.hyprdots/* /usr/share/hyprdots/"
+echo "Copying some files to /usr/share/tpaau-17DB-dots/"
+sudo bash -c "mkdir -p /usr/share/tpaau-17DB-dots/ &&
+    cp -r config/usr.share.tpaau-17DB-dots/* /usr/share/tpaau-17DB-dots/"
