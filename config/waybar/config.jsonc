@@ -39,7 +39,7 @@
 
     "custom/lock_screen": {
         "format": "",
-        "on-click": "bash -c /usr/share/hyprdots/shell-scripts/lock-screen.sh & disown",
+        "on-click": "bash -c /usr/share/tpaau-17DB-dots/shell-scripts/lock-screen.sh & disown",
         "tooltip": false
     },
 
