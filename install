@@ -22,7 +22,8 @@ REQUIRED_PACKAGES="\
     neovim\
     fastfetch\
     fish\
-    swaylock-effects"
+    swaylock-effects\
+    mpv"
 
 source /etc/os-release
 
