@@ -93,7 +93,7 @@
         "interval": 0,
         "format": "{}",
         "tooltip": false,
-        "on-click": "~/.config/shell-scripts/music-player.sh click"
+        "on-click": "~/.config/shell-scripts/music-control.sh play-pause"
     },
 
     "pulseaudio": {
