@@ -5,9 +5,6 @@ WALLPAPERS_PATH="$HOME/Pictures/wallpapers"
 
 REQUIRED_PACKAGES=$(cat requirements.txt)
 
-yay -S $REQUIRED_PACKAGES
-exit
-
 source /etc/os-release
 
 if [[ $ID == "arch" ]]; then
