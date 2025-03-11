@@ -22,14 +22,15 @@ DISCLAIMER: This project is still in development. It may contain bugs and unfini
 
 ## Screenshots
 
-![Screenshot](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/overlord-screen.png?raw=true)
+![Fastfetch](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/fastfetch-screenshot-11.3.2025.png?raw=true)
 
 <details>
 <summary>outdated</summary>
 
+![Screenshot](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/overlord-screen.png?raw=true)
+
 ![Coding Setup](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/nvim-setup.png?raw=true)
 Neovim Setup
-
 
 ![Fastfetch](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/fastfetch-config.png?raw=true)
 Fastfetch
@@ -69,7 +70,7 @@ To install the dotfiles, run:
 ./install.sh
 ```
 
-If the script detects that you use Arch Linux, it will prompt you to install all
+If the script detects that you are using Arch Linux, it will prompt you to install all
 dependencies using `yay`.
 
 ## Credits
