@@ -73,6 +73,13 @@ To install the dotfiles, run:
 If the script detects that you are using Arch Linux, it will prompt you to install all
 dependencies using `yay`.
 
+If you just want to install the dependencies, run:
+```
+<package-manager install> $(cat requirements.txt)
+```
+Note that package names may differ between distributions.
+
+
 ## Credits
 
 * Waybar, wofi, mako, hypr, swaylock and wlogout config files based on default HyprV config files (https://github.com/soldoestech/hyprv4)
