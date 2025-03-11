@@ -38,29 +38,28 @@ Fastfetch
 
 ## Shortcuts
 
-* `⌘ + Q` - launch kitty terminal
-* `⌘ + L` - lock screen
-* `⌘ + M` - launch wlogout
-* `⌘ + E` - open nemo file browser
-* `⌘ + S` - screenshot
-* `⌘ + SPACE` - launch wofi
-* `⌘ + V` - toggle floating windows
-* `⌘ + P` - toggle pseudotiling
-* `⌘ + J` - toggle splitting axis
-* `⌘ + SHIFT + M` - force quit hyprland
-* `⌘ + X` - kill active window
-* `⌘ + ARROWS` - navigate windows
-* `⌘ + 1-9` - switch between workspaces
-* `⌘ + SCROLL` - switch between workspaces
-* `⌘ + SHIFT + 1-9` - move windows between workspaces
-* `⌘ + MOUSE_LEFT` - move window
-* `⌘ + MOUSE_RIGHT` - resize window
-
-* `⌘ + R` - reload theme
-* `⌘ + T` - next theme
-* `ALT + RIGHT` - next song
-* `ALT + LEFT` - previous song
-* `ALT + SPACE` - pause song
+* ⌘ + Q: launch kitty terminal
+* ⌘ + L: lock screen
+* ⌘ + M: launch wlogout
+* ⌘ + E: open nemo file browser
+* ⌘ + S: screenshot
+* ⌘ + SPACE: launch wofi
+* ⌘ + V: toggle floating window
+* ⌘ + P: toggle pseudotiling
+* ⌘ + J: toggle splitting axis
+* ⌘ + SHIFT + M: force quit hyprland
+* ⌘ + X: kill active window
+* ⌘ + ARROWS: navigate windows
+* ⌘ + 1-9: switch between workspaces
+* ⌘ + SHIFT + 1-9: move windows between workspaces
+* ⌘ + MOUSE_SCROLL: switch between workspaces
+* ⌘ + MOUSE_LEFT: move window
+* ⌘ + MOUSE_RIGHT: resize window
+* ⌘ + R: reload theme
+* ⌘ + T: next theme
+* ALT + RIGHT: next song
+* ALT + LEFT: previous song
+* ALT + SPACE: play/pause song
 
 
 ## Installing
@@ -70,10 +69,8 @@ To install the dotfiles, run:
 ./install.sh
 ```
 
-If the script detects that you use Arch Linux,
-it will attempt to install all dependencies using
-`pacman` and `yay`.
-
+If the script detects that you use Arch Linux, it will prompt you to install all
+dependencies using `yay`.
 
 ## Credits
 

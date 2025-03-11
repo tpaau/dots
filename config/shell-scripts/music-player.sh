@@ -39,13 +39,8 @@ shorten_text()
 
 # On click action (pause/play audio)
 if [[ "$1" == "click" ]]; then
-  player_status=$(playerctl status 2>/dev/null)
-  if [ "$player_status" = "Playing" ]; then
-    playerctl pause
-  else
-    playerctl play
-  fi
-  exit
+    ~/.config/shell-scripts/music-control.sh play-pause
+    exit
 fi
 
 # Display audio status
