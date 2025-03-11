@@ -3,27 +3,7 @@
 TARGET_PATH="$HOME/.config"
 WALLPAPERS_PATH="$HOME/Pictures/wallpapers"
 
-REQUIRED_PACKAGES="\
-    hyprland\
-    kitty\
-    waybar\
-    mako\
-    wofi\
-    hyprpaper\
-    nemo\
-    playerctl\
-    nerd-fonts\
-    python3\
-    python-psutil\
-    wl-clipboard\
-    grim\
-    slurp\
-    libnotify\
-    neovim\
-    fastfetch\
-    fish\
-    swaylock-effects\
-    mpv"
+REQUIRED_PACKAGES=$(cat requirements.txt)
 
 source /etc/os-release
 

@@ -36,11 +36,11 @@ border-color=#b4b4b4
 progress-color=over #000000CC
 
 [urgency=low]
-default-timeout=2000
+default-timeout=15000
 
 [urgency=normal]
 on-notify=exec mpv /usr/share/sounds/freedesktop/stereo/message.oga
-default-timeout=8000
+default-timeout=15000
 
 [urgency=high]
 anchor=top-center

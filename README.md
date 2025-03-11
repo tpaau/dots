@@ -38,61 +38,29 @@ Fastfetch
 
 ## Shortcuts
 
-* `SUPER + Q` - launch kitty terminal
-* `SUPER + L` - lock screen
-* `SUPER + M` - launch wlogout
-* `SUPER + E` - open nemo file browser
-* `SUPER + S` - screenshot
-* `SUPER + SPACE` - launch wofi
-* `SUPER + V` - toggle floating windows
-* `SUPER + P` - toggle pseudotiling
-* `SUPER + J` - toggle splitting axis
-* `SUPER + SHIFT + M` - force quit hyprland
-* `SUPER + X` - kill active window
-* `SUPER + ARROWS` - navigate windows
-* `SUPER + 1-9` - switch between workspaces
-* `SUPER + SCROLL` - switch between workspaces
-* `SUPER + SHIFT + 1-9` - move windows between workspaces
-* `SUPER + MOUSE_LEFT` - move window
-* `SUPER + MOUSE_RIGHT` - resize window
+* `⌘ + Q` - launch kitty terminal
+* `⌘ + L` - lock screen
+* `⌘ + M` - launch wlogout
+* `⌘ + E` - open nemo file browser
+* `⌘ + S` - screenshot
+* `⌘ + SPACE` - launch wofi
+* `⌘ + V` - toggle floating windows
+* `⌘ + P` - toggle pseudotiling
+* `⌘ + J` - toggle splitting axis
+* `⌘ + SHIFT + M` - force quit hyprland
+* `⌘ + X` - kill active window
+* `⌘ + ARROWS` - navigate windows
+* `⌘ + 1-9` - switch between workspaces
+* `⌘ + SCROLL` - switch between workspaces
+* `⌘ + SHIFT + 1-9` - move windows between workspaces
+* `⌘ + MOUSE_LEFT` - move window
+* `⌘ + MOUSE_RIGHT` - resize window
 
-* `SUPER + R` - reload theme
-* `SUPER + T` - next theme
+* `⌘ + R` - reload theme
+* `⌘ + T` - next theme
 * `ALT + RIGHT` - next song
 * `ALT + LEFT` - previous song
 * `ALT + SPACE` - pause song
-
-
-## Requirements
-
-This is a brief list of requirements, it might be incomplete.
-
-<details>
-<summary>Essential requirements</summary>
-
-* hyprland
-* kitty
-* waybar
-* mako
-* swaylock-effects
-* wofi
-* hyprpaper
-* playerctl
-* libnotify
-* python3
-* python-psutil
-* wl-clipboard
-</details>
-
-<details>
-<summary>Optional requirements</summary>
-
-* neovim
-* fastfetch
-* fish
-* grim
-* nerd-fonts
-</details>
 
 
 ## Installing
