@@ -3,7 +3,7 @@
 **My Hyprland desktop dotfiles with a custom theme switcher!**
 
 
-DISCLAIMER: This project is still in development. It may contain bugs and unfinished features.
+DISCLAIMER: The theme switcher and the install script are unfinished. **Use them at your own risk!**
 
 
 ## My Setup
