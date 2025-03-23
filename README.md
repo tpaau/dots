@@ -1,9 +1,11 @@
+<div align="center">
 # Dotfiles
 
 **My Hyprland desktop dotfiles with a custom theme switcher!**
 
 
 DISCLAIMER: The theme switcher and the install script are unfinished. **Use them at your own risk!**
+</div>
 
 
 ## My Setup
@@ -67,17 +69,19 @@ Fastfetch
 
 To install the dotfiles, run:
 ```
-./install.sh
+./install.sh --dots
 ```
-
-If the script detects that you are using Arch Linux, it will prompt you to install all
-dependencies using `yay`.
 
 If you just want to install the dependencies, run:
 ```
-<package-manager install> $(cat requirements.txt)
+./install.sh --deps
 ```
-Note that package names may differ between distributions.
+Automatic dependency sync is currently only supported on Arch Linux systems with `yay`.
+
+Or just do everything at once:
+```
+./install.sh --all
+```
 
 
 ## Credits

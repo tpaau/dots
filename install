@@ -3,7 +3,7 @@
 TARGET_PATH="$HOME/.config"
 WALLPAPERS_PATH="$HOME/Pictures/wallpapers"
 
-AUR_PACKAGES=$(cat "requirements/arch")
+SUPPORTED_DISTROS=("arch")
 
 source /etc/os-release
 
@@ -12,31 +12,39 @@ print_usage()
 	echo "install {args}"
 	echo "    --deps: only installs dependencies"
 	echo "    --dots: only installs dotfiles"
+	echo "    --all: install both dependencies and dotfiles"
 	echo "    --help: show this message"
 }
 
-if [ $# -lt 1 ]; then
-	echo "error: expected exactly one argument!"
-	echo ""
-	print_usage
-fi
-
 install_deps()
 {
+	DEPS_PATH="dependencies/$ID"
+	DEPS=$(cat $DEPS_PATH 2>/dev/null)
+
+	if [ ! -f $DEPS_PATH ]; then
+		echo "Automatic dependency sync is not supported on $ID. Sorry :("
+		exit 1
+	fi
+
+	if [ -z "$DEPS" ]; then
+		echo "Automatic dependency sync is not supported on $ID. Sorry :("
+		exit 1
+	fi
+
 	aur_helper="not found"
 	if command -v yay &> /dev/null; then
 		aur_helper="yay"
 	else
 		echo "No supported AUR helpers found."
 		echo "You'll have to install following dependencies manually:"
-		echo $AUR_PACKAGES
+		echo $DEPS
 	fi
 
 	echo "Using an AUR helper: $aur_helper"
-	$aur_helper -S --needed $AUR_PACKAGES
+	$aur_helper -S --needed $DEPS
 
 	if [[ $STATUS -ne 0 ]]; then
-		echo "Failed to install some packages using $aur_helper."
+		echo "Failed to install some packages."
 		exit 1
 	fi
 }
@@ -84,28 +92,25 @@ install_dots()
 		cp -r config/usr.share.tpaau-17DB-dots/* /usr/share/tpaau-17DB-dots/"
 }
 
-ask_user_deps()
+ask_deps()
 {
-	if [[ $ID == "arch" ]]; then
-		read -p "The script detected that you use Arch BTW.
-	Do you want to automatically install dependencies? [Y/n] " choice
-		choice="${choice:-Y}"
-		case "$choice" in
-			[Yy]* )
-				install_deps
-			;;
-			[Nn]* )
-				echo "Got it."
-			;;
-			* )
-				echo "Invalid input. Please answer with 'y' or 'n'."
-			exit 1
-			;;
-		esac
-	fi
+	read -p "Do you want to automatically install dependencies? [Y/n] " choice
+	choice="${choice:-Y}"
+	case "$choice" in
+		[Yy]* )
+			install_deps
+		;;
+		[Nn]* )
+			echo "Got it."
+		;;
+		* )
+			echo "Invalid input. Please answer with 'y' or 'n'."
+		exit 1
+		;;
+	esac
 }
 
-ask_user_dots()
+ask_dots()
 {
 	read -p "This script will overwrite some files in '$TARGET_PATH/', '$WALLPAPERS_PATH/' and '/usr/share/tpaau-17DB-dots'.
 	Proceed anyway? [y/N] " choice
@@ -124,3 +129,22 @@ ask_user_dots()
 		;;
 	esac
 }
+
+if [ $# -lt 1 ]; then
+	echo "error: expected exactly one argument!"
+	echo ""
+	print_usage
+elif [ $1 == "--deps" ]; then
+	ask_deps
+elif [ $1 == "--dots" ]; then
+	ask_dots
+elif [ $1 == "--help" ]; then
+	print_usage
+elif [ $1 = "--all" ]; then
+	ask_deps
+	ask_dots
+else
+	echo "Unknown argument."
+	echo ""
+	print_usage
+fi
