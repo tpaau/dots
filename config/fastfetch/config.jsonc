@@ -6,11 +6,16 @@
 
     "logo":
     {
-        "type": "small"
+        "type": "small",
+		"padding":
+		{
+			"top": 1
+		}
     },
 
     "modules": 
     [
+		"break",
         {
             "type": "custom",
             "format": "╭─────system─────",
@@ -19,7 +24,7 @@
         {
             "type": "host",
             "key": "├─ 󰍹 host",
-            "format": "{2}"
+            "format": "{1}"
         },
         {
             "type": "os",

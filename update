@@ -1,0 +1,87 @@
+#!/bin/bash
+
+# Load source and destination paths
+source paths.sh
+
+# Exits if the working directory is not in a git repo 
+ensure_in_git_repo()
+{
+	if ! git rev-parse --is-inside-work-tree &>/dev/null; then
+		echo "error: the script is not in a git repo."
+		exit 1
+	fi
+}
+
+check_status()
+{
+	if [ $? -ne 0 ]; then
+		exit $?
+	else
+		echo "ok"
+	fi
+}
+
+update()
+{
+	echo ""
+	echo "----------------"
+
+	echo -n "cava: "
+	cp $CAVA_DST $CAVA_SRC/
+	check_status
+
+	echo -n "fastfetch: "
+	cp $FASTFETCH_DST $FASTFETCH_SRC/
+	check_status
+
+	echo -n "hypr: "
+	cp -r $HYPR_DST $HYPR_SRC/
+	check_status
+
+	echo -n "mako: "
+	cp $MAKO_DST $MAKO_SRC/
+	check_status
+
+	echo -n "scripts: "
+	cp -r $SCRIPTS_DST* $SCRIPTS_SRC
+	check_status
+
+	echo -n "swaylock: "
+	cp $SWAYLOCK_DST $SWAYLOCK_SRC/
+	check_status
+
+	echo "share: "
+	sudo bash -c "cp -r $SHARE_DST/* $SHARE_SRC; \
+		chown -R mikolaj *; \
+		if [ \$? -ne 0 ]; then exit \$?; else echo 'ok'; fi"
+
+	echo -n "waybar: "
+	cp $WAYBAR_DST $WAYBAR_SRC/
+	check_status
+
+	echo -n "wlogout: "
+	cp $WLOGOUT_DST $WLOGOUT_SRC/
+	check_status
+
+	echo -n "wofi: "
+	cp $WOFI_DST $WOFI_SRC/
+	check_status
+
+	echo ""
+	echo "----------------"
+	git status --ignored
+}
+
+# Make sure we are in a git repo
+ensure_in_git_repo
+
+echo -e "\e[33mWARNING:\e[0m The script you are trying to execute is an utility meant to be use \e[1;97mEXCLUSIVELY\e[0m by the owner of this repository."
+echo "To confirm please input the username of the owner of this repository:"
+read input
+
+if [ $input == "tpaau-17DB" ]; then
+	echo "Proceeding."
+	update
+else
+	echo "Invalid input."
+fi

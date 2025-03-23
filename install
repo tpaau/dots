@@ -5,7 +5,11 @@ WALLPAPERS_PATH="$HOME/Pictures/wallpapers"
 
 SUPPORTED_DISTROS=("arch")
 
+# Required the check the OS name for automatic dependency sync
 source /etc/os-release
+
+# Load source and destination paths
+source paths.sh
 
 print_usage()
 {
@@ -16,6 +20,17 @@ print_usage()
 	echo "    --help: show this message"
 }
 
+# Exits if the working directory is not in a git repo 
+ensure_in_git_repo()
+{
+	if ! git rev-parse --is-inside-work-tree &>/dev/null; then
+		echo "error: the script is not in a git repo."
+		exit 1
+	fi
+}
+
+# Installs the dependencies required for the dotfiles installation to function
+# properly
 install_deps()
 {
 	DEPS_PATH="dependencies/$ID"
@@ -49,6 +64,7 @@ install_deps()
 	fi
 }
 
+# Copies the dotfiles into the target directories
 install_dots()
 {
 	echo "Copying files from config/ to $TARGET_PATH"
@@ -92,6 +108,7 @@ install_dots()
 		cp -r config/usr.share.tpaau-17DB-dots/* /usr/share/tpaau-17DB-dots/"
 }
 
+# Asks user to install the dependencies
 ask_deps()
 {
 	read -p "Do you want to automatically install dependencies? [Y/n] " choice
@@ -110,6 +127,7 @@ ask_deps()
 	esac
 }
 
+# Asks user to install the dotfiles
 ask_dots()
 {
 	read -p "This script will overwrite some files in '$TARGET_PATH/', '$WALLPAPERS_PATH/' and '/usr/share/tpaau-17DB-dots'.
@@ -130,6 +148,10 @@ ask_dots()
 	esac
 }
 
+# Make sure we are in a git repo
+ensure_in_git_repo
+
+# Handle arguments 
 if [ $# -lt 1 ]; then
 	echo "error: expected exactly one argument!"
 	echo ""
