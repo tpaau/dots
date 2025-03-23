@@ -1,12 +1,10 @@
 <div align="center">
+  
 # Dotfiles
 
 **My Hyprland desktop dotfiles with a custom theme switcher!**
 
-
-DISCLAIMER: The theme switcher and the install script are unfinished. **Use them at your own risk!**
 </div>
-
 
 ## My Setup
 
@@ -66,6 +64,8 @@ Fastfetch
 
 
 ## Installing
+
+> :warning: **Warning:** The theme switcher and the install script are unfinished. **Use them at your own risk!**
 
 To install the dotfiles, run:
 ```
