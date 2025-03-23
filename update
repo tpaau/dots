@@ -50,10 +50,9 @@ update()
 	cp $SWAYLOCK_DST $SWAYLOCK_SRC/
 	check_status
 
-	echo "share: "
 	sudo bash -c "cp -r $SHARE_DST/* $SHARE_SRC; \
 		chown -R mikolaj *; \
-		if [ \$? -ne 0 ]; then exit \$?; else echo 'ok'; fi"
+		if [ \$? -ne 0 ]; then echo 'share: error'; exit \$?; else echo 'share: ok'; fi"
 
 	echo -n "waybar: "
 	cp $WAYBAR_DST $WAYBAR_SRC/
