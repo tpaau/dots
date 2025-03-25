@@ -9,7 +9,7 @@ window {
 
 button {
     margin: 7px;
-    border-radius: 16;
+    border-radius: 16px;
 	text-decoration-color: #b9b9b9;
     color: #b9b9b9;
 	background-color: #000000;
@@ -26,6 +26,8 @@ button:focus, button:active {
 	border-color: #b9b9b9;
 	outline-style: none;
 	background-size: 32%;
+	border-radius: 32px;
+	margin: -32px 0px -32px 0px;
 }
 
 #lock {
