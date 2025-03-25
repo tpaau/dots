@@ -1,29 +1,14 @@
 {
-    "label" : "lock",
-    "action" : "bash -c /usr/share/hyprdots/shell-scripts/lock-screen.sh",
-}
-
-{
-    "label" : "hibernate",
-    "action" : "bash -c /usr/share/hyprdots/shell-scripts/lock-screen.sh && systemctl hibernate",
-}
-
-{
-    "label" : "logout",
-    "action" : "hyprctl dispatch exit 0",
-}
-
-{
     "label" : "shutdown",
     "action" : "systemctl poweroff",
 }
 
 {
-    "label" : "suspend",
-    "action" : "bash -c /usr/share/hyprdots/shell-scripts/lock-screen.sh && systemctl suspend",
+    "label" : "reboot",
+    "action" : "systemctl reboot",
 }
 
 {
-    "label" : "reboot",
-    "action" : "systemctl reboot",
+    "label" : "logout",
+    "action" : "hyprctl dispatch exit 0",
 }

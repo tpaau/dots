@@ -195,13 +195,14 @@
 	"network": {
 		"interface": "wlp3s0",
 		"format": "{ifname}",
-		"format-wifi": "  {signalStrength}%",
+		"format-wifi": " ",
 		"format-ethernet": "󰊗",
-		"format-disconnected": "",
+		"format-disconnected": " ",
 		"tooltip-format": "{ifname} via {gwaddr} 󰊗",
-		"tooltip-format-wifi": "{essid} ({signalStrength}%)  ",
-		"tooltip-format-ethernet": "{ifname} {ipaddr} ",
-    	"max-length": 8
+		"tooltip-format-wifi": "  {essid} ({signalStrength}%)",
+		"tooltip-format-ethernet": " {ifname} {ipaddr}",
+    	"max-length": 8,
+		"interval": 10
 	},
 
     "tray": {

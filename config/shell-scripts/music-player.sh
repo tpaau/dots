@@ -6,6 +6,7 @@
 # It was desinged to be used with waybar.
 #
 
+MAX_LENGTH=45
 
 song_percent() 
 {
@@ -19,7 +20,6 @@ song_percent()
     fi
 
     percent=$(echo "($position * 100) / $length_seconds" | bc)
-
     echo "${percent}%"
 }
 
@@ -28,12 +28,11 @@ song_percent()
 shorten_text() 
 {
     local text="$1"
-    local max_length=35
 
-    if [ ${#text} -gt $max_length ]; then
-        echo "${text:0:$((max_length-1))}…"
-    else
-        echo "$text"
+    if [ ${#text} -gt $MAX_LENGTH ]; then
+        echo "${text:0:$((MAX_LENGTH-1))}…"
+	else
+		echo "$text"
     fi
 }
 
