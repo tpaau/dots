@@ -1,1 +1,0 @@
-/usr/share/tpaau-17DB-dots/shell-scripts/lock-screen.sh

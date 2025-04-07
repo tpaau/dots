@@ -4,15 +4,17 @@ import subprocess
 import sys
 import os
 
-import themes
+import data.themes as themes
 
 
 WAYBAR_STYLE_DIR = os.path.expanduser("~/.config/waybar/style.css")
 MAKO_CONFIG_DIR = os.path.expanduser("~/.config/mako/config")
 
-THEME_DIR = os.path.expanduser("~/.config/shell-scripts/theme-switcher/data/")
-THEME_FILE = THEME_DIR + "current-theme"
-DEFAULT_THEME = "solid black, static waybar"
+THEME_SWITCHER_DIR = os.path.expanduser("~/.config/tpaau-17DB-scripts/theme-switcher/")
+DATA_DIR = THEME_SWITCHER_DIR + "data/"
+TMP_DIR = THEME_SWITCHER_DIR + "tmp/"
+THEME_FILE = TMP_DIR + "current-theme"
+DEFAULT_THEME = "solid black, floating waybar"
 
 THEME_NAMES = ["solid black, static waybar", "solid black, floating waybar"]
 
@@ -27,7 +29,7 @@ def exec(command):
 
 
 def reload_conf():
-    exec("bash -c ~/.config/shell-scripts/theme-switcher/reload-config.sh")
+    exec("bash -c ~/.config/tpaau-17DB-scripts/theme-switcher/reload-config.sh")
 
 
 def notify_user(message):
@@ -62,20 +64,26 @@ def switch_theme(current_theme: str):
 def main():
     current_theme = "none"
 
+    exec(f"mkdir -p {THEME_SWITCHER_DIR}")
+    exec(f"mkdir -p {DATA_DIR}")
+    exec(f"mkdir -p {TMP_DIR}")
+
+    print(THEME_FILE)
+
     try:
         # file where the current theme name is stored
         theme_file = open(THEME_FILE, 'r')
         theme = theme_file.readline().strip()
         if not THEME_NAMES.__contains__(theme):
-            notify_user_err(f"File {THEME_FILE} contains and invalid theme: '{theme}'")
-            exec(f"mkdir -p {THEME_DIR}")
+            notify_user_err(f"File {THEME_FILE} exists but contains and invalid theme: '{theme}'")
+            exec(f"mkdir -p {DATA_DIR}")
             exec(f"echo '{DEFAULT_THEME}' > {THEME_FILE}")
         else:
             current_theme = theme
     except Exception as e:
         notify_user_err(f"Failed to open data file {THEME_FILE}")
         print(e)
-        exec(f"mkdir -p {THEME_DIR}")
+        exec(f"mkdir -p {DATA_DIR}")
         exec(f"echo '{DEFAULT_THEME}' > {THEME_FILE}")
 
     if len(sys.argv) != 2:

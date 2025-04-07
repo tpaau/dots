@@ -48,6 +48,7 @@ tooltip label {
 #workspaces button {
     padding: 0px 6px;
     margin: 3px 2px;
+	min-width: 16px;
     border-radius: 16px;
     color: #b9b9b9;
     background-color: #b9b9b9;
@@ -57,7 +58,7 @@ tooltip label {
 #workspaces button.active {
     color: #e0e0e0;
     background: #e0e0e0;
-    min-width: 30px;
+    min-width: 28px;
     transition: all 0.1s linear;
     opacity:1.0;
 }
@@ -82,6 +83,15 @@ tooltip label {
 
 #temperature.critical {
     color: #9c6c83;
+}
+
+#privacy-item {
+	margin: 0px 4px;
+}
+
+#privacy {
+	margin: 0px 4px;
+	margin-right: 0px;
 }
 
 .modules-left,

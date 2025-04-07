@@ -1,7 +1,4 @@
 #!/bin/bash
 
-if pgrep "wlogout" > /dev/null; then
-	echo "error: wlogout is already running. Ignoring request."
-else
-	wlogout -b 3 --protocol layer-shell
-fi
+# make sure we are not running multiple instances of wlogout
+pidof wlogout || wlogout -b 4 --protocol layer-shell

@@ -5,13 +5,14 @@
     "exclusive": true,
     "passthrough": false,
     "gtk-layer-shell": true,
-    "height": 20,
+    "height": 40,
 
 	// system resources and session management
     "modules-left": [
         "custom/power_btn",
         "custom/lock_screen",
-        "bluetooth",
+		// not needed since my tray already shows a bluetooth icon
+        // "bluetooth",
         "backlight",
         "temperature",
         "memory",
@@ -26,12 +27,14 @@
         "clock"
     ],
 
-	// tray, audio and music
+	// tray, privacy and audio 
+	// audio, privacy and tray
     "modules-right": [
         "custom/music_player",
         "pulseaudio",
         "pulseaudio#microphone",
 		"network",
+		"privacy",
         "tray",
         "hyprland/language",
     ],
@@ -40,7 +43,7 @@
 
     "custom/power_btn": {
         "format": "",
-        "on-click": "sh -c '(wlogout --protocol layer-shell)' & disown",
+        "on-click": "bash ~/.config/tpaau-17DB-scripts/run-wlogout.sh",
         "tooltip": false
     },
 
@@ -55,7 +58,7 @@
         "format-connected": "",
         "format-off": "",
         "format-disabled": "",
-        "format-connected-battery": "{device_battery_percentage}%",
+        "format-connected-battery": " {device_battery_percentage}%",
         "format-no-controller": "!",
         "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
         "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
@@ -69,8 +72,8 @@
         "format-alt-click": "click-right",
         "format-alt": "{icon} {percent}%",
         "format-icons": ["󰃞", "󰃟", "󰃠"],
-        "on-scroll-up": "~/.config/shell-scripts/brightness --inc",
-        "on-scroll-down": "~/.config/shell-scripts/brightness --dec",
+        "on-scroll-up": "~/.config/tpaau-17DB-scripts/brightness --inc",
+        "on-scroll-down": "~/.config/tpaau-17DB-scripts/brightness --dec",
         "tooltip": false,
     },
 
@@ -107,7 +110,7 @@
 
     "custom/cpu_percent": 
     {
-        "exec": "/home/mikolaj/.config/shell-scripts/cpu_percent.py",
+        "exec": "/home/mikolaj/.config/tpaau-17DB-scripts/cpu_percent.py",
         "interval": 0,
         "format": "{}",
         "tooltip": false,
@@ -151,20 +154,20 @@
 
     "custom/music_player": 
     {
-        "exec": "~/.config/shell-scripts/music-player.sh",
+        "exec": "~/.config/tpaau-17DB-scripts/music-player.sh",
         "interval": 0,
         "format": "{}",
         "tooltip": false,
-        "on-click": "~/.config/shell-scripts/music-control.sh play-pause"
+        "on-click": "~/.config/tpaau-17DB-scripts/music-control.sh play-pause"
     },
 
     "pulseaudio": {
         "format": "{icon}",
         "format-muted": "",
-        "on-click": "~/.config/shell-scripts/volume --toggle",
+        "on-click": "~/.config/tpaau-17DB-scripts/volume --toggle",
         "on-click-right": "pavucontrol",
-        "on-scroll-up": "~/.config/shell-scripts/volume --inc",
-        "on-scroll-down": "~/.config/shell-scripts/volume --dec",
+        "on-scroll-up": "~/.config/tpaau-17DB-scripts/volume --inc",
+        "on-scroll-down": "~/.config/tpaau-17DB-scripts/volume --dec",
         "scroll-step": 5,
         "format-icons": {
         	"headphone": "",
@@ -182,11 +185,11 @@
     "pulseaudio#microphone": {
         "format": "{format_source}",
         "format-source": "",
-        "format-source-muted": "",
-        "on-click": "~/.config/shell-scripts/volume --toggle-mic",
+        "format-source-muted": " ",
+        "on-click": "~/.config/tpaau-17DB-scripts/volume --toggle-mic",
         "on-click-right": "pavucontrol",
-        "on-scroll-up": "~/.config/shell-scripts/volume --mic-inc",
-        "on-scroll-down": "~/.config/shell-scripts/volume --mic-dec",
+        "on-scroll-up": "~/.config/tpaau-17DB-scripts/volume --mic-inc",
+        "on-scroll-down": "~/.config/tpaau-17DB-scripts/volume --mic-dec",
         "scroll-step": 5,
         "tooltip": true,
         "tooltip-format": " at {volume}%"
@@ -201,13 +204,37 @@
 		"tooltip-format": "{ifname} via {gwaddr} 󰊗",
 		"tooltip-format-wifi": "  {essid} ({signalStrength}%)",
 		"tooltip-format-ethernet": " {ifname} {ipaddr}",
+		"tooltip-format-disconnected": "disconnected",
     	"max-length": 8,
 		"interval": 10
 	},
 
+	"privacy": {
+		"icon-spacing": 6,
+		"icon-size": 16,
+		"transition-duration": 250,
+		"modules": [
+			{
+				"type": "screenshare",
+				"tooltip": true,
+				"tooltip-icon-size": 24
+			},
+			{
+				"type": "audio-out",
+				"tooltip": true,
+				"tooltip-icon-size": 24
+			},
+			{
+				"type": "audio-in",
+				"tooltip": true,
+				"tooltip-icon-size": 24
+			}
+		]
+	},
+
     "tray": {
-        "icon-size": 15,
-        "spacing": 17,
+        "icon-size": 16,
+        "spacing": 12,
         "tooltip": false
     },
 

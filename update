@@ -27,43 +27,41 @@ update()
 	echo "----------------"
 
 	echo -n "cava: "
-	cp $CAVA_DST $CAVA_SRC/
+	cp $CAVA_SRC $CAVA_DST/
 	check_status
 
 	echo -n "fastfetch: "
-	cp $FASTFETCH_DST $FASTFETCH_SRC/
+	cp $FASTFETCH_SRC $FASTFETCH_DST/
 	check_status
 
 	echo -n "hypr: "
-	cp -r $HYPR_DST $HYPR_SRC/
+	cp -r $HYPR_SRC $HYPR_DST/
 	check_status
 
 	echo -n "mako: "
-	cp $MAKO_DST $MAKO_SRC/
+	cp $MAKO_SRC $MAKO_DST/
 	check_status
 
 	echo -n "scripts: "
-	cp -r $SCRIPTS_DST* $SCRIPTS_SRC
+	cp -r $SCRIPTS_SRC* $SCRIPTS_DST
+	rm -rf $SCRIPTS_DST/theme-switcher/data/__pycache__/
+	rm -rf $SCRIPTS_DST/theme-switcher/tmp/
 	check_status
 
-	echo -n "swaylock: "
-	cp $SWAYLOCK_DST $SWAYLOCK_SRC/
-	check_status
-
-	sudo bash -c "cp -r $SHARE_DST/* $SHARE_SRC; \
+	sudo bash -c "cp -r $SHARE_SRC/* $SHARE_DST; \
 		chown -R mikolaj *; \
 		if [ \$? -ne 0 ]; then echo 'share: error'; exit \$?; else echo 'share: ok'; fi"
 
 	echo -n "waybar: "
-	cp $WAYBAR_DST $WAYBAR_SRC/
+	cp $WAYBAR_SRC $WAYBAR_DST/
 	check_status
 
 	echo -n "wlogout: "
-	cp $WLOGOUT_DST $WLOGOUT_SRC/
+	cp $WLOGOUT_SRC $WLOGOUT_DST/
 	check_status
 
 	echo -n "wofi: "
-	cp $WOFI_DST $WOFI_SRC/
+	cp $WOFI_SRC $WOFI_DST/
 	check_status
 
 	echo ""

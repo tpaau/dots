@@ -9,7 +9,7 @@ notify_user()
 reload_theme()
 {
     notify_user "Reloading theme."
-    bash -c ~/.config/shell-scripts/theme-switcher/reload-waybar.sh
+    bash -c ~/.config/tpaau-17DB-scripts/theme-switcher/reload-waybar.sh
 }
 
 next_theme()
@@ -22,7 +22,7 @@ prev_theme()
     notify_user "Option 'previous' is not implemented yet."
 }
 
-theme_file="/home/mikolaj/.config/shell-scripts/theme-switcher/data/current-theme"
+theme_file="/home/mikolaj/.config/tpaau-17DB-scripts/theme-switcher/data/current-theme"
 
 default_theme="solid black, static waybar"
 

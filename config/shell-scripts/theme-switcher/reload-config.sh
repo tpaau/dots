@@ -1,6 +1,8 @@
 #!/bin/bash
 
 # relaunch waybar
+
+
 pkill -x waybar
 
 while pgrep -x waybar > /dev/null; do
@@ -19,6 +21,7 @@ done
 
 mako &
 
-# TODO: reload kitty theme
+# Reload kitty theme
+kitten themes --reload-in=all
 
 exit 0

@@ -9,6 +9,11 @@
 }
 
 {
+    "label" : "lock",
+    "action" : "sleep 0.4; /usr/share/tpaau-17DB-dots/shell-scripts/lock-screen.sh",
+}
+
+{
     "label" : "logout",
     "action" : "hyprctl dispatch exit 0",
 }

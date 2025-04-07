@@ -18,16 +18,16 @@ button {
 	border-color: #1f1f1f;
 	background-repeat: no-repeat;
 	background-position: center;
-	background-size: 22%;
+	background-size: 28%;
 	animation: gradient_f 20s ease-in infinite;
 }
 
 button:focus, button:active {
 	border-color: #b9b9b9;
 	outline-style: none;
-	background-size: 32%;
+	background-size: 40%;
 	border-radius: 32px;
-	margin: -32px 0px -32px 0px;
+	margin: -32px -7px -32px -7px;
 }
 
 #lock {
