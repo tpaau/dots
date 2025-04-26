@@ -240,7 +240,7 @@
 
     "hyprland/language": {
         "interval": 30,
-        "format": "{}",
+        "format": "{short}",
         "signal": 8
     },
 }

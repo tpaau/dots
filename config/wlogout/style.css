@@ -27,7 +27,6 @@ button:focus, button:active {
 	outline-style: none;
 	background-size: 40%;
 	border-radius: 32px;
-	margin: -32px -7px -32px -7px;
 }
 
 #lock {

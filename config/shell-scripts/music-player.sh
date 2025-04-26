@@ -24,15 +24,15 @@ song_percent()
 }
 
 
-# Make the text shorter so it can fit on the screen
-shorten_text() 
-{
+shorten_text() {
     local text="$1"
 
     if [ ${#text} -gt $MAX_LENGTH ]; then
-        echo "${text:0:$((MAX_LENGTH-1))}…"
-	else
-		echo "$text"
+        text="${text:0:$((MAX_LENGTH-1))}"
+        text=$(echo "$text" | sed 's/[[:space:]]*$//')  # Remove trailing whitespace
+        echo "$text…"
+    else
+        echo "$text"
     fi
 }
 

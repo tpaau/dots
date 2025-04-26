@@ -85,13 +85,13 @@ tooltip label {
     color: #9c6c83;
 }
 
-#privacy-item {
-	margin: 0px 4px;
-}
-
 #privacy {
 	margin: 0px 4px;
 	margin-right: 0px;
+}
+
+#privacy-item {
+	margin: 0px 4px;
 }
 
 .modules-left,
