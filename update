@@ -72,7 +72,7 @@ update()
 # Make sure we are in a git repo
 ensure_in_git_repo
 
-echo -e "\e[33mWARNING:\e[0m The script you are trying to execute is an utility meant to be use \e[1;97mEXCLUSIVELY\e[0m by the owner of this repository."
+echo -e "\e[33mWARNING:\e[0m The script you are trying to execute is a utility meant to be use \e[1;97mEXCLUSIVELY\e[0m by the owner of this repository."
 echo "To confirm please input the username of the owner of this repository:"
 read input
 
