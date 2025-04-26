@@ -1,9 +1,10 @@
 <div align="center">
+  
 # Dotfiles
 
 **My Hyprland desktop dotfiles with a custom theme switcher!**
-</div>
 
+</div>
 
 ## My Setup
 
@@ -21,7 +22,20 @@
 
 ## Screenshots
 
-![Fastfetch](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/fastfetch-screenshot-26.04.2025.png?raw=true)
+![Fastfetch](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/fastfetch-screenshot-11.3.2025.png?raw=true)
+
+<details>
+<summary>outdated</summary>
+![Fastfetch](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/fastfetch-screenshot-11.3.2025.png?raw=true)
+
+![Screenshot](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/overlord-screen.png?raw=true)
+
+![Coding Setup](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/nvim-setup.png?raw=true)
+Neovim Setup
+
+![Fastfetch](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/fastfetch-config.png?raw=true)
+Fastfetch
+</details>
 
 
 ## Credits
