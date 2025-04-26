@@ -20,7 +20,7 @@
 
 ## Screenshots
 
-![Fastfetch](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/fastfetch-screenshot-26-04.2025.png?raw=true)
+![Fastfetch](https://github.com/tpaau-17DB/Dotfiles/blob/main/screenshots/fastfetch-screenshot-26.04.2025.png?raw=true)
 
 
 ## Credits
