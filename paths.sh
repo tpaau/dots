@@ -8,7 +8,8 @@ FASTFETCH_DST="config/fastfetch"
 FASTFETCH_SRC="$HOME/.config/fastfetch/config.jsonc"
 
 HYPR_DST="config/hypr"
-HYPR_SRC="$HOME/.config/hypr/sources/style.conf"
+HYPR_SRC="$HOME/.config/hypr/sources/style.conf\
+	$HOME/.config/hypr/sources/animations.conf"
 
 MAKO_DST="config/mako"
 MAKO_SRC="$HOME/.config/mako/config"
