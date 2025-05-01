@@ -1,9 +1,8 @@
 #!/bin/bash
 
 #
-# This script is used to print song info in format
+# This script is used to print song info in format:
 # ♫ [X%] song - artist
-# It was desinged to be used with waybar.
 #
 
 MAX_LENGTH=45
@@ -24,15 +23,17 @@ song_percent()
 }
 
 
-shorten_text() {
+# Make the text shorter so it can fit on the screen
+shorten_text() 
+{
     local text="$1"
 
     if [ ${#text} -gt $MAX_LENGTH ]; then
-        text="${text:0:$((MAX_LENGTH-1))}"
-        text=$(echo "$text" | sed 's/[[:space:]]*$//')  # Remove trailing whitespace
+		text="${text:0:$((MAX_LENGTH-1))}"
+		text=$(echo "$text" | sed 's/[[:space:]]*$//')
         echo "$text…"
-    else
-        echo "$text"
+	else
+		echo "$text"
     fi
 }
 
@@ -40,11 +41,11 @@ shorten_text() {
 while true; do 
     player_status=$(playerctl status)
     if [ "$player_status" = "Playing" ]; then
-    artist=$(playerctl metadata artist)
-    title=$(playerctl metadata title)
-    song_elapsed=$(song_percent)
-    shortened_text=$(shorten_text "♫ [$song_elapsed] $title - $artist")
-    echo "$shortened_text"
+		artist=$(playerctl metadata artist)
+		title=$(playerctl metadata title)
+		song_elapsed=$(song_percent)
+		shortened_text=$(shorten_text "♫ [$song_elapsed] $title - $artist")
+		echo "$shortened_text"
     elif [ "$player_status" = "Paused" ]; then
         echo "▶ paused"
     else

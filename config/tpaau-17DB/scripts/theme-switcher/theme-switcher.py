@@ -10,7 +10,7 @@ import data.themes as themes
 WAYBAR_STYLE_DIR = os.path.expanduser("~/.config/waybar/style.css")
 MAKO_CONFIG_DIR = os.path.expanduser("~/.config/mako/config")
 
-THEME_SWITCHER_DIR = os.path.expanduser("~/.config/tpaau-17DB-scripts/theme-switcher/")
+THEME_SWITCHER_DIR = os.path.expanduser("~/.config/tpaau-17DB/scripts/theme-switcher/")
 DATA_DIR = THEME_SWITCHER_DIR + "data/"
 TMP_DIR = THEME_SWITCHER_DIR + "tmp/"
 THEME_FILE = TMP_DIR + "current-theme"
@@ -29,7 +29,7 @@ def exec(command):
 
 
 def reload_conf():
-    exec("bash -c ~/.config/tpaau-17DB-scripts/theme-switcher/reload-config.sh")
+    exec("bash -c ~/.config/tpaau-17DB/scripts/theme-switcher/reload-config.sh")
 
 
 def notify_user(message):

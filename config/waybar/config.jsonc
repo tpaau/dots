@@ -11,8 +11,6 @@
     "modules-left": [
         "custom/power_btn",
         "custom/lock_screen",
-		// not needed since my tray already shows a bluetooth icon
-        // "bluetooth",
         "backlight",
         "temperature",
         "memory",
@@ -43,7 +41,7 @@
 
     "custom/power_btn": {
         "format": "",
-        "on-click": "bash ~/.config/tpaau-17DB-scripts/run-wlogout.sh",
+        "on-click": "bash ~/.config/tpaau-17DB/scripts/run-wlogout.sh",
         "tooltip": false
     },
 
@@ -53,27 +51,14 @@
         "tooltip": false
     },
 
-    "bluetooth": {
-        "format": "",
-        "format-connected": "",
-        "format-off": "",
-        "format-disabled": "",
-        "format-connected-battery": " {device_battery_percentage}%",
-        "format-no-controller": "!",
-        "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
-        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
-        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
-    },
-
     "backlight": {
         "device": "intel_backlight",
         "format": "{icon}",
         "format-alt-click": "click-right",
         "format-alt": "{icon} {percent}%",
         "format-icons": ["󰃞", "󰃟", "󰃠"],
-        "on-scroll-up": "~/.config/tpaau-17DB-scripts/brightness --inc",
-        "on-scroll-down": "~/.config/tpaau-17DB-scripts/brightness --dec",
+        "on-scroll-up": "~/.config/tpaau-17DB/scripts/brightness --inc",
+        "on-scroll-down": "~/.config/tpaau-17DB/scripts/brightness --dec",
         "tooltip": false,
     },
 
@@ -110,7 +95,7 @@
 
     "custom/cpu_percent": 
     {
-        "exec": "/home/mikolaj/.config/tpaau-17DB-scripts/cpu_percent.py",
+        "exec": "/home/mikolaj/.config/tpaau-17DB/scripts/cpu_percent.py",
         "interval": 0,
         "format": "{}",
         "tooltip": false,
@@ -154,20 +139,20 @@
 
     "custom/music_player": 
     {
-        "exec": "~/.config/tpaau-17DB-scripts/music-player.sh",
+        "exec": "~/.config/tpaau-17DB/scripts/music-player.sh",
         "interval": 0,
         "format": "{}",
         "tooltip": false,
-        "on-click": "~/.config/tpaau-17DB-scripts/music-control.sh play-pause"
+        "on-click": "~/.config/tpaau-17DB/scripts/music-control.sh play-pause"
     },
 
     "pulseaudio": {
         "format": "{icon}",
         "format-muted": "",
-        "on-click": "~/.config/tpaau-17DB-scripts/volume --toggle",
+        "on-click": "~/.config/tpaau-17DB/scripts/volume --toggle",
         "on-click-right": "pavucontrol",
-        "on-scroll-up": "~/.config/tpaau-17DB-scripts/volume --inc",
-        "on-scroll-down": "~/.config/tpaau-17DB-scripts/volume --dec",
+        "on-scroll-up": "~/.config/tpaau-17DB/scripts/volume --inc",
+        "on-scroll-down": "~/.config/tpaau-17DB/scripts/volume --dec",
         "scroll-step": 5,
         "format-icons": {
         	"headphone": "",
@@ -186,10 +171,10 @@
         "format": "{format_source}",
         "format-source": "",
         "format-source-muted": " ",
-        "on-click": "~/.config/tpaau-17DB-scripts/volume --toggle-mic",
+        "on-click": "~/.config/tpaau-17DB/scripts/volume --toggle-mic",
         "on-click-right": "pavucontrol",
-        "on-scroll-up": "~/.config/tpaau-17DB-scripts/volume --mic-inc",
-        "on-scroll-down": "~/.config/tpaau-17DB-scripts/volume --mic-dec",
+        "on-scroll-up": "~/.config/tpaau-17DB/scripts/volume --mic-inc",
+        "on-scroll-down": "~/.config/tpaau-17DB/scripts/volume --mic-dec",
         "scroll-step": 5,
         "tooltip": true,
         "tooltip-format": " at {volume}%"

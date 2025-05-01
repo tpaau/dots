@@ -25,5 +25,4 @@
 
 ## Credits
 
-* Waybar, wofi, mako, hyprland and wlogout config files based on default HyprV config files (https://github.com/soldoestech/hyprv4)
-* OLD: Neofetch config base: https://github.com/AlguienSasaki/Dotfiles
+* Waybar, wofi, mako, hyprland and wlogout config files based on default [HyprV](https://github.com/soldoestech/hyprv4) config files 

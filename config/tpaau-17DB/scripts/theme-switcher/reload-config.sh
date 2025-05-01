@@ -1,8 +1,10 @@
 #!/bin/bash
 
+source ~/.config/tpaau-17DB-scripts/logger.sh
+
+info "Reloading config... " "" "n"
+
 # relaunch waybar
-
-
 pkill -x waybar
 
 while pgrep -x waybar > /dev/null; do
@@ -22,6 +24,8 @@ done
 mako &
 
 # Reload kitty theme
-kitten themes --reload-in=all
+# kitten themes --reload-in=all
+
+echo "done"
 
 exit 0

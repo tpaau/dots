@@ -20,14 +20,14 @@ layer=overlay
 # STYLE
 text-alignment=center
 anchor=top-right
-width=400
+width=300
 height=300
 margin=7
 padding=16
 border-size=2
 border-radius=16
 icons=1
-max-icon-size=55
+max-icon-size=128
 icon-location=left
 font=Hack Nerd Font
 background-color=#000000

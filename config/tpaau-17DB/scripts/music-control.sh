@@ -1,7 +1,9 @@
 #!/bin/bash
 
+source ~/.config/tpaau-17DB-scripts/logger.sh
+
 if [[ $# -ne 1 ]]; then
-    echo "Expected exactly one argument!"
+    error "Expected exactly one argument!"
 else
     player_status=$(playerctl status 2>/dev/null)
     if [ "$player_status" = "Playing" ]; then
