@@ -86,11 +86,6 @@ update()
 	cp -r "${HYPR_SRC[@]}" "$HYPR_DST/"
 	check_status
 
-	echo -n "mako: "
-	mkdir -p "$MAKO_DST"
-	cp "$MAKO_SRC" "$MAKO_DST/"
-	check_status
-
 	echo -n "scripts: "
 	mkdir -p "$TP_DST"
 	cp -r "$TP_SRC"/* "$TP_DST"
@@ -106,21 +101,6 @@ update()
 	echo -n "share:"
 	mkdir "$SHARE_DST"
 	cp -r "$SHARE_SRC"/* "$SHARE_DST"
-	check_status
-
-	echo -n "waybar: "
-	mkdir -p "$WAYBAR_DST"
-	cp "${WAYBAR_SRC[@]}" "$WAYBAR_DST/"
-	check_status
-
-	echo -n "wlogout: "
-	mkdir -p "$WLOGOUT_DST"
-	cp "${WLOGOUT_SRC[@]}" "$WLOGOUT_DST/"
-	check_status
-
-	echo -n "wofi: "
-	mkdir -p "$WOFI_DST"
-	cp "${WOFI_SRC[@]}" "$WOFI_DST/"
 	check_status
 
 	echo ""

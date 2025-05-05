@@ -9,14 +9,13 @@ source $LIB_DIR/check-dependencies.sh
 
 check_dependencies grim slurp cat wl-copy notify-send
 
-TMP_DIR="$HOME/.take-screenshot"
 SS_NAME="screenshot.png"
 
 clear_cache()
 {
-	if [[ -e "$TMP_DIR" ]]; then
+	if [[ -e "$TMP_DIR/$SS_NAME" ]]; then
 		log_info "Cleaning cache"
-		rm -rf "$TMP_DIR/"
+		rm -rf "$TMP_DIR/$SS_NAME"
 	fi
 }
 
@@ -34,5 +33,3 @@ log_info "Sending notification"
 notify-send -i "$TMP_DIR/$SS_NAME" "Screenshot taken!"
 
 clear_cache
-
-log_info "done."
