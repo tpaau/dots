@@ -18,10 +18,6 @@
 * **Notifications**: Mako
 
 
-## Screenshots
-
-
-
 ## Credits
 
 * Waybar, wofi, mako, hyprland and wlogout config files based on default [HyprV](https://github.com/soldoestech/hyprv4) config files 
