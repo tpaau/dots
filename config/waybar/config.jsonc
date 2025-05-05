@@ -5,7 +5,7 @@
     "exclusive": true,
     "passthrough": false,
     "gtk-layer-shell": true,
-    "height": 40,
+    "height": 32,
 
 	// system resources and session management
     "modules-left": [
@@ -47,7 +47,7 @@
 
     "custom/lock_screen": {
         "format": "",
-        "on-click": "bash -c /usr/share/tpaau-17DB-dots/shell-scripts/lock-screen.sh & disown",
+        "on-click": "bash -c /usr/share/tpaau-17DB-dots/scripts/lock-screen.sh & disown",
         "tooltip": false
     },
 
@@ -57,8 +57,8 @@
         "format-alt-click": "click-right",
         "format-alt": "{icon} {percent}%",
         "format-icons": ["󰃞", "󰃟", "󰃠"],
-        "on-scroll-up": "~/.config/tpaau-17DB/scripts/brightness --inc",
-        "on-scroll-down": "~/.config/tpaau-17DB/scripts/brightness --dec",
+        "on-scroll-up": "~/.config/tpaau-17DB/scripts/waybar/brightness --inc",
+        "on-scroll-down": "~/.config/tpaau-17DB/scripts/waybar/brightness --dec",
         "tooltip": false,
     },
 
@@ -95,7 +95,7 @@
 
     "custom/cpu_percent": 
     {
-        "exec": "/home/mikolaj/.config/tpaau-17DB/scripts/cpu_percent.py",
+        "exec": "/home/mikolaj/.config/tpaau-17DB/scripts/waybar/cpu_percent.py",
         "interval": 0,
         "format": "{}",
         "tooltip": false,
@@ -119,7 +119,14 @@
         "format-icons": {
             "active": "",
 			"default": ""
-        }
+        },
+		"persistent-workspaces": {
+			"1": [],
+			"2": [],
+			"3": [],
+			"4": [],
+			"5": []
+		}
     },
 
     "clock": {
@@ -139,20 +146,20 @@
 
     "custom/music_player": 
     {
-        "exec": "~/.config/tpaau-17DB/scripts/music-player.sh",
+        "exec": "~/.config/tpaau-17DB/scripts/music-player.sh watch",
         "interval": 0,
         "format": "{}",
         "tooltip": false,
-        "on-click": "~/.config/tpaau-17DB/scripts/music-control.sh play-pause"
+        "on-click": "~/.config/tpaau-17DB/scripts/music-player.sh play-pause"
     },
 
     "pulseaudio": {
         "format": "{icon}",
         "format-muted": "",
-        "on-click": "~/.config/tpaau-17DB/scripts/volume --toggle",
+        "on-click": "~/.config/tpaau-17DB/scripts/waybar/volume --toggle",
         "on-click-right": "pavucontrol",
-        "on-scroll-up": "~/.config/tpaau-17DB/scripts/volume --inc",
-        "on-scroll-down": "~/.config/tpaau-17DB/scripts/volume --dec",
+        "on-scroll-up": "~/.config/tpaau-17DB/scripts/waybar/volume --inc",
+        "on-scroll-down": "~/.config/tpaau-17DB/scripts/waybar/volume --dec",
         "scroll-step": 5,
         "format-icons": {
         	"headphone": "",
@@ -171,10 +178,10 @@
         "format": "{format_source}",
         "format-source": "",
         "format-source-muted": " ",
-        "on-click": "~/.config/tpaau-17DB/scripts/volume --toggle-mic",
+        "on-click": "~/.config/tpaau-17DB/scripts/waybar/volume --toggle-mic",
         "on-click-right": "pavucontrol",
-        "on-scroll-up": "~/.config/tpaau-17DB/scripts/volume --mic-inc",
-        "on-scroll-down": "~/.config/tpaau-17DB/scripts/volume --mic-dec",
+        "on-scroll-up": "~/.config/tpaau-17DB/scripts/waybar/volume --mic-inc",
+        "on-scroll-down": "~/.config/tpaau-17DB/scripts/waybar/volume --mic-dec",
         "scroll-step": 5,
         "tooltip": true,
         "tooltip-format": " at {volume}%"

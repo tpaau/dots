@@ -1,18 +1,10 @@
 #!/bin/bash
 
-# Load source and destination paths
-source paths.sh
-
 BOLD_WHITE="\033[1;37m"
 BLUE="\033[34m"
 YELLOW="\033[33m"
 RED="\033[31m"
 ESC="\033[0m"
-
-# For every log function:
-#  $1: The log message
-#  $2: Escape characters added at the beginning of the log
-#  $3: Args passed to echo
 
 info()
 {
@@ -58,6 +50,8 @@ check_status()
 
 update()
 {
+	source paths.sh
+
 	read -p "Do you want to overwrite the content of '$CONF/'? [y/N]: " choice
 	choice="${choice:-N}"
 	case "$choice" in
@@ -79,49 +73,54 @@ update()
 
 	echo -n "cava: "
 	mkdir -p "$CAVA_DST"
-	cp $CAVA_SRC $CAVA_DST/
+	cp "$CAVA_SRC" "$CAVA_DST/"
 	check_status
 
 	echo -n "fastfetch: "
 	mkdir -p "$FASTFETCH_DST"
-	cp $FASTFETCH_SRC $FASTFETCH_DST/
+	cp "$FASTFETCH_SRC" "$FASTFETCH_DST/"
 	check_status
 
 	echo -n "hypr: "
 	mkdir -p "$HYPR_DST"
-	cp -r $HYPR_SRC $HYPR_DST/
+	cp -r "${HYPR_SRC[@]}" "$HYPR_DST/"
 	check_status
 
 	echo -n "mako: "
 	mkdir -p "$MAKO_DST"
-	cp $MAKO_SRC $MAKO_DST/
+	cp "$MAKO_SRC" "$MAKO_DST/"
 	check_status
 
 	echo -n "scripts: "
-	mkdir -p "$SCRIPTS_DST"
-	cp -r $SCRIPTS_SRC* $SCRIPTS_DST
-	rm -rf $SCRIPTS_DST/theme-switcher/data/__pycache__/
-	rm -rf $SCRIPTS_DST/theme-switcher/tmp/
+	mkdir -p "$TP_DST"
+	cp -r "$TP_SRC"/* "$TP_DST"
+	rm -r "$TP_DST/cache/"
+	rm "$TP_DST/colors/current.css"
+	check_status
+
+	echo -n "icons: "
+	mkdir -p "$ICONS_DST"
+	cp -r "$ICONS_SRC"/* "$ICONS_DST"
 	check_status
 
 	echo -n "share:"
 	mkdir "$SHARE_DST"
-	cp -r $SHARE_SRC/* $SHARE_DST
+	cp -r "$SHARE_SRC"/* "$SHARE_DST"
 	check_status
 
 	echo -n "waybar: "
 	mkdir -p "$WAYBAR_DST"
-	cp $WAYBAR_SRC $WAYBAR_DST/
+	cp "${WAYBAR_SRC[@]}" "$WAYBAR_DST/"
 	check_status
 
 	echo -n "wlogout: "
 	mkdir -p "$WLOGOUT_DST"
-	cp $WLOGOUT_SRC $WLOGOUT_DST/
+	cp "${WLOGOUT_SRC[@]}" "$WLOGOUT_DST/"
 	check_status
 
 	echo -n "wofi: "
 	mkdir -p "$WOFI_DST"
-	cp $WOFI_SRC $WOFI_DST/
+	cp "${WOFI_SRC[@]}" "$WOFI_DST/"
 	check_status
 
 	echo ""
@@ -132,8 +131,7 @@ update()
 # Make sure we are in a git repo
 ensure_in_git_repo
 
-echo -e "\e[33mWARNING:\e[0m The script you are trying to execute is a utility meant to be use \e[1;97mEXCLUSIVELY\e[0m by the owner of this repository."
-echo "To confirm please input the username of the owner of this repository:"
+info "Type the name of the owner of this repository to continue:"
 read input
 
 if [[ "$input" == "tpaau-17DB" ]]; then

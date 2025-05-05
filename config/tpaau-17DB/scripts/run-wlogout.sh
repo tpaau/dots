@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# make sure we are not running multiple instances of wlogout
+cd $HOME/.config/wlogout/
 pidof wlogout || wlogout -b 4 --protocol layer-shell

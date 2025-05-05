@@ -1,3 +1,5 @@
+@import "colors.css";
+
 window {
     border: none;
     background-color: #000000;
@@ -8,26 +10,28 @@ window {
     margin: 4px;
     padding-left: 20px;
     border: none;
-    color: #b9b9b9;
+    color: @text;
     font-weight: bold;
-    background-color: #121212;
+    background-color: @br_bg;
    	outline: none;
     border-radius: 15px;
     margin: 10px;
     margin-bottom: 2px;
+	border: 2px solid transparent;
 }
 
 #input:focus {
-    border: 0px solid #000000;
-    margin-bottom: 0px;
+    color: @br_text;
+    background-color: @br_bg;
+	border: 2px solid @fg;
 }
 
 #inner-box {
     margin: 4px;
     border: none;
-    color: #b9b9b9;
+    color: @text;
     font-weight: bold;
-    background-color: #000000;
+    background-color: @bg;
     border-radius: 15px;
 }
 
@@ -35,7 +39,7 @@ window {
     margin: 0px;
     border: none;
     border-radius: 15px;
-    background-color: #000000;
+    background-color: @bg;
 }
 
 #scroll {
@@ -43,20 +47,19 @@ window {
     border: none;
     border-radius: 15px;
     margin-bottom: 5px;
-    /* background: rgb(255,255,255); */
 }
 
 #img:selected {
-    background-color: #121212;
+    background-color: @br_bg;
     border: none;
 }
 
 #text:selected {
-    color: #b9b9b9;
+    color: @br_text;
     margin: 0px 0px;
     border: none;
     border-radius: 15px;
-    background-color: #121212;
+    background-color: @br_bg;
 }
 
 #entry {
@@ -71,5 +74,5 @@ window {
     margin: 0px 0px;
     border: none;
     border-radius: 15px;
-    background-color: #121212;
+    background-color: @br_bg;
 }

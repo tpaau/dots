@@ -1,6 +1,4 @@
-#!/bin/bash
-
-iDIR="$HOME/.config/HyprV/mako/icons"
+#!/usr/bin/env bash
 
 # Get Volume
 get_volume() {

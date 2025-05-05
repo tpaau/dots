@@ -9,7 +9,7 @@ ESC="\033[0m"
 #  $2: Escape characters added at the beginning of the log
 #  $3: Args passed to echo
 
-info()
+log_info()
 {
 	if [[ "$2" == *"\\r"* ]]; then
         echo -en "\r\033[K"
@@ -17,7 +17,7 @@ info()
 	echo -e${3} "${2}${BOLD_WHITE}[${ESC}${BLUE}i${ESC}${BOLD_WHITE}]${ESC} ${1}" >&2
 }
 
-warning()
+log_warning()
 {
 	if [[ "$2" == *"\\r"* ]]; then
         echo -en "\r\033[K"
@@ -25,7 +25,7 @@ warning()
 	echo -e${3} "${2}${BOLD_WHITE}[${ESC}${YELLOW}W${ESC}${BOLD_WHITE}]${ESC} ${1}" >&2
 }
 
-error()
+log_error()
 {
 	if [[ "$2" == *"\\r"* ]]; then
         echo -en "\r\033[K"
