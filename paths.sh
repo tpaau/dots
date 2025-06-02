@@ -16,7 +16,8 @@ HYPR_DST="$CONF/hypr"
 TP_SRC="$HOME/.config/tpaau-17DB"
 TP_DST="$CONF/tpaau-17DB"
 
-EWW_SRC=("$HOME/.config/eww/eww.yuck" "$HOME/.config/eww/eww.css")
+EWW_SRC=("$HOME/.config/eww/eww.yuck"
+	"$HOME/.config/eww/eww.css")
 EWW_DST="$CONF/eww"
 
 SHARE_DST="$CONF/usr.share.tpaau-17DB-dots.wlogout"

@@ -1,0 +1,118 @@
+@import "colors.css";
+
+* {
+	font-family: "Hack Nerd Font";
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.secondary-text {
+	color: @fg;
+    font-size: 14px;
+}
+
+.status {
+	border: 2px solid;
+	border-color: @accent;
+	background-color: @bg;
+	border-radius: 15px;
+	padding: 20px;
+}
+
+.audio-control {
+	border: 2px solid;
+	border-color: @accent;
+	background-color: @bg;
+	border-radius: 15px;
+	padding: 20 20 00 20px;
+}
+
+.track-cover {
+	padding: 0 0 15 0px;
+}
+
+.track-title {
+	color: @br_fg;
+    font-size: 24px;
+	margin-top: 10px;
+}
+
+.track-artist {
+	color: @fg;
+    font-size: 14px;
+}
+
+.track-slider {
+	margin-left: -12px;
+	margin-right: -12px;
+}
+
+.track-slider trough {
+  background-color: @br_bg;
+  background-image: none;
+  border-radius: 8px;
+  min-height: 10px;
+}
+
+.track-slider trough highlight {
+	border: none;
+	background-color: @fg;
+	border-radius: 8px;
+	background-image: none;
+	min-height: 10px;
+	min-width: 12px;
+}
+
+.track-slider trough slider {
+	border: none;
+	background: transparent;
+}
+
+.track-timers {
+	margin-top: -8px;
+}
+
+.track-elapsed-text {
+	color: @fg;
+    font-size: 12px;
+}
+
+.track-length-text {
+	color: @fg;
+    font-size: 12px;
+}
+
+.audio-control-box {
+	padding: 0 0 20 0px;
+}
+
+.previous-track-button,
+.play-pause-button,
+.next-track-button {
+	border: 0px solid transparent;
+	border-radius: 15px;
+	background-color: @br1_bg;
+	background-image: none;
+	transition: border-radius 0.1s linear;
+}
+
+.previous-track-button:hover,
+.play-pause-button:hover,
+.next-track-button:hover {
+	border-radius: 24px;
+	background-color: @br2_bg;
+	transition: border-radius 0.1s linear;
+}
+
+.previous-track-button:active,
+.play-pause-button:active,
+.next-track-button:active {
+	border-radius: 128px;
+	background-color: @br3_bg;
+	transition: border-radius 0.1s linear;
+}
+
+.media-control-icon {
+    font-size: 32px;
+	color: @br_fg;
+}
