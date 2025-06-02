@@ -23,7 +23,6 @@ window {
 #input:focus {
     color: @br_text;
     background-color: @br_bg;
-	border: 2px solid @fg;
 }
 
 #inner-box {

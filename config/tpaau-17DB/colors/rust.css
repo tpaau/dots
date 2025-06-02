@@ -1,9 +1,12 @@
-@define-color err #eb33f7;
+@define-color err #9a5568;
 @define-color bg #000000;
 @define-color br_bg #181818;
-@define-color fg #ffffff;
+@define-color br1_bg #2F2F2F;
+@define-color br2_bg #424242;
+@define-color br3_bg #5a5a5a;
+@define-color fg #cccccc;
 @define-color br_fg #ffffff;
-@define-color text #ffffff;
+@define-color text #cccccc;
 @define-color br_text #ffffff;
-@define-color accent #e0fafa;
+@define-color accent #ffffff;
 @define-color accent_inactive #000000;

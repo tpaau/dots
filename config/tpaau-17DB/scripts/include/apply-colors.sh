@@ -2,7 +2,7 @@ apply_colors()
 {
 	source ~/.config/tpaau-17DB/scripts/include/paths.sh
 
-	local input="$COLORS_DIR/colors.css"
+	local input="$CURRENT_COLORS"
 	local tmp="$TMP_DIR/hypr_colors.conf"
 	local target="$HOME/.config/hypr/sources/colors.conf"
 

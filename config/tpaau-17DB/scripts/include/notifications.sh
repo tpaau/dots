@@ -1,10 +1,10 @@
 source ~/.config/tpaau-17DB/scripts/include/paths.sh
-source $LIB_DIR/icons.sh
+source ~/.config/tpaau-17DB/scripts/include/icons.sh
 
 notify_err()
 {
 	local message="$1"
-	notify-send -i "$ICON_WARN_RED" -u critical "$message"
+	notify-send -i "$ICON_WARN_WHITE" -u critical "$message"
 }
 
 notify_info()

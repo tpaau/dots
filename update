@@ -86,16 +86,16 @@ update()
 	cp -r "${HYPR_SRC[@]}" "$HYPR_DST/"
 	check_status
 
+	echo -n "eww: "
+	mkdir -p "$EWW_DST"
+	cp -r "$EWW_SRC" "$EWW_DST"
+	check_status
+
 	echo -n "scripts: "
 	mkdir -p "$TP_DST"
 	cp -r "$TP_SRC"/* "$TP_DST"
 	rm -r "$TP_DST/cache/"
-	rm "$TP_DST/colors/current.css"
-	check_status
-
-	echo -n "icons: "
-	mkdir -p "$ICONS_DST"
-	cp -r "$ICONS_SRC"/* "$ICONS_DST"
+	rm -r "$TP_DST/tmp/"
 	check_status
 
 	echo -n "share:"

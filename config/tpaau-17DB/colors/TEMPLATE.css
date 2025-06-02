@@ -1,9 +1,8 @@
-@define-color err #9a5568;
+/* This is a template file. Don't actually use it. */
+
+@define-color err #ff0000;
 @define-color bg #000000;
 @define-color br_bg #181818;
-@define-color br1_bg #2F2F2F;
-@define-color br2_bg #424242;
-@define-color br3_bg #5a5a5a;
 @define-color fg #b9b9b9;
 @define-color br_fg #ffffff;
 @define-color text #b9b9b9;

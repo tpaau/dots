@@ -14,14 +14,19 @@ window#waybar {
     color: @text;
 }
 
-
 tooltip {
-    background: @bg;
-    border-radius: 16px;
+    border-radius: 12px;
+    background-color: @bg;
+    border: 0px solid transparent;
+    margin-top: 8px;
+    margin-bottom: 3px;
+    padding: 2px 8px;
+	box-shadow: none;
 }
 
 tooltip label {
     color: @fg;
+    padding: 6px;
 }
 
 /*modules-left*/
@@ -30,7 +35,7 @@ tooltip label {
 #custom-cpu_percent {
     padding: 0 6px;
     margin: 0 3px;
-	/* This has to be set in modules to work */
+	/* Make the entire thing not squished */
 	min-height: 28px;
 }
 
@@ -99,7 +104,7 @@ tooltip label {
 .modules-left,
 .modules-center,
 .modules-right {
-    border-radius: 16px;
+    border-radius: 12px;
     background-color: @bg;
     border: 0px solid transparent;
     margin-top: 8px;

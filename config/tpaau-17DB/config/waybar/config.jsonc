@@ -9,35 +9,43 @@
 
 	// system resources and session management
     "modules-left": [
-        "custom/power_btn",
-        "custom/lock_screen",
-        "backlight",
-        "temperature",
+		"custom/status-menu",
+        "clock",
         "memory",
-        "battery",
-        "custom/cpu_percent",
+        "custom/cpu_percent"
+        // "custom/power_btn",
+        // "custom/lock_screen",
+        // "temperature",
     ],
 
 	// workspaces and clock
     "modules-center": [
-        "idle_inhibitor",
         "hyprland/workspaces",
-        "clock"
     ],
 
 	// tray, privacy and audio 
 	// audio, privacy and tray
     "modules-right": [
         "custom/music_player",
-        "pulseaudio",
-        "pulseaudio#microphone",
 		"network",
+		"bluetooth",
+        "battery",
+        "idle_inhibitor",
 		"privacy",
-        "tray",
-        "hyprland/language",
+        "tray"
+        // "pulseaudio",
+        // "pulseaudio#microphone",
+        // "backlight",
+        // "hyprland/language",
     ],
    
     // modules are listed from left to right
+
+	"custom/status-menu": {
+		"format": " ",
+		"tooltip": false,
+		"on-click": "~/.config/tpaau-17DB/scripts/waybar/toggle-widget.sh status-menu"
+	},
 
     "custom/power_btn": {
         "format": "",
@@ -47,7 +55,7 @@
 
     "custom/lock_screen": {
         "format": "",
-        "on-click": "bash -c /usr/share/tpaau-17DB-dots/scripts/lock-screen.sh & disown",
+        "on-click": "/usr/share/tpaau-17DB-dots/scripts/lock-screen.sh",
         "tooltip": false
     },
 
@@ -73,8 +81,8 @@
     },
 
     "memory": {
-        "format": "",
-		"format-alt": " {}%",
+        "format": " {}%",
+		"format-alt": "",
         "format-alt-click": "click-right",
 	    "interval": 1,
     },
@@ -90,12 +98,12 @@
         "format-plugged": "",
         "format-alt-click": "click-right",
         "format-alt": "{icon} {capacity}%",
-        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+	    "interval": 1,
     },
 
-    "custom/cpu_percent": 
-    {
-        "exec": "/home/mikolaj/.config/tpaau-17DB/scripts/waybar/cpu_percent.py",
+    "custom/cpu_percent": {
+        "exec": "~/.config/tpaau-17DB/scripts/waybar/cpu_percent.py",
         "interval": 0,
         "format": "{}",
         "tooltip": false,
@@ -110,6 +118,22 @@
             "deactivated": "󰛑"
         },
         "tooltip": false
+    },
+
+    "clock": {
+        "format": "{:%H:%M:%S}",
+        "rotate": 0,
+        "tooltip-format": "<span>{calendar}</span>",
+        "calendar": {
+        	"mode": "month",
+			"format": {
+				"months": "<span color='#686868'><b>{}</b></span>",
+				"days": "<span color='#b9b9b9'><b>{}</b></span>",
+				"weekdays": "<span color='#868686'><b>{}</b></span>",
+				"today": "<span color='#686868'><b>{}</b></span>"
+			}
+		},
+		"interval": 1,
     },
 
     "hyprland/workspaces": {
@@ -129,28 +153,13 @@
 		}
     },
 
-    "clock": {
-        "format": "{:%H:%M}",
-        "rotate": 0,
-        "tooltip-format": "<span>{calendar}</span>",
-        "calendar": {
-        	"mode": "month",
-			"format": {
-				"months": "<span color='#686868'><b>{}</b></span>",
-				"days": "<span color='#b9b9b9'><b>{}</b></span>",
-				"weekdays": "<span color='#868686'><b>{}</b></span>",
-				"today": "<span color='#686868'><b>{}</b></span>"
-			}
-		}
-    },
-
     "custom/music_player": 
     {
         "exec": "~/.config/tpaau-17DB/scripts/music-player.sh watch",
         "interval": 0,
         "format": "{}",
         "tooltip": false,
-        "on-click": "~/.config/tpaau-17DB/scripts/music-player.sh play-pause"
+        "on-click": "~/.config/tpaau-17DB/scripts/waybar/toggle-widget.sh audio-control"
     },
 
     "pulseaudio": {
@@ -199,6 +208,15 @@
 		"tooltip-format-disconnected": "disconnected",
     	"max-length": 8,
 		"interval": 10
+	},
+
+	"bluetooth": {
+		"format": "",
+		"format-disabled": "",
+		"format-connected": ": {num_connections}",
+		"tooltip-format": "{status}: {controller_alias}\t{controller_address}",
+		"tooltip-format-connected": "{status}: {controller_alias}\t{controller_address}\n\n{device_enumerate}",
+		"tooltip-format-enumerate-connected": "{status}: {device_alias}\t{device_address}"
 	},
 
 	"privacy": {

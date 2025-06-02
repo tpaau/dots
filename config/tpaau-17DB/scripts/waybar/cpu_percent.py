@@ -1,22 +1,23 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 import psutil
 import sys
 
-def print_loading_bar(value, max_value, length = 16, fill = '#'):
+def print_bar(value, max_value, length = 16, fill = '#', empty = "-", show_percent = False):
     """
-    Method used to quickly create loading bars
+    Show a nice bar showing CPU usage.
     """
     percent = value / max_value
     filled_length = int(length * percent)
-    loading_bar = fill * filled_length + '-' * (length - filled_length)
-    print(f' [{loading_bar}]')
+    loading_bar = fill * filled_length + empty * (length - filled_length)
+    if show_percent:
+        print(f' {(percent * 100):.1f}% [{loading_bar}]')
+    else:
+        print(f' [{loading_bar}]')
+
     sys.stdout.flush()
 
-def print_cpu_usage():
-    while True:
-        cpu_usage = psutil.cpu_percent(interval=1)
-        print_loading_bar(cpu_usage, 100)
-
 if __name__ == "__main__":
-    print_cpu_usage()
+    while True:
+        cpu_usage = psutil.cpu_percent(interval=0.1)
+        print_bar(cpu_usage, 100)

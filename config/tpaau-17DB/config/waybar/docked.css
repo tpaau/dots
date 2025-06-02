@@ -1,0 +1,107 @@
+@import "colors.css";
+
+* {
+    border: none;
+    font-family: "Hack Nerd Font";
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: -2px;
+    margin-bottom: -2px;
+}
+
+window#waybar {
+	background: @bg;
+    color: @text;
+}
+
+tooltip {
+    background: @bg;
+    border-radius: 16px;
+}
+
+tooltip label {
+    color: @fg;
+}
+
+/*modules-left*/
+#custom-power_btn,
+#custom-lock_screen,
+#custom-cpu_percent {
+    padding: 0 6px;
+    margin: 0 3px;
+	/* This has to be set in modules to work */
+	min-height: 28px;
+}
+
+/*modules-center*/
+
+#idle_inhibitor,
+#workspaces,
+#clock {
+    padding: 0 3px;
+    margin: 0 3px;
+}
+
+#idle_inhibitor {
+    margin-right: 6px;
+}
+
+#workspaces button {
+    padding: 0px 6px;
+    margin: 3px 2px;
+	min-width: 16px;
+    border-radius: 16px;
+    color: transparent;
+    background-color: @fg;
+    transition: all 0.1s linear;
+}
+
+#workspaces button.active {
+    color: @br_fg;
+    background: @br_fg;
+    min-width: 28px;
+    transition: all 0.1s linear;
+    opacity:1.0;
+}
+
+/*modules-right*/
+#custom-music_player,
+#pulseaudio,
+#bluetooth,
+#temperature,
+#battery,
+#memory,
+#backlight,
+#tray,
+#language {
+    padding: 0 6px;
+    margin: 0 3px;
+}
+
+#language {
+    margin-right: 0px;
+}
+
+#temperature.critical {
+    color: @br_fg;
+}
+
+#privacy {
+	margin: 0px 4px;
+	margin-right: 0px;
+}
+
+#privacy-item {
+	margin: 0px 4px;
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+    border-radius: 16px;
+    background-color: @bg;
+    border: 0px solid transparent;
+    margin-top: 8px;
+    margin-bottom: 3px;
+    padding: 2px 8px;
+}

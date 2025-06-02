@@ -1,54 +1,36 @@
 #!/usr/bin/env bash
 
-# Used to print song info in format:
-# ♫ [X%] song - artist
+# Used to print track info in format:
+# ♫ [X%] title - artist
 #
 # It can also be used to play/pause
 
 source ~/.config/tpaau-17DB/scripts/include/paths.sh
-source $LIB_DIR/logger.sh
-source $LIB_DIR/check-dependencies.sh
+source ~/.config/tpaau-17DB/scripts/include/logger.sh
+source ~/.config/tpaau-17DB/scripts/include/check-dependencies.sh
+source ~/.config/tpaau-17DB/scripts/include/coversdb.sh
+source ~/.config/tpaau-17DB/scripts/include/utils.sh
 
-check_dependencies playerctl bc sed
+check_dependencies playerctl bc sed eww
+
+RUNTIME_LOCK="$TMP_DIR/music-player.lock"
 
 MAX_LENGTH=45
 
-print_usage() {
-	BOLD="\033[1m"
-	GREEN="\033[0;32m"
-	CYAN="\033[0;36m"
-	NC="\033[0m"
+DELTA=0.01
 
-	echo -e "${BOLD}Usage:${NC} ${CYAN}music-player.sh [args]${NC}\n"
-	echo -e "${BOLD}Args:${NC}"
-	echo -e "  ${GREEN}--help${NC}       Show this help message"
-	echo -e "  ${GREEN}watch${NC}        Display song status"
-	echo -e "  ${GREEN}play-pause${NC}   Toggle player status"
-}
-
-play_pause()
+track_percent()
 {
-	local player_status=$(playerctl status 2>/dev/null)
-    if [ "$player_status" = "Playing" ]; then
-        playerctl pause
-    else
-        playerctl play
-    fi
-}
+    local pos=$(echo "$(playerctl position) * 1000000" | bc)
+    local len=$(playerctl metadata mpris:length)
 
-song_percent() 
-{
-    local position=$(playerctl position)
-    local length=$(playerctl metadata mpris:length)
-    local length_seconds=$(echo "scale=2; $length / 1000000" | bc)
-
-    if [[ -z "$position" || -z "$length" || "$length" -eq 0 ]]; then
-        echo "Elapsed: 0%"
-        exit 1
+    if [[ -z "$pos" || -z "$len" || "$len" -eq 0 ]]; then
+        echo "0%"
+        return
     fi
 
-    local percent=$(echo "($position * 100) / $length_seconds" | bc)
-    echo "${percent}%"
+    local percent=$(echo "($pos * 100) / $len" | bc)
+    echo "$percent"
 }
 
 # Make the text shorter so it can fit on the screen
@@ -65,40 +47,113 @@ shorten_text()
     fi
 }
 
+update_eww_default_state()
+{
+	eww update playing-icon=""
+	eww update cover-path="$DEFAULT_COVER"
+	eww update track-title="Unknown"
+	eww update track-artist="Unknown"
+	eww update track-len="--:--"
+	eww update track-elapsed="--:--"
+	eww update track-elapsed-percent="0"
+}
+
+format_time_sec()
+{
+	sec=${1%.*}
+
+	hours=$((sec / 3600))
+	mins=$(((sec % 3600) / 60))
+	secs=$((sec % 60))
+
+	if [ "$hours" -gt 0 ]; then
+		printf "%d:%02d:%02d\n" "$hours" "$mins" "$secs"
+	else
+		printf "%d:%02d\n" "$mins" "$secs"
+	fi
+}
+
 # Display audio status
 watch()
 {
+	local prev_title=""
+	local prev_artist=""
+	local prev_status=""
+	local perv_elapsed=""
+	local cover_path=""
 	while true; do 
-		player_status=$(playerctl status)
-		if [ "$player_status" = "Playing" ]; then
+		local status=$(playerctl status)
+
+		if [ "$status" = "Playing" ]; then
+			eww update playing-icon=""
+			eww update track-elapsed="$(format_time_sec $(playerctl position))"
 			local artist=$(playerctl metadata artist)
 			local title=$(playerctl metadata title)
-			local song_elapsed=$(song_percent)
-			local shortened_text=$(shorten_text "♫ [$song_elapsed] $title - $artist")
-			echo "$shortened_text"
-		elif [ "$player_status" = "Paused" ]; then
-			echo "▶ paused"
-		else
-			echo "n/a"
-		fi
+			local elapsed="$(track_percent)%"
+
+			if [[ "$artist" != "$prev_artist" ]] || [[ "$title" != "$prev_title" ]]\
+			|| [[ "$status" != "$prev_status" ]] || [[ "$elapsed" != "$prev_elapsed" ]]; then
+				local format="♫ [$elapsed] $title - $artist"
+				local shortened_format=$(shorten_text "$format")
 		
-		sleep 0.1
+				if [[ "$artist" != "$prev_artist" ]] || [[ "$title" != "$prev_title" ]]; then
+					cover_path="$(get_cover "$(playerctl metadata --format "{{title}} - {{artist}}")")"
+
+					if [[ ! -z "$cover_path" ]]; then
+						eww update cover-path="$cover_path"
+					else
+						log_warning "Falling back to default cover"
+						eww update cover_path="$DEFAULT_COVER"
+					fi
+				else
+					eww update cover-path="$cover_path"
+				fi
+				eww update track-artist="$artist"
+				eww update track-title="$title"
+
+				prev_artist="$artist"
+				prev_title="$title"
+				prev_elapsed="$elapsed"
+				eww update track-elapsed-percent="$(track_percent)"
+				if [[ ! -z "$(playerctl metadata mpris:length)" ]]; then
+					track_len=$(($(playerctl metadata mpris:length) / 1000000))
+					eww update track-len="$(format_time_sec $track_len)"
+				fi
+
+				echo "$shortened_format"
+			fi
+		elif [ "$status" = "Paused" ]; then
+			if [[ "$prev_status" != "Paused" ]]; then
+				eww update playing-icon=""
+				echo "Paused"
+            fi
+		else
+			if [[ "$prev_status" != "$status" ]]; then
+				update_eww_default_state
+				echo "Not playing"
+			fi
+		fi
+
+		prev_status="$status"
+		sleep $DELTA
 	done
 }
 
-if [[ $# -ne 1 ]] || [[ -z "$1" ]]; then
+if [[ $# -ne 1 ]]; then
 	log_error "Expected exactly one argument!"
-	echo ""
-	print_usage
 	exit 1
-elif [[ "$1" == "--help" ]]; then
-	print_usage
-	exit 0
 elif [[ "$1" == "watch" ]]; then
+	pgrep -u $(whoami) -af "music-player\.sh watch" | grep -v $$ 1>&2 >/dev/null
+	if [[ $? -eq 0 ]]; then
+		log_error "Another instance is running!"
+		exit 1
+	fi
 	watch
 	exit 0
-elif [[ "$1" == "play-pause" ]]; then
-	play_pause
+elif [[ "$1" == "clean-cache" ]]; then
+	log_info "Cleaning cover cache"
+	clean_items "$COVERS_DIR"
+	mkdir -p "$COVERS_DIR"
 	exit 0
 else
 	log_err "Unknown argument: '$1'"

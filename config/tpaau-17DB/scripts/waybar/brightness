@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 source ~/.config/tpaau-17DB/scripts/include/paths.sh
-source $LIB_DIR/notifications.sh
-source $LIB_DIR/logger.sh
-source $LIB_DIR/icons.sh
+source ~/.config/tpaau-17DB/scripts/include/notifications.sh
+source ~/.config/tpaau-17DB/scripts/include/logger.sh
+source ~/.config/tpaau-17DB/scripts/include/icons.sh
 
 # Notify
 notify_user() 

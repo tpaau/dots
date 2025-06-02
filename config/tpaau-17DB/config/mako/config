@@ -20,8 +20,8 @@ layer=overlay
 # STYLE
 text-alignment=center
 anchor=top-right
-width=300
-height=300
+width=500
+height=500
 margin=7
 padding=16
 border-size=2
@@ -36,20 +36,18 @@ border-color=#b4b4b4
 progress-color=over #000000CC
 
 [urgency=low]
-default-timeout=15000
+default-timeout=7000
 
 [urgency=normal]
-on-notify=exec mpv /usr/share/sounds/freedesktop/stereo/message.oga
-default-timeout=15000
+default-timeout=11000
 
 [urgency=high]
+default-timeout=0
 anchor=top-center
 border-size=3
-on-notify=exec mpv /usr/share/sounds/Yaru/stereo/dialog-warning.oga
-border-color=#A53856
-text-color=#A53856
+border-color=#ffffff
+text-color=#ffffff
 background-color=#000000
-default-timeout=0
 
 [category=mpd]
 border-color=#f9e2af
