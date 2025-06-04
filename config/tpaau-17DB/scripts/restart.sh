@@ -7,64 +7,69 @@ source ~/.config/tpaau-17DB/scripts/include/themes.sh
 
 check_dependencies pkill pgrep waybar mako hyprpaper wofi wlogout
 
-# Just restart all the programs
+# Restarts various programs and utilities.
+#
+# Takes no arguments.
 restart_programs()
 {
-	log_info "Restarting all the programs"
+	log_debug "Restarting some programs"
 
-	# Relaunch waybar
-	log_info "Reloading waybar"
-	pkill -x waybar > /dev/null 2>&1
+	log_debug "Restarting waybar"
+	pkill -x waybar 2>&1 >/dev/null
 
-	while pgrep -x waybar > /dev/null 2>&1; do
+	while pgrep -x waybar 2>&1 >/dev/null; do
 		sleep 0.1
 	done
 
-	waybar > /dev/null 2>&1 &
+	waybar 2>&1 >/dev/null &
 
 
-	# Relaunch mako
-	log_info "Reloading mako"
-	pkill -x mako > /dev/null 2>&1
+	log_debug "Restarting mako"
+	pkill -x mako 2>&1 >/dev/null
 
-	while pgrep -x mako > /dev/null 2>&1; do
+	while pgrep -x mako 2>&1 >/dev/null; do
 		sleep 0.1
 	done
 
-	mako > /dev/null 2>&1 &
+	mako 2>&1 >/dev/null &
 
 
-	# Relaunch hyprpaper
-	log_info "Reloading hyprpaper"
-	while pgrep -x hyprpaper > /dev/null 2>&1; do
-		pkill hyprpaper > /dev/null 2>&1
+	log_debug "Restarting hyprpaper"
+	while pgrep -x hyprpaper 2>&1 >/dev/null; do
+		pkill hyprpaper 2>&1 >/dev/null
 		sleep 0.1
 	done
 
-	hyprpaper > /dev/null 2>&1 &
+	hyprpaper 2>&1 >/dev/null &
 
-	log_info "Reloading eww"
-	eww reload 2>&1 &
+
+	log_debug "Reloading eww"
+	eww reload 2>&1 >/dev/null &
 
 	./smenu-utils.sh regenerate-variables
 
-	# Kill leftovers
-	log_info "Killing any unclosed wofi instances"
-	pkill wofi > /dev/null 2>&1
+	log_debug "Reload hyprland"
+	hyprctl reload 2>&1 >/dev/null &
 
-	log_info "Killing any unclosed wlogout instances"
-	pkill wlogout > /dev/null 2>&1
+	# Kill leftovers
+	log_debug "Killing any unclosed wofi instances"
+	pkill wofi 2>&1 >/dev/null
+
+	log_debug "Killing any unclosed wlogout instances"
+	pkill wlogout 2>&1 >/dev/null
 }
 
-# Reinstall the theme and restart alll the programs
+# Reinstalls config files for the current theme and restart affected programs.
+#
+# Takes no arguments.
 full_restart()
 {
-	log_info "Starting a full restart"
+	log_debug "Starting a full restart"
 
 	local name_pretty="$(cat "$CURRENT_THEME")"
 	install_theme "$name_pretty"
 
-	log_info "Reloading config"
+	log_debug "Reloading config"
 
 	$SCRIPTS_DIR/regenerate-symlinks.sh
 

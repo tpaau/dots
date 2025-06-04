@@ -7,5 +7,8 @@ LOGGING_ENABLED=true
 #
 # Logs are stored in `~/.config/tpaau-17DB/tmp/logs/`.
 #
-# You can manage them by utilizing the `logs.sh` script.
+# You can manage them with the `logs.sh` script.
+#
+# You should generally avoid turning this on unless you are debugging an issue,
+# logs can expose a LOT of user activity.
 FILE_LOGGING_ENABLED=true

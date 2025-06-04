@@ -11,10 +11,10 @@ check_dependencies grim slurp cat wl-copy notify-send
 
 SS_NAME="screenshot.png"
 
-clear_cache()
+cleanup()
 {
 	if [[ -e "$TMP_DIR/$SS_NAME" ]]; then
-		log_info "Cleaning cache"
+		log_debug "Cleaning temporary files"
 		rm -rf "$TMP_DIR/$SS_NAME"
 	fi
 }
@@ -24,22 +24,30 @@ if [[ $(pgrep -x slurp) ]]; then
 	exit 0
 fi
 
-clear_cache
+cleanup
 
 mkdir -p "$TMP_DIR"
 
-log_info "Taking screenshot" 
-grim -g "$(slurp)" - >> "$TMP_DIR/$SS_NAME"
+log_debug "Taking screenshot" 
 
-if [[ -z $(cat "$TMP_DIR/$SS_NAME") ]]; then
-	log_warning "Screenshot empty, likely canceled. Stopping."
+geomery="$(slurp)"
+
+if [[ "$geomery" == "selection cancelled" ]]; then
+	log_debug "Screenshot cancelled"
+	cleanup
 	exit 0
 fi
 
-log_info "Copying to clipboard"
+grim -g "$geomery" - >> "$TMP_DIR/$SS_NAME"
+
+if [[ -z $(cat "$TMP_DIR/$SS_NAME") ]]; then
+	log_error "Screenshot empty!"
+	exit 1
+fi
+
+log_debug "Copying to clipboard"
 cat "$TMP_DIR/$SS_NAME" | wl-copy
 
-log_info "Sending notification"
 notify-send -i "$TMP_DIR/$SS_NAME" "Screenshot taken!"
 
-clear_cache
+cleanup

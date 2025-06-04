@@ -13,7 +13,7 @@ theme=$(echo -en "$themes"\
 	| "$SCRIPTS_DIR/run-wofi.sh" --dmenu --allow-images --prompt "Pick a theme...")
 
 if [ ! -z "$theme" ]; then
-	log_info "Picked '$theme'"
+	log_debug "Picked '$theme'"
 	apply_theme "$theme"
 	exit $?
 else

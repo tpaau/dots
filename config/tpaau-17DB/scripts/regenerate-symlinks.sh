@@ -3,19 +3,28 @@
 source ~/.config/tpaau-17DB/scripts/include/paths.sh
 source ~/.config/tpaau-17DB/scripts/include/logger.sh
 source ~/.config/tpaau-17DB/scripts/include/check-dependencies.sh
+source ~/.config/tpaau-17DB/scripts/include/utils.sh
 
 check_dependencies ln
 
-log_info "Regenerating symlinks"
+log_debug "Regenerating symlinks"
 
-cd "$HOME/.config/wofi/"
-ln -sf "$CURRENT_COLORS" colors.css
+run_step cd "$HOME/.config/wofi/"
+run_step ln -sf "$CURRENT_COLORS" colors.css
 
-cd "$HOME/.config/waybar/"
-ln -sf "$CURRENT_COLORS" colors.css
+crun_step cd "$HOME/.config/waybar/"
+lrun_step ln -sf "$CURRENT_COLORS" colors.css
 
-cd "$HOME/.config/wlogout/"
-ln -sf "$CURRENT_COLORS" colors.css
+crun_step cd "$HOME/.config/wlogout/"
+lrun_step ln -sf "$CURRENT_COLORS" colors.css
 
-cd "$HOME/.config/eww/"
-ln -sf "$CURRENT_COLORS" colors.css
+crun_step cd "$HOME/.config/eww/"
+lrun_step ln -sf "$CURRENT_COLORS" colors.css
+
+if [[ $status -eq 0 ]]; then
+	log_debug "Successfully regenerated symlinks"
+	exit 0
+else
+	log_error "Errors occured while regenerating symlinks, some things might not work properly!"
+	exit 1
+fi

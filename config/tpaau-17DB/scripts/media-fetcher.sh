@@ -8,12 +8,10 @@
 source ~/.config/tpaau-17DB/scripts/include/paths.sh
 source ~/.config/tpaau-17DB/scripts/include/logger.sh
 source ~/.config/tpaau-17DB/scripts/include/check-dependencies.sh
-source ~/.config/tpaau-17DB/scripts/include/coversdb.sh
+source ~/.config/tpaau-17DB/scripts/include/covers.sh
 source ~/.config/tpaau-17DB/scripts/include/utils.sh
 
 check_dependencies playerctl bc sed eww
-
-RUNTIME_LOCK="$TMP_DIR/music-player.lock"
 
 MAX_LENGTH=45
 
@@ -51,6 +49,7 @@ update_eww_default_state()
 {
 	eww update playing-icon=""
 	eww update cover-path="$DEFAULT_COVER"
+	log_info "Updated eww cover to '$DEFAULT_COVER'"
 	eww update track-title="Unknown"
 	eww update track-artist="Unknown"
 	eww update track-len="--:--"
@@ -60,11 +59,11 @@ update_eww_default_state()
 
 format_time_sec()
 {
-	sec=${1%.*}
+	local sec=${1%.*}
 
-	hours=$((sec / 3600))
-	mins=$(((sec % 3600) / 60))
-	secs=$((sec % 60))
+	local hours=$((sec / 3600))
+	local mins=$(((sec % 3600) / 60))
+	local secs=$((sec % 60))
 
 	if [ "$hours" -gt 0 ]; then
 		printf "%d:%02d:%02d\n" "$hours" "$mins" "$secs"
@@ -73,14 +72,18 @@ format_time_sec()
 	fi
 }
 
-# Display audio status
-watch()
+# Starts fetching media in an infinite loop.
+#
+# Do **not** run multiple instances of this function in parallel unless you
+# wanna have a bad time.
+# 
+# *Takes no arguments.*
+start_fetching()
 {
 	local prev_title=""
 	local prev_artist=""
 	local prev_status=""
 	local perv_elapsed=""
-	local cover_path=""
 	while true; do 
 		local status=$(playerctl status)
 
@@ -97,19 +100,10 @@ watch()
 				local shortened_format=$(shorten_text "$format")
 		
 				if [[ "$artist" != "$prev_artist" ]] || [[ "$title" != "$prev_title" ]]; then
-					cover_path="$(get_cover "$(playerctl metadata --format "{{title}} - {{artist}}")")"
-
-					if [[ ! -z "$cover_path" ]]; then
-						eww update cover-path="$cover_path"
-					else
-						log_warning "Falling back to default cover"
-						eww update cover_path="$DEFAULT_COVER"
-					fi
-				else
-					eww update cover-path="$cover_path"
+					~/.config/tpaau-17DB/scripts/update-cover.sh &
+					eww update track-artist="$artist"
+					eww update track-title="$title"
 				fi
-				eww update track-artist="$artist"
-				eww update track-title="$title"
 
 				prev_artist="$artist"
 				prev_title="$title"
@@ -142,20 +136,15 @@ watch()
 if [[ $# -ne 1 ]]; then
 	log_error "Expected exactly one argument!"
 	exit 1
-elif [[ "$1" == "watch" ]]; then
-	pgrep -u $(whoami) -af "music-player\.sh watch" | grep -v $$ 1>&2 >/dev/null
+elif [[ "$1" == "start" ]]; then
+	pgrep -u $(whoami) -af "media-fetcher\.sh start" | grep -v $$ 1>&2 >/dev/null
 	if [[ $? -eq 0 ]]; then
 		log_error "Another instance is running!"
 		exit 1
 	fi
-	watch
-	exit 0
-elif [[ "$1" == "clean-cache" ]]; then
-	log_info "Cleaning cover cache"
-	clean_items "$COVERS_DIR"
-	mkdir -p "$COVERS_DIR"
+	start_fetching
 	exit 0
 else
-	log_err "Unknown argument: '$1'"
+	log_error "Unknown argument: '$1'"
 	exit 1
 fi

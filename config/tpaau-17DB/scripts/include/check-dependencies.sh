@@ -60,7 +60,7 @@ check_dependencies()
 
 	local status=0
 	if [[ "$last_day" != $(date +%d) ]] || [[ $last_status -ne 0 ]]; then
-		log_info "Checking dependencies..."
+		log_debug "Checking dependencies..."
 		for cmd in "$@"; do
 			if ! command -v "$cmd" >/dev/null; then
 				if [ $status -eq 0 ]; then
@@ -77,7 +77,7 @@ check_dependencies()
 		echo $(date +%d) > "$depcheck_file"
 		echo "$status" >> "$depcheck_file"
 	else
-		log_info "Skipping dependency checks."
+		# log_debug "Skipping dependency checks."
 		return 0
 	fi
 

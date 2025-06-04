@@ -193,7 +193,7 @@
           :valign "end"
           (button
            :class "previous-track-button"
-           :onclick "playerctl previous"
+           :onclick "sh -c '~/.config/tpaau-17DB/scripts/media-control.sh previous' >/dev/null"
            :halign "start"
            :valign "start"
            :width 64
@@ -213,7 +213,7 @@
             :text playing-icon))
           (button
            :class "next-track-button"
-           :onclick "playerctl next"
+           :onclick "sh -c '~/.config/tpaau-17DB/scripts/media-control.sh next' >/dev/null"
            :halign "end"
            :valign "start"
            :width 64

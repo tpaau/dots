@@ -10,6 +10,7 @@ FASTFETCH_DST="$CONF/fastfetch"
 FASTFETCH_SRC="$HOME/.config/fastfetch/config.jsonc"
 
 HYPR_SRC=("$HOME/.config/hypr/sources/style.conf"
+	"$HOME/.config/hypr/hyprlock.conf"
 	"$HOME/.config/hypr/sources/animations.conf")
 HYPR_DST="$CONF/hypr"
 

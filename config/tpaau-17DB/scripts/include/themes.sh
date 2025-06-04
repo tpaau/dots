@@ -2,6 +2,10 @@ source ~/.config/tpaau-17DB/scripts/include/paths.sh
 source ~/.config/tpaau-17DB/scripts/include/logger.sh
 source ~/.config/tpaau-17DB/scripts/include/paths.sh
 source ~/.config/tpaau-17DB/scripts/include/apply-colors.sh
+source ~/.config/tpaau-17DB/scripts/include/utils.sh
+source ~/.config/tpaau-17DB/scripts/include/check-dependencies.sh
+
+check_dependencies kitten
 
 # Returns relative paths of all the theme files under THEMES_DIR.
 #
@@ -15,6 +19,9 @@ get_theme_paths()
 	echo -en "$themes"
 }
 
+# Returns pretty names of all themes found under THEMES_DIR.
+#
+# Takes no arguments.
 get_themes_pretty()
 {
 	get_theme_paths | while read -r theme; do
@@ -23,6 +30,10 @@ get_themes_pretty()
 	done
 }
 
+# Returns a relative path for a theme with the given name.
+#
+# Args:
+# 	$1: The pretty name of the theme
 name_pretty_to_path_relative()
 {
 	local name="$1"
@@ -38,16 +49,10 @@ name_pretty_to_path_relative()
 	return 1
 }
 
-# Runs given command, if the command exists with a non-zero code, global status
-# variable is set to 1.
+# Checks if the given theme file exists and is usable.
 #
 # Args:
-# 	$1: The command to run
-run_step()
-{
-    "$@" || status=1
-}
-
+# 	$1: The absolute path of the theme file
 check_theme()
 {
 	local theme="$1"
@@ -64,11 +69,14 @@ check_theme()
 }
 
 # Installs theme from its NAME_PRETTY but doesn't apply it.
+#
+# Args:
+# 	$1: The pretty name of the theme to install
 install_theme()
 {
 	local name_pretty="$1"
 
-	log_info "Installing theme '$name_pretty'"
+	log_debug "Installing theme '$name_pretty'"
 
 	local theme="$THEMES_DIR/$(name_pretty_to_path_relative "$name_pretty")"
 
@@ -97,7 +105,7 @@ install_theme()
 	fi
 
 	if [[ $status -eq 0 ]]; then
-		log_info "Successfully installed '$name_pretty'"
+		log_debug "Successfully installed '$name_pretty'"
 		echo "$name_pretty" > "$CURRENT_THEME"
 	else
 		log_err "Failed installing '$name_pretty'"
@@ -106,13 +114,15 @@ install_theme()
 	return $status
 }
 
-# Takes pretty theme name as argument and applies it if it's not yet the
-# current theme.
+# Installs and applies given theme if it's not yet the current theme.
+#
+# Args:
+# 	$1: The pretty name of the theme to apply
 apply_theme()
 {
 	local name_pretty="$1"
 
-	log_info "Applying '$name_pretty'"
+	log_debug "Applying '$name_pretty'"
 
 	local current_theme=$(cat "$CURRENT_THEME")
 
@@ -124,13 +134,14 @@ apply_theme()
 	install_theme "$name_pretty"
 	local status=$?
 
-	log_info "Applying '$name_pretty'"
-
 	run_step apply_colors
-	run_step kitten themes --reload-in all "$KITTY_THEME"
+	kitten themes --reload-in all "$KITTY_THEME"
+	if [[ $? -ne 0 ]]; then
+		log_error "Failed appling kitty theme, maybe you have no internet connection?"
+	fi
 
 	if [[ $status -eq 0 ]]; then
-		log_info "Theme applied succesfully"
+		log_debug "Theme applied succesfully"
 		"$SCRIPTS_DIR/restart.sh" programs
 	else
 		log_error "Failed loading '$name_pretty'"

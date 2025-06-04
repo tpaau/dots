@@ -46,3 +46,7 @@ SCRIPTS_DIR="$TP/scripts"
 
 # Directory containing various config files
 TP_CONF="$TP/config"
+
+CURRENT_DATE="$(date +%Y-%m-%d)"
+
+COVER_EXTRACTION_LOCK="$TMP_DIR/cover-extraction.lock"

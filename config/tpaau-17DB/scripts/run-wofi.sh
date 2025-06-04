@@ -11,7 +11,7 @@ if [ $(pgrep wlogout) ]; then
 	exit 1
 fi
 
-log_info "Launching wofi"
+log_debug "Launching wofi"
 
 cd "$HOME/.config/wofi/"
 pkill wofi || wofi -n "$@" 2>/dev/null

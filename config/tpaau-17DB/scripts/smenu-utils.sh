@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 
+# This script is used by the status-menu eww widget so I don't have to write
+# all the logic in eww.yaml.
+
 source ~/.config/tpaau-17DB/scripts/include/paths.sh
 source ~/.config/tpaau-17DB/scripts/include/check-dependencies.sh
 source ~/.config/tpaau-17DB/scripts/include/logger.sh
 
-check_dependencies brightnessctl
+check_dependencies brightnessctl eww
 
 print_help()
 {
@@ -22,14 +25,14 @@ else
 		print_help
 		exit 0
 	elif [[ "$1" == "set-backlight" ]]; then
-		log_info "Setting backlight brightness"
+		log_debug "Setting backlight brightness"
 		if [[ "$2" =~ ^-?[0-9]+$ ]]; then
 			brightnessctl set $(bc <<< "$2 * $(brightnessctl max) / 100")
 			eww update brightness-percent="$2"
 		fi
 		exit 0
 	elif [[ "$1" == "regenerate-variables" ]]; then
-		log_info "Regenerating eww variables"
+		log_debug "Regenerating eww variables"
 
 		if [[ $# -ne 1 ]]; then
 			log_warning "Any further argument will be ignored"

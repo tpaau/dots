@@ -26,7 +26,7 @@
 	// tray, privacy and audio 
 	// audio, privacy and tray
     "modules-right": [
-        "custom/music_player",
+        "custom/media_fetcher",
 		"network",
 		"bluetooth",
         "battery",
@@ -153,9 +153,9 @@
 		}
     },
 
-    "custom/music_player": 
+    "custom/media_fetcher": 
     {
-        "exec": "~/.config/tpaau-17DB/scripts/music-player.sh watch",
+        "exec": "~/.config/tpaau-17DB/scripts/media-fetcher.sh start",
         "interval": 0,
         "format": "{}",
         "tooltip": false,
