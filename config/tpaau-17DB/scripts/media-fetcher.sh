@@ -7,28 +7,23 @@
 
 source ~/.config/tpaau-17DB/scripts/include/paths.sh
 source ~/.config/tpaau-17DB/scripts/include/logger.sh
-source ~/.config/tpaau-17DB/scripts/include/check-dependencies.sh
-source ~/.config/tpaau-17DB/scripts/include/covers.sh
 source ~/.config/tpaau-17DB/scripts/include/utils.sh
+source ~/.config/tpaau-17DB/scripts/include/covers.sh
+source ~/.config/tpaau-17DB/scripts/tunables/media-fetcher-conf.sh
 
-check_dependencies playerctl bc sed eww
-
-MAX_LENGTH=45
-
-DELTA=0.01
+SEP=$'\x1e'
 
 track_percent()
 {
-    local pos=$(echo "$(playerctl position) * 1000000" | bc)
-    local len=$(playerctl metadata mpris:length)
+    local pos="$1"
+    local len="$2"
 
-    if [[ -z "$pos" || -z "$len" || "$len" -eq 0 ]]; then
-        echo "0%"
+	if [[ -z "$pos" || -z "$len" ]] || (( len == 0 )); then
+        echo 0
         return
     fi
 
-    local percent=$(echo "($pos * 100) / $len" | bc)
-    echo "$percent"
+	echo $(( pos * 100 / len ))
 }
 
 # Make the text shorter so it can fit on the screen
@@ -36,13 +31,36 @@ shorten_text()
 {
     local text="$1"
 
-    if [ ${#text} -gt $MAX_LENGTH ]; then
-		text="${text:0:$((MAX_LENGTH-1))}"
+	if (( $MAX_OUTPUT_LENGTH == 0 )); then
+		echo "$text"
+		return 0
+	fi
+
+    if [ ${#text} -gt $MAX_OUTPUT_LENGTH ]; then
+		text="${text:0:$((MAX_OUTPUT_LENGTH-1))}"
 		text=$(echo "$text" | sed 's/[[:space:]]*$//')
         echo "$text…"
 	else
 		echo "$text"
     fi
+}
+
+update_cover()
+{
+	local cover_path="$(get_cover "$(playerctl metadata --format "{{title}} - {{artist}}")")"
+	if (( $? != 0 )); then
+		log_error "Failed getting cover, exited with a non-zero code"
+		eww update cover-path="$cover_path"
+		return 1
+	elif [[ -z "$cover_path" ]]; then
+		log_info "Got an empty cover path, will retry in ${WAITTIME}s"
+		sleep $WAITTIME
+		update_cover
+		return 0
+	fi
+	eww update cover-path="$cover_path"
+	log_debug "Updated cover"
+	return 0
 }
 
 update_eww_default_state()
@@ -72,77 +90,80 @@ format_time_sec()
 	fi
 }
 
-# Starts fetching media in an infinite loop.
-#
-# Do **not** run multiple instances of this function in parallel unless you
-# wanna have a bad time.
-# 
-# *Takes no arguments.*
-start_fetching()
+watch_main_meta()
 {
-	local prev_title=""
-	local prev_artist=""
-	local prev_status=""
-	local perv_elapsed=""
-	while true; do 
-		local status=$(playerctl status)
-
-		if [ "$status" = "Playing" ]; then
-			eww update playing-icon=""
-			eww update track-elapsed="$(format_time_sec $(playerctl position))"
-			local artist=$(playerctl metadata artist)
-			local title=$(playerctl metadata title)
-			local elapsed="$(track_percent)%"
-
-			if [[ "$artist" != "$prev_artist" ]] || [[ "$title" != "$prev_title" ]]\
-			|| [[ "$status" != "$prev_status" ]] || [[ "$elapsed" != "$prev_elapsed" ]]; then
-				local format="♫ [$elapsed] $title - $artist"
-				local shortened_format=$(shorten_text "$format")
-		
-				if [[ "$artist" != "$prev_artist" ]] || [[ "$title" != "$prev_title" ]]; then
-					~/.config/tpaau-17DB/scripts/update-cover.sh &
-					eww update track-artist="$artist"
-					eww update track-title="$title"
-				fi
-
-				prev_artist="$artist"
-				prev_title="$title"
-				prev_elapsed="$elapsed"
-				eww update track-elapsed-percent="$(track_percent)"
-				if [[ ! -z "$(playerctl metadata mpris:length)" ]]; then
-					track_len=$(($(playerctl metadata mpris:length) / 1000000))
-					eww update track-len="$(format_time_sec $track_len)"
-				fi
-
-				echo "$shortened_format"
-			fi
-		elif [ "$status" = "Paused" ]; then
-			if [[ "$prev_status" != "Paused" ]]; then
-				eww update playing-icon=""
-				echo "Paused"
-            fi
-		else
-			if [[ "$prev_status" != "$status" ]]; then
-				update_eww_default_state
-				echo "Not playing"
-			fi
-		fi
-
-		prev_status="$status"
-		sleep $DELTA
+	playerctl --follow metadata --format '{{mpris:trackid}}' | while read -r track_id; do
+		log_debug "Fetching media metadata"
+		eww update track-artist="$(playerctl metadata artist)"
+		eww update track-title="$(playerctl metadata title)"
+		local track_len=$(($(playerctl metadata mpris:length) / 1000000))
+		eww update track-len="$(format_time_sec $track_len)"
+		update_cover
 	done
+}
+
+watch_status()
+{
+	playerctl --follow status | while read -r status; do
+		case "$status" in
+			Playing)
+				eww update playing-icon=""
+				;;
+			Paused)
+				eww update playing-icon=""
+				;;
+			*)
+				update_eww_default_state
+				;;
+		esac
+	done
+}
+
+watch_elapsed_meta() {
+    local prev_pos=0
+    local prev_meta=""
+    local prev_elapsed=""
+
+    while true; do
+		IFS="$SEP" read -r title artist pos_sec len <<< "$(playerctl metadata --format "{{title}}${SEP}{{artist}}${SEP}{{position}}${SEP}{{mpris:length}}")"
+        local meta="$title - $artist"
+        local pos=$(track_percent "$pos_sec" "$len")
+        local elapsed_formatted=$(format_time_sec "$pos")
+
+        if [[ "$elapsed_formatted" != "$prev_elapsed" ]]; then
+            eww update track-elapsed="$elapsed_formatted"
+            prev_elapsed="$elapsed_formatted"
+        fi
+
+        if (( prev_pos != pos )) || [[ "$meta" != "$prev_meta" ]]; then
+            eww update track-elapsed-percent=$pos
+            echo "[$pos%] $(shorten_text "$meta")"
+            prev_pos=$pos
+            prev_meta="$meta"
+        fi
+
+        sleep $FETCH_DELTA
+    done
+}
+
+watch_all()
+{
+	watch_main_meta &
+	local p1=$!
+
+	watch_status &
+	local p2=$!
+	
+	trap "kill $p1 $p2 2>/dev/null; pkill -f 'playerctl --follow'; exit" SIGINT SIGTERM EXIT
+
+	watch_elapsed_meta
 }
 
 if [[ $# -ne 1 ]]; then
 	log_error "Expected exactly one argument!"
 	exit 1
 elif [[ "$1" == "start" ]]; then
-	pgrep -u $(whoami) -af "media-fetcher\.sh start" | grep -v $$ 1>&2 >/dev/null
-	if [[ $? -eq 0 ]]; then
-		log_error "Another instance is running!"
-		exit 1
-	fi
-	start_fetching
+	watch_all
 	exit 0
 else
 	log_error "Unknown argument: '$1'"

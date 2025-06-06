@@ -4,10 +4,7 @@
 # all the logic in eww.yaml.
 
 source ~/.config/tpaau-17DB/scripts/include/paths.sh
-source ~/.config/tpaau-17DB/scripts/include/check-dependencies.sh
 source ~/.config/tpaau-17DB/scripts/include/logger.sh
-
-check_dependencies brightnessctl eww
 
 print_help()
 {

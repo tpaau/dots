@@ -2,10 +2,7 @@
 
 source ~/.config/tpaau-17DB/scripts/include/paths.sh
 source ~/.config/tpaau-17DB/scripts/include/logger.sh
-source ~/.config/tpaau-17DB/scripts/include/check-dependencies.sh
 source ~/.config/tpaau-17DB/scripts/include/utils.sh
-
-check_dependencies ln
 
 log_debug "Regenerating symlinks"
 

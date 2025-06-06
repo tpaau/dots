@@ -1,3 +1,5 @@
+# 
+
 source ~/.config/tpaau-17DB/scripts/include/paths.sh
 source ~/.config/tpaau-17DB/scripts/include/logger.sh
 source ~/.config/tpaau-17DB/scripts/include/notifications.sh
@@ -10,17 +12,37 @@ mkdir -p "$DEPCHECKS_DIR/"
 # Temporary file containing all the missing dependencies
 MISSING_FILE="$DEPCHECKS_DIR/missing"
 
+# Runs dependency checks for all scripts.
+run_all_depchecks()
+{
+	log_debug "Running dependency checks"
+
+	local status=0
+
+	run_depcheck logs.sh date || status=1
+
+	verify_missing || status=1
+
+	log_info "Finished dependency checks, exit status $status"
+
+	return $status
+}
+
 # Verifies if all the programs listed in MISSING_FILE are missing, removes ones
 # that are already installed.
 #
 # Takes no arguments.
 verify_missing()
 {
+	log_debug "Verifying missing software"
+
 	if [[ -f "$MISSING_FILE" ]]; then
 		echo -n > "$MISSING_FILE.tmp"
 		while read cmd; do
 			if ! command -v "$cmd" >/dev/null; then
 				echo "$cmd" >> "$MISSING_FILE.tmp"
+			else
+				log_info "Removing '$cmd' from '$MISSING_FILE'"
 			fi
 		done < "$MISSING_FILE"
 
@@ -35,59 +57,39 @@ verify_missing()
 	fi
 }
 
-# Takes a list of programs as arguments, returns 0 if all these programs are
-# installed, 1 if not. It also notifies user in case the checks have failed.
+# The first argument is the name of the program that requires the specified
+# dependencies.
 #
-# The status of dependency check is saved in a file alongside with the day
-# of the month the check was performed. This is just to reduce redundant
-# dependency checks when a script is executed frequently.
+# The following arguments are a list of programs to check. The function returns:
+# - 0 if all programs are installed.
+# - 1 if any programs are missing.
 #
-# If some programs are missing, their names are saved to "$MISSING_FILE",
-# declared in `include/paths.sh`.
-check_dependencies()
+# Missing programs are logged and their names are appended to MISSING_FILE.
+run_depcheck()
 {
-	local depcheck_file="$DEPCHECKS_DIR/$(basename "$0")"
+	local status=0	
+	local name="$1"
+	shift
 
-	local last_day=""
-	local last_status=""
-
-	if [[ -f "$depcheck_file" ]]; then
-		read -r last_day < "$depcheck_file"
-		read -r last_status < <(sed -n '2p' "$depcheck_file")
-	else
-		log_warning "Depcheck file doesn't exist, maybe the script is run for the first time?"
+	if [[ -z "$@" ]]; then
+		log_error "No programs to check provided"
+		return 1
 	fi
 
-	local status=0
-	if [[ "$last_day" != $(date +%d) ]] || [[ $last_status -ne 0 ]]; then
-		log_debug "Checking dependencies..."
-		for cmd in "$@"; do
-			if ! command -v "$cmd" >/dev/null; then
-				if [ $status -eq 0 ]; then
-					log_error "Missing program: $cmd" "\n" ""
-				else
-					log_error "Missing program: $cmd"
-				fi
-				echo "$cmd" >> "$MISSING_FILE"
-				uniq "$MISSING_FILE" > "$MISSING_FILE.tmp"
-				mv "$MISSING_FILE.tmp" "$MISSING_FILE"
-				status=1
-			fi
-		done
-		echo $(date +%d) > "$depcheck_file"
-		echo "$status" >> "$depcheck_file"
-	else
-		# log_debug "Skipping dependency checks."
-		return 0
-	fi
+	for cmd in "$@"; do
+		if ! command -v "$cmd" >/dev/null; then
+			log_error "Missing program: $cmd"
+			status=1
+			echo "$cmd" >> "$MISSING_FILE"
+			uniq "$MISSING_FILE" > "$MISSING_FILE.tmp"
+			mv "$MISSING_FILE.tmp" "$MISSING_FILE"
+		fi
+	done
 
-	verify_missing
-
-	if [ $status -eq 0 ]; then
-		return 0
+	if (( $status == 0 )); then
+		log_debug "$name... ok"
 	else
-		notify_err "Some dependency checks for '$0' have failed, the script will most likely fail! Missing program names have been written to '$MISSING_FILE'."
-		log_info "Missing program names have been written to '$MISSING_FILE'"
-		exit 1
+		log_error "$name... failed"
+		return $status
 	fi
 }

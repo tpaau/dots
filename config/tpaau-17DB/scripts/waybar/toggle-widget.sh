@@ -20,7 +20,7 @@ if eww active-windows | grep -q "$WIDGET_NAME"; then
 else
 	log_debug "Opening "$WIDGET_NAME
 	if [[ "$WIDGET_NAME" == "audio-control" ]]; then
-		~/.config/tpaau-17DB/scripts/update-cover.sh &
+		~/.config/tpaau-17DB/scripts/media-fetcher.sh fetch
 	fi
 	eww open "$WIDGET_NAME"
 fi

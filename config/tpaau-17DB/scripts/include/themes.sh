@@ -3,9 +3,6 @@ source ~/.config/tpaau-17DB/scripts/include/logger.sh
 source ~/.config/tpaau-17DB/scripts/include/paths.sh
 source ~/.config/tpaau-17DB/scripts/include/apply-colors.sh
 source ~/.config/tpaau-17DB/scripts/include/utils.sh
-source ~/.config/tpaau-17DB/scripts/include/check-dependencies.sh
-
-check_dependencies kitten
 
 # Returns relative paths of all the theme files under THEMES_DIR.
 #

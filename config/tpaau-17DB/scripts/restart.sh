@@ -2,10 +2,7 @@
 
 source ~/.config/tpaau-17DB/scripts/include/paths.sh
 source ~/.config/tpaau-17DB/scripts/include/logger.sh
-source ~/.config/tpaau-17DB/scripts/include/check-dependencies.sh
 source ~/.config/tpaau-17DB/scripts/include/themes.sh
-
-check_dependencies pkill pgrep waybar mako hyprpaper wofi wlogout
 
 # Restarts various programs and utilities.
 #

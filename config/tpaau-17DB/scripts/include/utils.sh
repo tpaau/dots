@@ -1,8 +1,4 @@
 source ~/.config/tpaau-17DB/scripts/include/logger.sh
-source ~/.config/tpaau-17DB/scripts/include/check-dependencies.sh
-source ~/.config/tpaau-17DB/scripts/include/notifications.sh
-
-check_dependencies tail
 
 # Default timeout for file locks
 DEFAULT_LOCK_TIMEOUT=10

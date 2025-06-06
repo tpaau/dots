@@ -5,9 +5,6 @@
 source ~/.config/tpaau-17DB/scripts/include/paths.sh
 source ~/.config/tpaau-17DB/scripts/include/notifications.sh
 source ~/.config/tpaau-17DB/scripts/include/logger.sh
-source ~/.config/tpaau-17DB/scripts/include/check-dependencies.sh
-
-check_dependencies grim slurp cat wl-copy notify-send
 
 SS_NAME="screenshot.png"
 

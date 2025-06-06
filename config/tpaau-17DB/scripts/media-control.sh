@@ -53,6 +53,24 @@ elif [[ "$1" == "previous" ]]; then
 	else
 		playerctl previous
 	fi
+elif [[ "$1" == "play-pause" ]]; then
+	playerctl play-pause
+	local status="$(playerctl status)"
+	if [[ "$status" == "Playing" ]]; then
+		eww update playing-icon=""
+	elif [[ "$status" == "Paused" ]]; then
+		eww update playing-icon=""
+	else
+		source ~/.config/tpaau-17DB/scripts/include/paths.sh
+		eww update playing-icon=""
+		eww update cover-path="$DEFAULT_COVER"
+		log_info "Updated eww cover to '$DEFAULT_COVER'"
+		eww update track-title="Unknown"
+		eww update track-artist="Unknown"
+		eww update track-len="--:--"
+		eww update track-elapsed="--:--"
+		eww update track-elapsed-percent="0"
+	fi
 elif [[ "$1" == "clean-cache" ]]; then
 	source ~/.config/tpaau-17DB/scripts/include/logger.sh
 	log_info "Cleaning cover cache"

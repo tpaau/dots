@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 
 source ~/.config/tpaau-17DB/scripts/include/paths.sh
-source ~/.config/tpaau-17DB/scripts/include/check-dependencies.sh
-
-check_dependencies pidof wlogout
 
 log_debug "Launching wlogout"
 
