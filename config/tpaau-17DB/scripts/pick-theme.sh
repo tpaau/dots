@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-source ~/.config/tpaau-17DB/scripts/include/paths.sh
-source ~/.config/tpaau-17DB/scripts/include/logger.sh
-source ~/.config/tpaau-17DB/scripts/include/themes.sh
+source ~/.config/tpaau-17DB/scripts/lib/paths.sh
+source ~/.config/tpaau-17DB/scripts/lib/logger.sh
+source ~/.config/tpaau-17DB/scripts/lib/themes.sh
 
 themes=$(get_themes_pretty)
 

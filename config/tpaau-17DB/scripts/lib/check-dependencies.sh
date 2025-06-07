@@ -1,8 +1,8 @@
 # 
 
-source ~/.config/tpaau-17DB/scripts/include/paths.sh
-source ~/.config/tpaau-17DB/scripts/include/logger.sh
-source ~/.config/tpaau-17DB/scripts/include/notifications.sh
+source ~/.config/tpaau-17DB/scripts/lib/paths.sh
+source ~/.config/tpaau-17DB/scripts/lib/logger.sh
+source ~/.config/tpaau-17DB/scripts/lib/notifications.sh
 
 # Directory containing depcheck files, used for reducing the frequency of
 # dependency checks
@@ -12,7 +12,7 @@ mkdir -p "$DEPCHECKS_DIR/"
 # Temporary file containing all the missing dependencies
 MISSING_FILE="$DEPCHECKS_DIR/missing"
 
-# Runs dependency checks for all scripts.
+# Runs dependency checks for all the scripts.
 run_all_depchecks()
 {
 	log_debug "Running dependency checks"
@@ -20,6 +20,22 @@ run_all_depchecks()
 	local status=0
 
 	run_depcheck logs.sh date || status=1
+	run_depcheck media-fetcher.sh eww playerctl || status=1
+	run_depcheck regenerate-symlinks.sh ln || status=1
+	run_depcheck restart.sh pkill waybar mako hyprpaper eww hyprctl || status=1
+	run_depcheck run-wlogout.sh pidof wlogout || status=1
+	run_depcheck run-wofi.sh pgrep pkill wofi || status=1
+	run_depcheck smenu-utils.sh brightnessctl bc eww || status=1
+	run_depcheck take-screenshot.sh pgrep slurp grim notify-send || status=1
+	run_depcheck waybar/toggle-widget.sh eww grep || status=1
+	run_depcheck lib/apply-colors.sh sed || status=1
+	run_depcheck lib/check-dependencies.sh uniq || status=1
+	run_depcheck lib/covers.sh playerctl date magick head awk cut ffmpeg || status=1
+	run_depcheck lib/locks.sh touch || status=1
+	run_depcheck lib/logger.sh date chmod basename || status=1
+	run_depcheck lib/notifications.sh notify-send || status=1
+	run_depcheck lib/paths.sh date || status=1
+	run_depcheck lib/utils.sh du awk tail find || status=1
 
 	verify_missing || status=1
 

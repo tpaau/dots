@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-source ~/.config/tpaau-17DB/scripts/include/paths.sh
-source ~/.config/tpaau-17DB/scripts/include/logger.sh
-source ~/.config/tpaau-17DB/scripts/include/themes.sh
+source ~/.config/tpaau-17DB/scripts/lib/paths.sh
+source ~/.config/tpaau-17DB/scripts/lib/logger.sh
+source ~/.config/tpaau-17DB/scripts/lib/themes.sh
 
 # Restarts various programs and utilities.
 #
@@ -43,7 +43,7 @@ restart_programs()
 	log_debug "Reloading eww"
 	eww reload 2>&1 >/dev/null &
 
-	./smenu-utils.sh regenerate-variables
+	$SCRIPTS_DIR/smenu-utils.sh regenerate-variables
 
 	log_debug "Reload hyprland"
 	hyprctl reload 2>&1 >/dev/null &
@@ -73,7 +73,7 @@ full_restart()
 	restart_programs
 }
 
-if [[ $# -ne 1 ]]; then
+if (( $# != 1 )); then
 	log_error "Expected exactly one argument!"
 	exit 1
 fi

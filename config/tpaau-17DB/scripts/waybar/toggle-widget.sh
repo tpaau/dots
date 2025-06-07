@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
 
-source ~/.config/tpaau-17DB/scripts/include/paths.sh
-source ~/.config/tpaau-17DB/scripts/include/logger.sh
-source ~/.config/tpaau-17DB/scripts/include/notifications.sh
-source ~/.config/tpaau-17DB/scripts/include/covers.sh
+source ~/.config/tpaau-17DB/scripts/lib/paths.sh
+source ~/.config/tpaau-17DB/scripts/lib/logger.sh
 
 WIDGET_NAME=""
 
-if [[ $# -ne 1 ]]; then
+if (( $# != 1 )); then
 	log_error "Expected exactly one argument!"
 	exit 1
 else
@@ -19,8 +17,5 @@ if eww active-windows | grep -q "$WIDGET_NAME"; then
 	eww close "$WIDGET_NAME"
 else
 	log_debug "Opening "$WIDGET_NAME
-	if [[ "$WIDGET_NAME" == "audio-control" ]]; then
-		~/.config/tpaau-17DB/scripts/media-fetcher.sh fetch
-	fi
 	eww open "$WIDGET_NAME"
 fi

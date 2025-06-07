@@ -12,3 +12,6 @@ FETCH_DELTA=0.05
 #
 # Setting this to 0 disables the output length limit.
 MAX_OUTPUT_LENGTH=45
+
+# The order in which the cover is to be extracted
+COVER_SOURCE_ORDER=("cmus" "mpris:artUrl")

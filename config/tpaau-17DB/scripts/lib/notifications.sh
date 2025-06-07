@@ -1,6 +1,5 @@
-source ~/.config/tpaau-17DB/scripts/include/paths.sh
-source ~/.config/tpaau-17DB/scripts/include/logger.sh
-source ~/.config/tpaau-17DB/scripts/include/icons.sh
+source ~/.config/tpaau-17DB/scripts/lib/logger.sh
+source ~/.config/tpaau-17DB/scripts/lib/icons.sh
 
 notify_err()
 {

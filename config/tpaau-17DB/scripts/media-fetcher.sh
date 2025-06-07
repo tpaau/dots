@@ -5,10 +5,10 @@
 #
 # It can also be used to play/pause
 
-source ~/.config/tpaau-17DB/scripts/include/paths.sh
-source ~/.config/tpaau-17DB/scripts/include/logger.sh
-source ~/.config/tpaau-17DB/scripts/include/utils.sh
-source ~/.config/tpaau-17DB/scripts/include/covers.sh
+source ~/.config/tpaau-17DB/scripts/lib/paths.sh
+source ~/.config/tpaau-17DB/scripts/lib/logger.sh
+source ~/.config/tpaau-17DB/scripts/lib/utils.sh
+source ~/.config/tpaau-17DB/scripts/lib/covers.sh
 source ~/.config/tpaau-17DB/scripts/tunables/media-fetcher-conf.sh
 
 SEP=$'\x1e'
@@ -26,25 +26,6 @@ track_percent()
 	echo $(( pos * 100 / len ))
 }
 
-# Make the text shorter so it can fit on the screen
-shorten_text() 
-{
-    local text="$1"
-
-	if (( $MAX_OUTPUT_LENGTH == 0 )); then
-		echo "$text"
-		return 0
-	fi
-
-    if [ ${#text} -gt $MAX_OUTPUT_LENGTH ]; then
-		text="${text:0:$((MAX_OUTPUT_LENGTH-1))}"
-		text=$(echo "$text" | sed 's/[[:space:]]*$//')
-        echo "$text…"
-	else
-		echo "$text"
-    fi
-}
-
 update_cover()
 {
 	local cover_path="$(get_cover "$(playerctl metadata --format "{{title}} - {{artist}}")")"
@@ -53,8 +34,8 @@ update_cover()
 		eww update cover-path="$cover_path"
 		return 1
 	elif [[ -z "$cover_path" ]]; then
-		log_info "Got an empty cover path, will retry in ${WAITTIME}s"
-		sleep $WAITTIME
+		log_info "Got an empty cover path, will retry in ${FETCH_DELTA}s"
+		sleep $FETCH_DELTA
 		update_cover
 		return 0
 	fi
@@ -83,7 +64,7 @@ format_time_sec()
 	local mins=$(((sec % 3600) / 60))
 	local secs=$((sec % 60))
 
-	if [ "$hours" -gt 0 ]; then
+	if (( hours > 0 )); then
 		printf "%d:%02d:%02d\n" "$hours" "$mins" "$secs"
 	else
 		printf "%d:%02d\n" "$mins" "$secs"
@@ -92,13 +73,16 @@ format_time_sec()
 
 watch_main_meta()
 {
-	playerctl --follow metadata --format '{{mpris:trackid}}' | while read -r track_id; do
-		log_debug "Fetching media metadata"
-		eww update track-artist="$(playerctl metadata artist)"
-		eww update track-title="$(playerctl metadata title)"
-		local track_len=$(($(playerctl metadata mpris:length) / 1000000))
-		eww update track-len="$(format_time_sec $track_len)"
-		update_cover
+	while true; do
+		playerctl --follow metadata --format '{{mpris:trackid}}' | while read -r track_id; do
+			log_debug "Fetching media metadata"
+			update_cover
+			eww update track-artist="$(playerctl metadata artist)"
+			eww update track-title="$(playerctl metadata title)"
+			local track_len=$(($(playerctl metadata mpris:length) / 1000000))
+			eww update track-len="$(format_time_sec $track_len)"
+		done
+		sleep 0.5
 	done
 }
 
@@ -125,22 +109,32 @@ watch_elapsed_meta() {
     local prev_elapsed=""
 
     while true; do
-		IFS="$SEP" read -r title artist pos_sec len <<< "$(playerctl metadata --format "{{title}}${SEP}{{artist}}${SEP}{{position}}${SEP}{{mpris:length}}")"
-        local meta="$title - $artist"
-        local pos=$(track_percent "$pos_sec" "$len")
-        local elapsed_formatted=$(format_time_sec "$pos")
+		IFS="$SEP" read -r title artist pos_sec len status <<< "$(playerctl metadata --format "{{title}}$SEP{{artist}}$SEP{{position}}$SEP{{mpris:length}}$SEP{{status}}")"
+		case $status in
+			Playing)
+				local meta="$title - $artist"
+				local pos=$(track_percent "$pos_sec" "$len")
+				local elapsed_formatted=$(format_time_sec "$pos")
 
-        if [[ "$elapsed_formatted" != "$prev_elapsed" ]]; then
-            eww update track-elapsed="$elapsed_formatted"
-            prev_elapsed="$elapsed_formatted"
-        fi
+				if [[ "$elapsed_formatted" != "$prev_elapsed" ]]; then
+					eww update track-elapsed="$elapsed_formatted"
+					prev_elapsed="$elapsed_formatted"
+				fi
 
-        if (( prev_pos != pos )) || [[ "$meta" != "$prev_meta" ]]; then
-            eww update track-elapsed-percent=$pos
-            echo "[$pos%] $(shorten_text "$meta")"
-            prev_pos=$pos
-            prev_meta="$meta"
-        fi
+				if (( prev_pos != pos )) || [[ "$meta" != "$prev_meta" ]]; then
+					eww update track-elapsed-percent=$pos
+					echo "[$pos%] $(shorten_text "$meta" $MAX_OUTPUT_LENGTH)"
+					prev_pos=$pos
+					prev_meta="$meta"
+				fi
+				;;
+			Paused)
+				echo "Paused"
+				;;
+			*)
+				echo "Not playing"
+				;;
+		esac
 
         sleep $FETCH_DELTA
     done
@@ -159,7 +153,7 @@ watch_all()
 	watch_elapsed_meta
 }
 
-if [[ $# -ne 1 ]]; then
+if (( $# != 1 )); then
 	log_error "Expected exactly one argument!"
 	exit 1
 elif [[ "$1" == "start" ]]; then

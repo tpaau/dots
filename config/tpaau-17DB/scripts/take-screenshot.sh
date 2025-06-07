@@ -2,9 +2,8 @@
 
 # Used for taking screenshots in a nice way
 
-source ~/.config/tpaau-17DB/scripts/include/paths.sh
-source ~/.config/tpaau-17DB/scripts/include/notifications.sh
-source ~/.config/tpaau-17DB/scripts/include/logger.sh
+source ~/.config/tpaau-17DB/scripts/lib/paths.sh
+source ~/.config/tpaau-17DB/scripts/lib/logger.sh
 
 SS_NAME="screenshot.png"
 

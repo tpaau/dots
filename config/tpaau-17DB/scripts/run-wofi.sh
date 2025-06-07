@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-source ~/.config/tpaau-17DB/scripts/include/logger.sh
+source ~/.config/tpaau-17DB/scripts/lib/logger.sh
 
 if [ $(pgrep wlogout) ]; then
-	log_error "wlogout running, stopping"
+	log_info "wlogout already running, stopping"
 	exit 1
 fi
 

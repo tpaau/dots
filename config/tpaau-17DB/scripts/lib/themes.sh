@@ -1,8 +1,7 @@
-source ~/.config/tpaau-17DB/scripts/include/paths.sh
-source ~/.config/tpaau-17DB/scripts/include/logger.sh
-source ~/.config/tpaau-17DB/scripts/include/paths.sh
-source ~/.config/tpaau-17DB/scripts/include/apply-colors.sh
-source ~/.config/tpaau-17DB/scripts/include/utils.sh
+source ~/.config/tpaau-17DB/scripts/lib/paths.sh
+source ~/.config/tpaau-17DB/scripts/lib/paths.sh
+source ~/.config/tpaau-17DB/scripts/lib/apply-colors.sh
+source ~/.config/tpaau-17DB/scripts/lib/utils.sh
 
 # Returns relative paths of all the theme files under THEMES_DIR.
 #
@@ -59,7 +58,7 @@ check_theme()
 	fi
 
 	source "$theme"
-	if [[ $? -ne 0 ]]; then
+	if (( $? != 0 )); then
 		log_error "Sourcing '$theme' failed!"
 		return 1
 	fi
@@ -78,7 +77,7 @@ install_theme()
 	local theme="$THEMES_DIR/$(name_pretty_to_path_relative "$name_pretty")"
 
 	check_theme "$theme"
-	if [[ $? -ne 0 ]]; then
+	if (( $? != 0 )); then
 		return 1
 	fi
 
@@ -101,7 +100,7 @@ install_theme()
 		log_warning "Theme doesn't contain lockscreen wallpaper, hyprlock will fall back to backgound color."
 	fi
 
-	if [[ $status -eq 0 ]]; then
+	if (( status == 0 )); then
 		log_debug "Successfully installed '$name_pretty'"
 		echo "$name_pretty" > "$CURRENT_THEME"
 	else
@@ -133,11 +132,11 @@ apply_theme()
 
 	run_step apply_colors
 	kitten themes --reload-in all "$KITTY_THEME"
-	if [[ $? -ne 0 ]]; then
+	if (( $? != 0 )); then
 		log_error "Failed appling kitty theme, maybe you have no internet connection?"
 	fi
 
-	if [[ $status -eq 0 ]]; then
+	if (( $status == 0 )); then
 		log_debug "Theme applied succesfully"
 		"$SCRIPTS_DIR/restart.sh" programs
 	else

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source ~/.config/tpaau-17DB/scripts/include/paths.sh
+source ~/.config/tpaau-17DB/scripts/lib/paths.sh
 
 log_debug "Launching wlogout"
 

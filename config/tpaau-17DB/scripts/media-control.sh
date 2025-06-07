@@ -17,8 +17,8 @@
 
 SKIP_LOCK_FILE="$TMP_DIR/music-control-skip.lock"
 
-if [[ $# -ne 1 ]]; then
-	source ~/.config/tpaau-17DB/scripts/include/logger.sh
+if (( $# != 1 )); then
+	source ~/.config/tpaau-17DB/scripts/lib/logger.sh
 	log_error "Expected exactly one argument!"
 	exit 1
 elif [[ "$1" == "next" ]]; then
@@ -27,8 +27,8 @@ elif [[ "$1" == "next" ]]; then
 		if [[ -f "$SKIP_LOCK_FILE" ]]; then
 			exit 0
 		fi
-		source ~/.config/tpaau-17DB/scripts/include/paths.sh
-		source ~/.config/tpaau-17DB/scripts/include/locks.sh
+		source ~/.config/tpaau-17DB/scripts/lib/paths.sh
+		source ~/.config/tpaau-17DB/scripts/lib/locks.sh
 		touch "$SKIP_LOCK_FILE"
 		lock_db "$COVER_EXTRACTION_LOCK"
 		playerctl next
@@ -43,8 +43,8 @@ elif [[ "$1" == "previous" ]]; then
 		if [[ -f "$SKIP_LOCK_FILE" ]]; then
 			exit 0
 		fi
-		source ~/.config/tpaau-17DB/scripts/include/paths.sh
-		source ~/.config/tpaau-17DB/scripts/include/locks.sh
+		source ~/.config/tpaau-17DB/scripts/lib/paths.sh
+		source ~/.config/tpaau-17DB/scripts/lib/locks.sh
 		touch "$SKIP_LOCK_FILE"
 		lock_db "$COVER_EXTRACTION_LOCK"
 		playerctl previous
@@ -61,7 +61,7 @@ elif [[ "$1" == "play-pause" ]]; then
 	elif [[ "$status" == "Paused" ]]; then
 		eww update playing-icon=""
 	else
-		source ~/.config/tpaau-17DB/scripts/include/paths.sh
+		source ~/.config/tpaau-17DB/scripts/lib/paths.sh
 		eww update playing-icon=""
 		eww update cover-path="$DEFAULT_COVER"
 		log_info "Updated eww cover to '$DEFAULT_COVER'"
@@ -72,15 +72,15 @@ elif [[ "$1" == "play-pause" ]]; then
 		eww update track-elapsed-percent="0"
 	fi
 elif [[ "$1" == "clean-cache" ]]; then
-	source ~/.config/tpaau-17DB/scripts/include/logger.sh
+	source ~/.config/tpaau-17DB/scripts/lib/logger.sh
+	source ~/.config/tpaau-17DB/scripts/lib/utils.sh
+	source ~/.config/tpaau-17DB/scripts/lib/covers.sh
 	log_info "Cleaning cover cache"
-	source ~/.config/tpaau-17DB/scripts/include/utils.sh
-	source ~/.config/tpaau-17DB/scripts/include/paths.sh
 	clean_items "$COVERS_CACHE"
 	mkdir -p "$COVERS_CACHE"
 	exit 0
 else
-	source ~/.config/tpaau-17DB/scripts/include/logger.sh
+	source ~/.config/tpaau-17DB/scripts/lib/logger.sh
 	log_error "Unknown argument: '$1'"
 	exit 1
 fi

@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-source ~/.config/tpaau-17DB/scripts/include/paths.sh
-source ~/.config/tpaau-17DB/scripts/include/logger.sh
-source ~/.config/tpaau-17DB/scripts/include/utils.sh
+source ~/.config/tpaau-17DB/scripts/lib/paths.sh
+source ~/.config/tpaau-17DB/scripts/lib/logger.sh
+source ~/.config/tpaau-17DB/scripts/lib/utils.sh
 
 log_debug "Regenerating symlinks"
 
@@ -18,7 +18,7 @@ lrun_step ln -sf "$CURRENT_COLORS" colors.css
 crun_step cd "$HOME/.config/eww/"
 lrun_step ln -sf "$CURRENT_COLORS" colors.css
 
-if [[ $status -eq 0 ]]; then
+if (( status == 0 )); then
 	log_debug "Successfully regenerated symlinks"
 	exit 0
 else

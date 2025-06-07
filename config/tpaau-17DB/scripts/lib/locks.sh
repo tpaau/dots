@@ -1,4 +1,7 @@
-source ~/.config/tpaau-17DB/scripts/include/logger.sh
+source ~/.config/tpaau-17DB/scripts/lib/logger.sh
+
+# Default timeout for file locks
+DEFAULT_LOCK_TIMEOUT=10
 
 # Exits with 0 if given argument is an integer and with 1 otherwise.
 #
@@ -20,7 +23,7 @@ remove_locks() {
 	local -a locks=()
 	mapfile -t locks < <(find "$TP" -name "*.lock")
 
-	if [[ ${#locks[@]} -eq 0 ]]; then
+	if (( ${#locks[@]} == 0 )); then
 		log_debug "No locks found"
 		return 0
 	else
@@ -81,7 +84,7 @@ unlock_db()
 	fi
 	rm "$lock_file"
 	local status=$?
-	if [[ $status -eq 0 ]]; then
+	if (( $status == 0 )); then
 		log_debug "Unlocked '$lock_file'"
 	else
 		log_error "Failed unlocking '$lock_file'"

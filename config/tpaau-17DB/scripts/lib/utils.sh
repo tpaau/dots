@@ -1,7 +1,4 @@
-source ~/.config/tpaau-17DB/scripts/include/logger.sh
-
-# Default timeout for file locks
-DEFAULT_LOCK_TIMEOUT=10
+source ~/.config/tpaau-17DB/scripts/lib/logger.sh
 
 # Used to clean cache and temporary files as well as directories.
 #
@@ -20,11 +17,31 @@ clean_items()
 
 	rm -r "$to_clean"
 	
-	if [[ $? -eq 0 ]]; then
+	if (( $? == 0 )); then
 		log_info "Deleted $size"
 	else
 		log_error "Failed deleting '$to_clean'"
 	fi
+}
+
+# Make the text shorter so it can fit on the screen
+shorten_text() 
+{
+    local text="$1"
+	local max_len=$2
+
+	if (( max_len == 0 )); then
+		echo "$text"
+		return 0
+	fi
+
+	if (( ${#text} > max_len )); then
+		text="${text:0:$((max_len-1))}"
+		text=$(echo "$text" | sed 's/[[:space:]]*$//')
+        echo "$text…"
+	else
+		echo "$text"
+    fi
 }
 
 # Removes all files starting with `tmp-` under $TMP_DIR.
@@ -35,7 +52,7 @@ remove_leftover_tmp()
 	local -a tmp=()
 	mapfile -t tmp < <(find "$TMP_DIR" -name "tmp-*")
 
-	if [[ ${#tmp[@]} -eq 0 ]]; then
+	if (( ${#tmp[@]} == 0 )); then
 		log_debug "No leftover tmp files found"
 		return 0
 	else

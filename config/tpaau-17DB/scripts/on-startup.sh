@@ -4,11 +4,11 @@
 # previous boot are removed, essential variables and temporary files
 # regenerated, and the environment set up for action.
 
-source ~/.config/tpaau-17DB/scripts/include/check-dependencies.sh
-source ~/.config/tpaau-17DB/scripts/include/logger.sh
-source ~/.config/tpaau-17DB/scripts/include/notifications.sh
-source ~/.config/tpaau-17DB/scripts/include/locks.sh
-source ~/.config/tpaau-17DB/scripts/include/utils.sh
+source ~/.config/tpaau-17DB/scripts/lib/check-dependencies.sh
+source ~/.config/tpaau-17DB/scripts/lib/logger.sh
+source ~/.config/tpaau-17DB/scripts/lib/notifications.sh
+source ~/.config/tpaau-17DB/scripts/lib/locks.sh
+source ~/.config/tpaau-17DB/scripts/lib/utils.sh
 
 if (( $# != 0 )); then
 	log_warning "Any arguments passed to this script will be ignored"
@@ -16,7 +16,7 @@ fi
 
 status=0
 
-run_step ./smenu-utils.sh regenerate-variables
+run_step $SCRIPTS_DIR/smenu-utils.sh regenerate-variables
 run_step remove_locks
 run_step remove_leftover_tmp
 run_step run_all_depchecks

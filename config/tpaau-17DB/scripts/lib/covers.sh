@@ -1,10 +1,8 @@
-source ~/.config/tpaau-17DB/scripts/include/paths.sh
-source ~/.config/tpaau-17DB/scripts/include/logger.sh
-source ~/.config/tpaau-17DB/scripts/include/utils.sh
-source ~/.config/tpaau-17DB/scripts/include/locks.sh
-
-# The order in which the cover is to be extracted
-COVER_SOURCE_ORDER=("cmus" "mpris:artUrl")
+source ~/.config/tpaau-17DB/scripts/lib/paths.sh
+source ~/.config/tpaau-17DB/scripts/lib/logger.sh
+source ~/.config/tpaau-17DB/scripts/lib/utils.sh
+source ~/.config/tpaau-17DB/scripts/lib/locks.sh
+source ~/.config/tpaau-17DB/scripts/tunables/media-fetcher-conf.sh
 
 # Default track cover used when cover extraction failed or no media is playing
 DEFAULT_COVER="$SHARE/sprites/unknown-cover.png"
