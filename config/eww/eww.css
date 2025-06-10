@@ -11,7 +11,7 @@
     font-size: 14px;
 }
 
-.status {
+.status-menu {
 	border: 2px solid;
 	border-color: @accent;
 	background-color: @bg;
@@ -19,7 +19,189 @@
 	padding: 20px;
 }
 
-.audio-control {
+.wifi-button-inactive,
+.ethernet-button-inactive,
+.bluetooth-button-inactive,
+.powersave-button-inactive {
+	margin: 8 8 8 8px;
+	border: 0px solid transparent;
+	border-radius: 15px;
+	background-color: @br1_bg;
+	background-image: none;
+	transition: border-radius 0.1s linear;
+}
+
+.wifi-button-inactive:hover,
+.ethernet-button-inactive:hover,
+.bluetooth-button-inactive:hover,
+.powersave-button-inactive:hover {
+	border-radius: 20px;
+	background-color: @br2_bg;
+	transition: border-radius 0.1s linear;
+}
+
+.wifi-button-inactive:active,
+.ethernet-button-inactive:active,
+.bluetooth-button-inactive:active,
+.powersave-button-inactive:active {
+	border-radius: 32px;
+	background-color: @br3_bg;
+	transition: border-radius 0.1s linear;
+}
+
+.wifi-label-inactive,
+.ethernet-label-inactive,
+.bluetooth-label-inactive,
+.powersave-label-inactive {
+	color: @fg;
+	font-size: 20;
+	margin-right: 80px;
+}
+
+.wifi-button-active,
+.ethernet-button-active,
+.bluetooth-button-active,
+.powersave-button-active {
+	margin: 8 8 8 8px;
+	border: 0px solid transparent;
+	border-radius: 128px;
+	background-color: @br_fg;
+	background-image: none;
+	transition: all 0.1s linear;
+}
+
+.wifi-button-active:hover,
+.ethernet-button-active:hover,
+.bluetooth-button-active:hover,
+.powersave-button-active:hover {
+	border-radius: 128px;
+	background-color: @fg;
+}
+
+.wifi-button-active:active,
+.ethernet-button-active:active,
+.bluetooth-button-active:active,
+.powersave-button-active:active {
+	border-radius: 128px;
+	background-color: @br3_bg;
+}
+
+.wifi-button-active,
+.wifi-button-inactive,
+.bluetooth-button-active,
+.bluetooth-button-inactive {
+	margin-left: 0px;
+}
+
+.ethernet-button-active,
+.ethernet-button-inactive,
+.powersave-button-active,
+.powersave-button-inactive {
+	margin-right: 0px;
+}
+
+.wifi-label-active,
+.ethernet-label-active,
+.bluetooth-label-active,
+.powersave-label-active {
+	color: @bg;
+	font-size: 24;
+	margin-right: 80px;
+}
+
+.brightness-slider,
+.speaker-volume-slider,
+.mic-volume-slider {
+	margin-left: -12px;
+	margin-right: -12px;
+}
+
+.brightness-slider trough,
+.speaker-volume-slider trough,
+.mic-volume-slider trough {
+  background-color: @br_bg;
+  background-image: none;
+  border-radius: 8px;
+  min-height: 16px;
+}
+
+.brightness-slider trough highlight,
+.speaker-volume-slider trough highlight,
+.mic-volume-slider trough highlight {
+	border: none;
+	background-color: @fg;
+	border-radius: 8px;
+	background-image: none;
+	min-height: 10px;
+	min-width: 12px;
+}
+
+.brightness-slider trough slider,
+.speaker-volume-slider trough slider,
+.mic-volume-slider trough slider {
+	border: none;
+	background: transparent;
+}
+
+.brightness-icon,
+.speaker-icon,
+.mic-icon {
+	margin-left: 12px;
+	color: @br_bg;
+}
+
+.power-button,
+.audio-settings-button,
+.screenshot-button,
+.screen-lock-button {
+	margin-top: 16px;
+	border: 0px solid transparent;
+	border-radius: 128px;
+	background-color: @br1_bg;
+	background-image: none;
+	transition: all 0.1s linear;
+}
+
+.power-button:hover,
+.audio-settings-button:hover,
+.screenshot-button:hover,
+.screen-lock-button:hover {
+	background-color: @br2_bg;
+}
+
+.power-button:active,
+.audio-settings-button:active,
+.screenshot-button:active,
+.screen-lock-button:active {
+	background-color: @br3_bg;
+}
+
+.screenshot-button {
+	margin-left: 28px;
+}
+
+.power-button {
+	margin-right: 28px;
+}
+
+.screen-lock-button {
+	margin-right: 21px;
+	margin-left: 7px;
+}
+
+.audio-settings-button {
+	margin-left: 21px;
+	margin-right: 7px;
+}
+
+.power-label,
+.audio-settings-label,
+.screenshot-label,
+.screen-lock-label {
+	color: @fg;
+}
+
+.media-control {
 	border: 2px solid;
 	border-color: @accent;
 	background-color: @bg;
@@ -29,6 +211,10 @@
 
 .track-cover {
 	padding: 0 0 15 0px;
+}
+
+.master-audio-box {
+	margin-top: 60px;
 }
 
 .track-title {
@@ -87,29 +273,39 @@
 }
 
 .previous-track-button,
-.play-pause-button,
+.paused-button,
+.playing-button,
 .next-track-button {
 	border: 0px solid transparent;
 	border-radius: 15px;
 	background-color: @br1_bg;
 	background-image: none;
-	transition: border-radius 0.1s linear;
+	transition: all 0.1s linear;
 }
 
 .previous-track-button:hover,
-.play-pause-button:hover,
+.paused-button:hover,
+.playing-button:hover,
 .next-track-button:hover {
 	border-radius: 24px;
 	background-color: @br2_bg;
-	transition: border-radius 0.1s linear;
 }
 
 .previous-track-button:active,
-.play-pause-button:active,
+.paused-button:active,
+.playing-button:active,
 .next-track-button:active {
 	border-radius: 128px;
 	background-color: @br3_bg;
-	transition: border-radius 0.1s linear;
+}
+
+.playing-button {
+	border-radius: 128px;
+	background-color: @br3_bg;
+}
+
+.playing-button:hover {
+	background-color: @br2_bg;
 }
 
 .media-control-icon {

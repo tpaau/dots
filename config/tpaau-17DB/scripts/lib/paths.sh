@@ -15,6 +15,8 @@ mkdir -p "$CACHE_DIR/"
 TMP_DIR="$TP/tmp"
 mkdir -p "$TMP_DIR/"
 
+POWERSAVE_STATUS="$TMP_DIR/powersave"
+
 # Directory containing wallpapers
 WALLPAPERS_DIR="$TP/wallpapers"
 

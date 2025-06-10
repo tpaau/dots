@@ -27,8 +27,8 @@
 	// audio, privacy and tray
     "modules-right": [
         "custom/media_fetcher",
-		"network",
-		"bluetooth",
+		// "network",
+		// "bluetooth",
         "battery",
         "idle_inhibitor",
 		"privacy",
@@ -44,7 +44,7 @@
 	"custom/status-menu": {
 		"format": " ",
 		"tooltip": false,
-		"on-click": "~/.config/tpaau-17DB/scripts/waybar/toggle-widget.sh status-menu"
+		"on-click": "~/.config/tpaau-17DB/scripts/toggle-widget.sh status-menu"
 	},
 
     "custom/power_btn": {
@@ -103,7 +103,7 @@
     },
 
     "custom/cpu_percent": {
-        "exec": "~/.config/tpaau-17DB/scripts/waybar/cpu_percent.py",
+        "exec": "~/.config/tpaau-17DB/scripts/cpu_percent.py",
         "interval": 0,
         "format": "{}",
         "tooltip": false,
@@ -159,7 +159,7 @@
         "interval": 0,
         "format": "{}",
         "tooltip": false,
-        "on-click": "~/.config/tpaau-17DB/scripts/waybar/toggle-widget.sh audio-control"
+        "on-click": "~/.config/tpaau-17DB/scripts/toggle-widget.sh media-control"
     },
 
     "pulseaudio": {

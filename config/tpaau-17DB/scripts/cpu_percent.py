@@ -3,7 +3,7 @@
 import psutil
 import sys
 
-def print_bar(value, max_value, length = 16, fill = '#', empty = "-", show_percent = False):
+def print_bar(value, max_value, length = 8, fill = '#', empty = "-", show_percent = False):
     """
     Show a nice bar showing CPU usage.
     """

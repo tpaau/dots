@@ -21,6 +21,11 @@ sanitize_filename()
     echo "${input//[\/\\]/_}"
 }
 
+get_current_player()
+{
+	playerctl -a metadata --format '{{playerName}} {{status}}' | awk '$2 == "Playing" {print $1; exit}'
+}
+
 get_tmp_cover_name()
 {
 	local song="$1"
@@ -77,33 +82,27 @@ extract_cover_cmus()
 	
 	# Make sure the current player is actually cmus
 	log_debug "Attempting to extract cover from cmus"
-	local player=$(playerctl -l | head -n 1)
-	if [[ "$player" == "cmus" ]]; then
-		local cmus_data="$(cmus-remote -Q)"
-		local artist="$(echo "$cmus_data" | awk '/^tag artist / { $1=""; $2=""; sub(/^  */, ""); print }')"
-		local title="$(echo "$cmus_data" | awk '/^tag title / { $1=""; $2=""; sub(/^  */, ""); print }')"
-		local source="$(echo "$cmus_data" | grep '^file ' | cut -d ' ' -f2-)"
+	local cmus_data="$(cmus-remote -Q)"
+	local artist="$(echo "$cmus_data" | awk '/^tag artist / { $1=""; $2=""; sub(/^  */, ""); print }')"
+	local title="$(echo "$cmus_data" | awk '/^tag title / { $1=""; $2=""; sub(/^  */, ""); print }')"
+	local source="$(echo "$cmus_data" | grep '^file ' | cut -d ' ' -f2-)"
 
-		if [[ "$(sanitize_filename "$title - $artist")" != "$(get_currently_playing)" ]]; then
-			log_warning "Cmus data doesn't mach, cover likely expired"
-			log_warning "Previous was '$(sanitize_filename "$title - $artist"), current is '$(get_currently_playing)'"
-			return 1
-		fi
-
-		ffmpeg -i "$source" -map 0:v -vf "scale=300:300:force_original_aspect_ratio=decrease,pad=300:300:(ow-iw)/2:(oh-ih)/2" -frames:v 1 -c:v png "$target" -y > /dev/null 2>&1 
-		log_debug "Extracted to '$target'"
-		return 0
-	else
-		log_warning "Current player is '$player', not 'cmus'. Wrong cover would likely be extracted."
+	if [[ "$(sanitize_filename "$title - $artist")" != "$(get_currently_playing)" ]]; then
+		log_warning "Cmus data doesn't mach, cover likely expired"
+		log_warning "Previous was '$(sanitize_filename "$title - $artist"), current is '$(get_currently_playing)'"
 		return 1
 	fi
+
+	ffmpeg -i "$source" -map 0:v -vf "scale=300:300:force_original_aspect_ratio=decrease,pad=300:300:(ow-iw)/2:(oh-ih)/2" -frames:v 1 -c:v png "$target" -y > /dev/null 2>&1 
+	log_debug "Extracted to '$target'"
+	return 0
 }
 
 extract_cover_url()
 {
 	local song="$1"
 	local traget="$2"
-	local url=$(playerctl -p $(playerctl -l | head -n 1) metadata mpris:artUrl)
+	local url=$(playerctl metadata mpris:artUrl)
 
 	log_error "Extracting covers from URLs is currently unsupported."
 	echo ""
@@ -120,7 +119,7 @@ prepare_extracted()
 	local status=0
 	format_cover "$tmp" || status=1
 
-	local currently_playing="$(get_currently_playing)"
+	
 	if [[ "$song" != "$(get_currently_playing)" ]]; then
 		log_warning "Audio data doesn't match, cover likely expired"
 		return 1

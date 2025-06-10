@@ -54,8 +54,8 @@ tooltip label {
 
 #workspaces button {
     padding: 0px 6px;
-    margin: 3px 2px;
-	min-width: 16px;
+	margin: 7 2px;
+	min-width: 8px;
     border-radius: 16px;
     color: transparent;
     background-color: @fg;
@@ -65,7 +65,7 @@ tooltip label {
 #workspaces button.active {
     color: @br_fg;
     background: @br_fg;
-    min-width: 28px;
+    min-width: 20px;
     transition: all 0.1s linear;
     opacity:1.0;
 }
