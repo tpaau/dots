@@ -19,5 +19,5 @@ def print_bar(value, max_value, length = 8, fill = '#', empty = "-", show_percen
 
 if __name__ == "__main__":
     while True:
-        cpu_usage = psutil.cpu_percent(interval=0.1)
+        cpu_usage = psutil.cpu_percent(interval=0.2)
         print_bar(cpu_usage, 100)

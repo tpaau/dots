@@ -7,118 +7,33 @@
     "gtk-layer-shell": true,
     "height": 32,
 
-	// system resources and session management
     "modules-left": [
-		"custom/status-menu",
+		"custom/status_menu",
         "clock",
         "memory",
+		"temperature",
         "custom/cpu_percent"
-        // "custom/power_btn",
-        // "custom/lock_screen",
-        // "temperature",
     ],
 
-	// workspaces and clock
     "modules-center": [
         "hyprland/workspaces",
     ],
 
-	// tray, privacy and audio 
-	// audio, privacy and tray
     "modules-right": [
         "custom/media_fetcher",
-		// "network",
-		// "bluetooth",
         "battery",
-        "idle_inhibitor",
 		"privacy",
-        "tray"
-        // "pulseaudio",
-        // "pulseaudio#microphone",
-        // "backlight",
-        // "hyprland/language",
+        "tray",
+		"hyprland/language",
     ],
    
     // modules are listed from left to right
 
-	"custom/status-menu": {
+	"custom/status_menu": {
 		"format": " ",
+		"on-click": "~/.config/tpaau-17DB/scripts/toggle-widget.sh status-menu",
 		"tooltip": false,
-		"on-click": "~/.config/tpaau-17DB/scripts/toggle-widget.sh status-menu"
 	},
-
-    "custom/power_btn": {
-        "format": "",
-        "on-click": "bash ~/.config/tpaau-17DB/scripts/run-wlogout.sh",
-        "tooltip": false
-    },
-
-    "custom/lock_screen": {
-        "format": "",
-        "on-click": "/usr/share/tpaau-17DB-dots/scripts/lock-screen.sh",
-        "tooltip": false
-    },
-
-    "backlight": {
-        "device": "intel_backlight",
-        "format": "{icon}",
-        "format-alt-click": "click-right",
-        "format-alt": "{icon} {percent}%",
-        "format-icons": ["󰃞", "󰃟", "󰃠"],
-        "on-scroll-up": "~/.config/tpaau-17DB/scripts/waybar/brightness --inc",
-        "on-scroll-down": "~/.config/tpaau-17DB/scripts/waybar/brightness --dec",
-        "tooltip": false,
-    },
-
-    "temperature": {
-	    "thermal-zone": 0,
-        "critical-threshold": 90,
-        "format": "",
-	    "format-critical": " {temperatureC}°C",
-        "format-alt-click": "click-right",
-		"format-alt": " {temperatureC}°C",
-	    "interval": 1
-    },
-
-    "memory": {
-        "format": " {}%",
-		"format-alt": "",
-        "format-alt-click": "click-right",
-	    "interval": 1,
-    },
-
-    "battery": {
-        "states": {
-            "good": 80,
-            "warning": 30,
-            "critical": 20
-        },
-        "format": "{icon}",
-        "format-charging": " {}%",
-        "format-plugged": "",
-        "format-alt-click": "click-right",
-        "format-alt": "{icon} {capacity}%",
-        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
-	    "interval": 1,
-    },
-
-    "custom/cpu_percent": {
-        "exec": "~/.config/tpaau-17DB/scripts/cpu_percent.py",
-        "interval": 0,
-        "format": "{}",
-        "tooltip": false,
-        "format-alt-click": "click-right",
-        "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"
-    },
-   
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "format-icons": {
-            "activated": "󰛐",
-            "deactivated": "󰛑"
-        },
-        "tooltip": false
-    },
 
     "clock": {
         "format": "{:%H:%M:%S}",
@@ -136,9 +51,35 @@
 		"interval": 1,
     },
 
+    "memory": {
+        "format": " {}%",
+		"format-alt": "",
+        "format-alt-click": "click-right",
+        "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'",
+	    "interval": 1,
+		"tooltip": false,
+    },
+
+	"temperature": {
+		"format": " {temperatureC}°C",
+	    "thermal-zone": 0,
+        "critical-threshold": 50,
+        "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'",
+	    "interval": 1,
+		"tooltip": false,
+    },
+
+    "custom/cpu_percent": {
+        "exec": "~/.config/tpaau-17DB/scripts/cpu_percent.py",
+        "format": "{}",
+        "format-alt-click": "click-right",
+        "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'",
+        "interval": 0,
+		"tooltip": false,
+    },
+
     "hyprland/workspaces": {
         "format": "{icon}",
-        "tooltip": false,
         "all-outputs": true,
         "format-icons": {
             "active": "",
@@ -150,7 +91,8 @@
 			"3": [],
 			"4": [],
 			"5": []
-		}
+		},
+		"tooltip": false,
     },
 
     "custom/media_fetcher": 
@@ -158,66 +100,25 @@
         "exec": "~/.config/tpaau-17DB/scripts/media-fetcher.sh start",
         "interval": 0,
         "format": "{}",
-        "tooltip": false,
-        "on-click": "~/.config/tpaau-17DB/scripts/toggle-widget.sh media-control"
+        "on-click": "~/.config/tpaau-17DB/scripts/toggle-widget.sh media-control",
+		"tooltip": false,
     },
 
-    "pulseaudio": {
-        "format": "{icon}",
-        "format-muted": "",
-        "on-click": "~/.config/tpaau-17DB/scripts/waybar/volume --toggle",
-        "on-click-right": "pavucontrol",
-        "on-scroll-up": "~/.config/tpaau-17DB/scripts/waybar/volume --inc",
-        "on-scroll-down": "~/.config/tpaau-17DB/scripts/waybar/volume --dec",
-        "scroll-step": 5,
-        "format-icons": {
-        	"headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", "", ""]
+    "battery": {
+        "states": {
+            "good": 80,
+            "warning": 30,
+            "critical": 20
         },
-        "tooltip": true,
-        "tooltip-format": "{icon} at {volume}%"
+		"full-at": "{health}",
+		"weighted-average": true,
+        "format": "{icon} {capacity}%",
+        "format-charging": " {}%",
+        "format-plugged": "",
+        "format-icons": ["", "", "", "", ""],
+		"format-full": "{icon}",
+	    "interval": 1,
     },
-
-    "pulseaudio#microphone": {
-        "format": "{format_source}",
-        "format-source": "",
-        "format-source-muted": " ",
-        "on-click": "~/.config/tpaau-17DB/scripts/waybar/volume --toggle-mic",
-        "on-click-right": "pavucontrol",
-        "on-scroll-up": "~/.config/tpaau-17DB/scripts/waybar/volume --mic-inc",
-        "on-scroll-down": "~/.config/tpaau-17DB/scripts/waybar/volume --mic-dec",
-        "scroll-step": 5,
-        "tooltip": true,
-        "tooltip-format": " at {volume}%"
-    },
-	
-	"network": {
-		"interface": "wlp3s0",
-		"format": "{ifname}",
-		"format-wifi": " ",
-		"format-ethernet": "󰊗",
-		"format-disconnected": " ",
-		"tooltip-format": "{ifname} via {gwaddr} 󰊗",
-		"tooltip-format-wifi": "  {essid} ({signalStrength}%)",
-		"tooltip-format-ethernet": " {ifname} {ipaddr}",
-		"tooltip-format-disconnected": "disconnected",
-    	"max-length": 8,
-		"interval": 10
-	},
-
-	"bluetooth": {
-		"format": "",
-		"format-disabled": "",
-		"format-connected": ": {num_connections}",
-		"tooltip-format": "{status}: {controller_alias}\t{controller_address}",
-		"tooltip-format-connected": "{status}: {controller_alias}\t{controller_address}\n\n{device_enumerate}",
-		"tooltip-format-enumerate-connected": "{status}: {device_alias}\t{device_address}"
-	},
 
 	"privacy": {
 		"icon-spacing": 6,
@@ -230,22 +131,18 @@
 				"tooltip-icon-size": 24
 			},
 			{
-				"type": "audio-out",
-				"tooltip": true,
-				"tooltip-icon-size": 24
-			},
-			{
 				"type": "audio-in",
 				"tooltip": true,
 				"tooltip-icon-size": 24
 			}
-		]
+		],
+		"tooltip": false,
 	},
 
     "tray": {
         "icon-size": 16,
         "spacing": 12,
-        "tooltip": false
+		"tooltip": false,
     },
 
     "hyprland/language": {
@@ -253,4 +150,5 @@
         "format": "{short}",
         "signal": 8
     },
+
 }

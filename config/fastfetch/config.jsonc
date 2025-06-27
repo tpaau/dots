@@ -1,12 +1,19 @@
-{   
+{
     "display": 
     {
+		"color": {
+			"keys": "green"
+		},
         "separator": " → "
     },
 
     "logo":
     {
         "type": "small",
+		"color": {
+			"1": "white",
+			"2": "white"
+		},
 		"padding":
 		{
 			"top": 1
@@ -19,7 +26,7 @@
         {
             "type": "custom",
             "format": "╭─────system─────",
-            "outputColor": "cyan" 
+            "outputColor": "green"
         },
         {
             "type": "host",
@@ -41,7 +48,7 @@
         {
             "type": "custom",
             "format": "╭────software────",
-            "outputColor": "cyan" 
+            "outputColor": "green" 
         },
         {
             "type": "packages",
@@ -62,7 +69,7 @@
         {
             "type": "custom",
             "format": "╭────hardware────",
-            "outputColor": "cyan" 
+            "outputColor": "green" 
         },
         {
             "type": "cpu",

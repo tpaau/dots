@@ -6,7 +6,7 @@ source ~/.config/tpaau-17DB/scripts/lib/notifications.sh
 
 # Directory containing depcheck files, used for reducing the frequency of
 # dependency checks
-DEPCHECKS_DIR="$TMP_DIR/depchecks"
+DEPCHECKS_DIR="$CACHE_DIR/depchecks"
 mkdir -p "$DEPCHECKS_DIR/"
 
 # Temporary file containing all the missing dependencies
@@ -26,7 +26,7 @@ run_all_depchecks()
 	run_depcheck run-wlogout.sh pidof wlogout || status=1
 	run_depcheck run-wofi.sh pgrep pkill wofi || status=1
 	run_depcheck smenu-utils.sh brightnessctl bc eww || status=1
-	run_depcheck take-screenshot.sh pgrep slurp grim notify-send || status=1
+	run_depcheck take-screenshot.sh pkill hyprshot || status=1
 	run_depcheck waybar/toggle-widget.sh eww grep || status=1
 	run_depcheck lib/apply-colors.sh sed || status=1
 	run_depcheck lib/check-dependencies.sh uniq || status=1

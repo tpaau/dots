@@ -2,9 +2,9 @@ source ~/.config/tpaau-17DB/scripts/lib/paths.sh
 
 NAME_PRETTY="Carbon"
 
-WALLPAPER="$WALLPAPERS_DIR/overlord-wallpaper-grayscale.png"
+WALLPAPER="$WALLPAPERS_DIR/overlord-wallpaper2.png"
 
-LOCKSCREEN=""
+LOCKSCREEN="$WALLPAPERS_DIR/overlord-wallpaper2.png"
 
 COLORS="$COLORS_DIR/carbon.css"
 

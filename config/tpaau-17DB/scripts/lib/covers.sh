@@ -2,7 +2,7 @@ source ~/.config/tpaau-17DB/scripts/lib/paths.sh
 source ~/.config/tpaau-17DB/scripts/lib/logger.sh
 source ~/.config/tpaau-17DB/scripts/lib/utils.sh
 source ~/.config/tpaau-17DB/scripts/lib/locks.sh
-source ~/.config/tpaau-17DB/scripts/tunables/media-fetcher-conf.sh
+source ~/.config/tpaau-17DB/scripts/tunables/media-fetcher.sh
 
 # Default track cover used when cover extraction failed or no media is playing
 DEFAULT_COVER="$SHARE/sprites/unknown-cover.png"
@@ -62,8 +62,7 @@ format_cover()
 
 	log_debug "Preparing cover '$target'"
 
-	is_int "$border_radius"
-	if (( $? == 0 )); then
+	if [[ $(is_int "$border_radius") -eq 0 ]]; then
 		border_radius=15
 	fi
 
@@ -241,7 +240,7 @@ load_cover()
 #
 # Returns the path to the default cover if failed.
 #
-# Takes no arguments.
+# *Takes no arguments.*
 get_cover()
 {
 	local song="$(get_currently_playing)"

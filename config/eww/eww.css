@@ -1,160 +1,81 @@
 @import "colors.css";
 
+/* GLOBAL SETTINGS */
+
 * {
 	font-family: "Hack Nerd Font";
-    font-weight: bold;
-    font-size: 16px;
+	font-weight: bold;
+	font-size: 16px;
 }
+
+/* BASE WIDGETS */
 
 .secondary-text {
 	color: @fg;
     font-size: 14px;
 }
 
-.status-menu {
-	border: 2px solid;
-	border-color: @accent;
-	background-color: @bg;
-	border-radius: 15px;
-	padding: 20px;
-}
-
-.wifi-button-inactive,
-.ethernet-button-inactive,
-.bluetooth-button-inactive,
-.powersave-button-inactive {
-	margin: 8 8 8 8px;
-	border: 0px solid transparent;
-	border-radius: 15px;
-	background-color: @br1_bg;
-	background-image: none;
-	transition: border-radius 0.1s linear;
-}
-
-.wifi-button-inactive:hover,
-.ethernet-button-inactive:hover,
-.bluetooth-button-inactive:hover,
-.powersave-button-inactive:hover {
-	border-radius: 20px;
-	background-color: @br2_bg;
-	transition: border-radius 0.1s linear;
-}
-
-.wifi-button-inactive:active,
-.ethernet-button-inactive:active,
-.bluetooth-button-inactive:active,
-.powersave-button-inactive:active {
-	border-radius: 32px;
-	background-color: @br3_bg;
-	transition: border-radius 0.1s linear;
-}
-
-.wifi-label-inactive,
-.ethernet-label-inactive,
-.bluetooth-label-inactive,
-.powersave-label-inactive {
-	color: @fg;
-	font-size: 20;
-	margin-right: 80px;
-}
-
-.wifi-button-active,
-.ethernet-button-active,
-.bluetooth-button-active,
-.powersave-button-active {
-	margin: 8 8 8 8px;
-	border: 0px solid transparent;
-	border-radius: 128px;
-	background-color: @br_fg;
-	background-image: none;
-	transition: all 0.1s linear;
-}
-
-.wifi-button-active:hover,
-.ethernet-button-active:hover,
-.bluetooth-button-active:hover,
-.powersave-button-active:hover {
-	border-radius: 128px;
-	background-color: @fg;
-}
-
-.wifi-button-active:active,
-.ethernet-button-active:active,
-.bluetooth-button-active:active,
-.powersave-button-active:active {
-	border-radius: 128px;
-	background-color: @br3_bg;
-}
-
-.wifi-button-active,
-.wifi-button-inactive,
-.bluetooth-button-active,
-.bluetooth-button-inactive {
-	margin-left: 0px;
-}
-
-.ethernet-button-active,
-.ethernet-button-inactive,
-.powersave-button-active,
-.powersave-button-inactive {
-	margin-right: 0px;
-}
-
-.wifi-label-active,
-.ethernet-label-active,
-.bluetooth-label-active,
-.powersave-label-active {
-	color: @bg;
-	font-size: 24;
-	margin-right: 80px;
-}
-
-.brightness-slider,
-.speaker-volume-slider,
-.mic-volume-slider {
+.styled-slider {
 	margin-left: -12px;
 	margin-right: -12px;
 }
 
-.brightness-slider trough,
-.speaker-volume-slider trough,
-.mic-volume-slider trough {
+.styled-slider trough {
   background-color: @br_bg;
   background-image: none;
   border-radius: 8px;
   min-height: 16px;
 }
 
-.brightness-slider trough highlight,
-.speaker-volume-slider trough highlight,
-.mic-volume-slider trough highlight {
+.styled-slider trough highlight {
 	border: none;
 	background-color: @fg;
 	border-radius: 8px;
 	background-image: none;
 	min-height: 10px;
-	min-width: 12px;
+	min-width: 16px;
 }
 
-.brightness-slider trough slider,
-.speaker-volume-slider trough slider,
-.mic-volume-slider trough slider {
+.styled-slider trough slider {
 	border: none;
 	background: transparent;
 }
 
-.brightness-icon,
-.speaker-icon,
-.mic-icon {
-	margin-left: 12px;
-	color: @br_bg;
+.styled-button {
+	border: 0px solid transparent;
+	border-radius: 15px;
+	background-color: @br1_bg;
+	background-image: none;
+	transition: all 0.1s linear;
 }
 
-.power-button,
-.audio-settings-button,
-.screenshot-button,
-.screen-lock-button {
-	margin-top: 16px;
+.styled-button:hover {
+	background-color: @br2_bg;
+}
+
+.styled-button:active {
+	background-color: @br3_bg;
+}
+
+.styled-label {
+	color: @fg;
+}
+
+.styled-text-icon {
+	color: @fg;
+	font-size: 24;
+	margin: 12px;
+}
+
+.status-button-active,
+.left-status-button-active,
+.right-status-button-active {
+	border-radius: 15px;
+}
+
+.status-button-inactive,
+.left-status-button-inactive,
+.right-status-button-inactive {
 	border: 0px solid transparent;
 	border-radius: 128px;
 	background-color: @br1_bg;
@@ -162,36 +83,174 @@
 	transition: all 0.1s linear;
 }
 
-.power-button:hover,
-.audio-settings-button:hover,
-.screenshot-button:hover,
-.screen-lock-button:hover {
+.status-button-inactive:hover,
+.left-status-button-inactive:hover,
+.right-status-button-inactive:hover {
 	background-color: @br2_bg;
+	transition: all 0.1s linear;
 }
 
-.power-button:active,
-.audio-settings-button:active,
-.screenshot-button:active,
-.screen-lock-button:active {
+.status-button-inactive:active,
+.left-status-button-inactive:active,
+.right-status-button-inactive:active {
 	background-color: @br3_bg;
+	transition: all 0.1s linear;
 }
 
-.screenshot-button {
-	margin-left: 28px;
+.left-status-button-inactive,
+.left-status-button-inactive:hover,
+.left-status-button-inactive:active {
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+	margin-right: 53px;
 }
 
-.power-button {
-	margin-right: 28px;
+.right-status-button-inactive,
+.right-status-button-inactive:hover,
+.right-status-button-inactive:active {
+	min-width: 40px;
+	border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px;
 }
 
-.screen-lock-button {
-	margin-right: 21px;
-	margin-left: 7px;
+.status-button-icon-inactive,
+.status-button-left-icon-inactive,
+.status-button-label-inactive,
+.status-button-right-icon-inactive,
+.status-button-sublabel-inactive {
+	color: @fg;
 }
 
-.audio-settings-button {
-	margin-left: 21px;
-	margin-right: 7px;
+.status-button-active,
+.left-status-button-active,
+.right-status-button-active {
+	border: 0px solid transparent;
+	background-color: @fg;
+	background-image: none;
+	transition: all 0.1s linear;
+}
+
+.status-button-active:hover,
+.left-status-button-active:hover,
+.right-status-button-active:hover {
+	background-color: @dr_fg;
+}
+
+.status-button-active:active,
+.left-status-button-active:active,
+.right-status-button-active:active {
+	background-color: @dr1_fg;
+}
+
+.left-status-button-active,
+.left-status-button-active:hover,
+.left-status-button-active:active {
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+	margin-right: 53px;
+}
+
+.right-status-button-active,
+.right-status-button-active:hover,
+.right-status-button-active:active {
+	min-width: 40px;
+	border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px;
+}
+
+.status-button-icon-active,
+.status-button-right-icon-active {
+	color: @bg;
+}
+
+.status-button-right-icon-active,
+.status-button-right-icon-inactive,
+.status-button-icon-active,
+.status-button-icon-inactive {
+	font-size: 24px;
+}
+
+.status-button-icon-active,
+.status-button-icon-inactive {
+	margin-left: 16px;
+}
+
+.status-button-label-inactive,
+.status-button-label-active {
+	margin-left: 60px;
+	margin-bottom: 18px;
+}
+
+.status-button-sublabel-inactive,
+.status-button-sublabel-active {
+	margin-left: 60px;
+	margin-top: 18px;
+	font-weight: normal;
+	font-size: 12;
+}
+
+/* SPECIALIZED WIDGETS */
+
+.smenu-buttons-row {
+	margin-bottom: 16px;
+	min-height: 50px;
+}
+
+.bluetooth-button,
+.caffeine-button,
+.screenshot-button,
+.wallpaper-button {
+	margin-left: 8px;
+}
+
+.wifi-button,
+.focus-button,
+.pavucontrol-button,
+.theme-button {
+	margin-right: 8px;
+}
+
+.paused-button,
+.playing-button {
+	border: 0px solid transparent;
+	background-color: @fg;
+	background-image: none;
+	color: @fg;
+	margin: -4px;
+	border-radius: 100%;
+	transition: all 0.1s linear;
+}
+
+.paused-button:hover,
+.playing-button:hover {
+	background-color: @dr_fg;
+}
+
+.paused-button:active,
+.playing-button:active {
+	background-color: @dr1_fg;
+}
+
+.play-pause-icon {
+	font-size: 32;
+	color: @bg;
+}
+
+.media-control-box {
+	margin-top: 60px;
+}
+
+.media-control-buttons {
+	margin-bottom: 19px;
+}
+
+/* WINDOW ELEMENTS */
+
+.brightness-icon,
+.speaker-icon,
+.mic-icon {
+	margin-left: 16px;
+	color: @br_bg;
 }
 
 .power-label,
@@ -201,61 +260,15 @@
 	color: @fg;
 }
 
-.media-control {
-	border: 2px solid;
-	border-color: @accent;
-	background-color: @bg;
-	border-radius: 15px;
-	padding: 20 20 00 20px;
-}
-
-.track-cover {
-	padding: 0 0 15 0px;
-}
-
-.master-audio-box {
-	margin-top: 60px;
-}
-
 .track-title {
 	color: @br_fg;
     font-size: 24px;
-	margin-top: 10px;
 }
 
 .track-artist {
 	color: @fg;
+	font-weight: normal;
     font-size: 14px;
-}
-
-.track-slider {
-	margin-left: -12px;
-	margin-right: -12px;
-}
-
-.track-slider trough {
-  background-color: @br_bg;
-  background-image: none;
-  border-radius: 8px;
-  min-height: 10px;
-}
-
-.track-slider trough highlight {
-	border: none;
-	background-color: @fg;
-	border-radius: 8px;
-	background-image: none;
-	min-height: 10px;
-	min-width: 12px;
-}
-
-.track-slider trough slider {
-	border: none;
-	background: transparent;
-}
-
-.track-timers {
-	margin-top: -8px;
 }
 
 .track-elapsed-text {
@@ -268,47 +281,43 @@
     font-size: 12px;
 }
 
-.audio-control-box {
-	padding: 0 0 20 0px;
-}
+/* WINDOWS */
 
-.previous-track-button,
-.paused-button,
-.playing-button,
-.next-track-button {
-	border: 0px solid transparent;
+.notification-center,
+.status-menu {
+	border: 2px solid;
+	border-color: @accent;
+	background-color: @bg;
 	border-radius: 15px;
-	background-color: @br1_bg;
-	background-image: none;
-	transition: all 0.1s linear;
+	padding: 20px;
 }
 
-.previous-track-button:hover,
-.paused-button:hover,
-.playing-button:hover,
-.next-track-button:hover {
-	border-radius: 24px;
-	background-color: @br2_bg;
+.media-control {
+	border: 2px solid;
+	border-color: @accent;
+	background-color: @bg;
+	border-radius: 15px;
+	padding: 20 20 00 20px;
 }
 
-.previous-track-button:active,
-.paused-button:active,
-.playing-button:active,
-.next-track-button:active {
-	border-radius: 128px;
-	background-color: @br3_bg;
+/* ACTIVATE LINUX */
+
+.activate-linux {
+	color: rgba(250, 250, 250, 0.5);
 }
 
-.playing-button {
-	border-radius: 128px;
-	background-color: @br3_bg;
+.activate-linux-header {
+    font-size: 24px;
+	font-weight: normal;
+	font-family: "Segoe"
 }
 
-.playing-button:hover {
-	background-color: @br2_bg;
+.activate-linux-text {
+    font-size: 18px;
+	font-weight: normal;
+	font-family: "Segoe"
 }
 
-.media-control-icon {
-    font-size: 32px;
-	color: @br_fg;
+.activate-linux.background {
+	background: none;
 }

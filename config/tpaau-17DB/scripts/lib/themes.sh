@@ -1,5 +1,3 @@
-source ~/.config/tpaau-17DB/scripts/lib/paths.sh
-source ~/.config/tpaau-17DB/scripts/lib/paths.sh
 source ~/.config/tpaau-17DB/scripts/lib/apply-colors.sh
 source ~/.config/tpaau-17DB/scripts/lib/utils.sh
 
@@ -64,12 +62,102 @@ check_theme()
 	fi
 }
 
+install_wallpaper()
+{
+	local wallpaper="$1"
+	local restart_hyprpaper=$2
+
+	if [[ ! -f "$wallpaper" ]]; then
+		log_error "Cannot install wallpaper: '$wallpaper' is not a file"
+		return 1
+	else
+		cp "$wallpaper" "$CURRENT_WALLPAPER"
+	fi
+
+	if [[ $restart_hyprpaper == true ]]; then
+		log_debug "Restarting hyprpaper"
+		while pgrep -x hyprpaper 2>&1 >/dev/null; do
+			pkill hyprpaper 2>&1 >/dev/null
+			sleep 0.01
+		done
+
+		hyprpaper 2>&1 >/dev/null &
+	fi
+
+	return $?
+}
+
+# Executes theme hooks.
+# 
+# Args:
+# 	$1: The absolute path to the theme file to get hooks from
+# 	$2: The hook type, can be one of the following:
+# 	  - on-install
+# 	  - on-uninstall
+# 	  - on-load
+run_hooks()
+{
+	local theme_file="$1"
+	local hook_type="$2"
+
+	local hook=""
+	if [[ "$hook_type" == "on-install" ]]; then
+		hook="ON_INSTALL"
+	elif [[ "$hook_type" == "on-uninstall" ]]; then
+		hook="ON_UNINSTALL"
+	elif [[ "$hook_type" == "on-load" ]]; then
+		hook="ON_LOAD"
+	else
+		log_error "Unknown hook type: '$hook_type'"
+		return 1
+	fi
+
+	source "$theme_file"
+	if (( $? == 0 )); then
+		if [[ ! -z "${!hook}" ]]; then
+			log_debug "Running $hook_type hook"
+			bash -c "${!hook}"
+			if (( $? != 0 )); then
+				log_error "Failed running $hook_type hook: '${!hook}'"
+			fi
+			return $?
+		else
+			log_info "Skipping $hook_type hook: hook empty"
+			return $?
+		fi
+	else
+		log_error "Can't run $hook_type hooks: failed sourcing theme file '$theme_file'"
+			return 1
+	fi
+}
+
+on_theme_loaded()
+{
+	if [[ -f "$CURRENT_THEME" ]]; then
+		local theme="${THEMES_DIR}/$(name_pretty_to_path_relative "$(cat "$CURRENT_THEME")")"
+		run_hooks "$theme" "on-load"
+	else
+		log_error "Can't run on-load hooks: '$CURRENT_THEME' is missing"
+	fi
+}
+
 # Installs theme from its NAME_PRETTY but doesn't apply it.
 #
 # Args:
 # 	$1: The pretty name of the theme to install
 install_theme()
 {
+	# We run this in a subshell so the settings from the next theme won't get
+	# mixed with the settings of the current one
+	$(
+		if [[ -f "$CURRENT_THEME" ]]; then
+			local prev_theme="${THEMES_DIR}/$(name_pretty_to_path_relative "$(cat "$CURRENT_THEME")")"
+			run_hooks "$prev_theme" "on-uninstall"
+		else
+			log_error "Can't run on-uninstall hooks: '$CURRENT_THEME' is missing"
+		fi
+	)
+
 	local name_pretty="$1"
 
 	log_debug "Installing theme '$name_pretty'"
@@ -82,7 +170,7 @@ install_theme()
 	fi
 
 	local status=0
-	run_step cp "$WALLPAPER" "$CURRENT_WALLPAPER"
+	run_step install_wallpaper "$WALLPAPER"
 	run_step cp "$MAKO_CONF" "$CONF/mako/config"
 	run_step cp "$WAYBAR_CONF" "$CONF/waybar/config.jsonc"
 	run_step cp "$WAYBAR_CSS" "$CONF/waybar/style.css"
@@ -141,7 +229,15 @@ apply_theme()
 		"$SCRIPTS_DIR/restart.sh" programs
 	else
 		log_error "Failed loading '$name_pretty'"
-		notify_err "Failed loading '$name_pretty'"
+		notify_err "Error" "Failed loading '$name_pretty'"
+	fi
+
+	if [[ -f "$CURRENT_THEME" ]]; then
+		local theme="${THEMES_DIR}/$(name_pretty_to_path_relative "$(cat "$CURRENT_THEME")")"
+		run_hooks "$theme" "on-install"
+		run_hooks "$theme" "on-load"
+	else
+		log_error "Can't run on-install hooks: '$CURRENT_THEME' is missing"
 	fi
 
 	return $status

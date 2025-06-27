@@ -1,49 +1,13 @@
 #!/usr/bin/env bash
 
-# Used for taking screenshots in a nice way
-
-source ~/.config/tpaau-17DB/scripts/lib/paths.sh
-source ~/.config/tpaau-17DB/scripts/lib/logger.sh
-
-SS_NAME="screenshot.png"
-
-cleanup()
-{
-	if [[ -e "$TMP_DIR/$SS_NAME" ]]; then
-		log_debug "Cleaning temporary files"
-		rm -rf "$TMP_DIR/$SS_NAME"
+# Offset can be added so that if it's invoked from a  widget the widget has
+# some time to fade away
+if (( $# > 0 )); then
+	if [[ $2 == true ]]; then
+		~/.config/tpaau-17DB/scripts/toggle-widget.sh status-menu
 	fi
-}
-
-if [[ $(pgrep -x slurp) ]]; then
-	log_warning "Another screenshot utility is likely running, stopping."
-	exit 0
+	sleep "$1"
 fi
 
-cleanup
-
-mkdir -p "$TMP_DIR"
-
-log_debug "Taking screenshot" 
-
-geomery="$(slurp)"
-
-if [[ "$geomery" == "selection cancelled" ]]; then
-	log_debug "Screenshot cancelled"
-	cleanup
-	exit 0
-fi
-
-grim -g "$geomery" - >> "$TMP_DIR/$SS_NAME"
-
-if [[ -z $(cat "$TMP_DIR/$SS_NAME") ]]; then
-	log_error "Screenshot empty!"
-	exit 1
-fi
-
-log_debug "Copying to clipboard"
-cat "$TMP_DIR/$SS_NAME" | wl-copy
-
-notify-send -i "$TMP_DIR/$SS_NAME" "Screenshot taken!"
-
-cleanup
+# Running multiple instances of hyprshot is fun
+pkill hyprshot || hyprshot --freeze -o ~/Pictures/Screenshots -m region -m eDP-1

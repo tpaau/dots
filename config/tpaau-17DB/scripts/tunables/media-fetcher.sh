@@ -6,7 +6,7 @@
 # For example, setting this to 0.033 should theoretically result in 30 updates
 # per second, though this calculation skips the actual time required to fetch
 # media.
-FETCH_DELTA=0.05
+FETCH_DELTA=0.1
 
 # The maximum length of the output string.
 #

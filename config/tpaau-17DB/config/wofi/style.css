@@ -55,6 +55,7 @@ window {
 
 #text:selected {
     color: @br_text;
+	font-weight: bold;
     margin: 0px 0px;
     border: none;
     border-radius: 15px;

@@ -95,7 +95,6 @@ update()
 	mkdir -p "$TP_DST"
 	cp -r "$TP_SRC"/* "$TP_DST"
 	rm -r "$TP_DST/cache/"
-	rm -r "$TP_DST/tmp/"
 	check_status
 
 	echo -n "share:"
@@ -111,12 +110,4 @@ update()
 # Make sure we are in a git repo
 ensure_in_git_repo
 
-info "Type the name of the owner of this repository to continue:"
-read input
-
-if [[ "$input" == "tpaau-17DB" ]]; then
-	info "Proceeding."
-	update
-else
-	error "wrong"
-fi
+update

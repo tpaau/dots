@@ -11,42 +11,37 @@ restart_programs()
 {
 	log_debug "Restarting some programs"
 
-	log_debug "Restarting waybar"
-	pkill -x waybar 2>&1 >/dev/null
-
-	while pgrep -x waybar 2>&1 >/dev/null; do
-		sleep 0.1
-	done
-
-	waybar 2>&1 >/dev/null &
-
+	log_debug "Reloading eww"
+	eww reload
 
 	log_debug "Restarting mako"
 	pkill -x mako 2>&1 >/dev/null
 
 	while pgrep -x mako 2>&1 >/dev/null; do
-		sleep 0.1
+		sleep 0.01
 	done
 
 	mako 2>&1 >/dev/null &
 
-
 	log_debug "Restarting hyprpaper"
 	while pgrep -x hyprpaper 2>&1 >/dev/null; do
 		pkill hyprpaper 2>&1 >/dev/null
-		sleep 0.1
+		sleep 0.01
 	done
 
 	hyprpaper 2>&1 >/dev/null &
 
-
-	log_debug "Reloading eww"
-	eww reload 2>&1 >/dev/null &
-
-	$SCRIPTS_DIR/smenu-utils.sh regenerate-variables
-
 	log_debug "Reload hyprland"
 	hyprctl reload 2>&1 >/dev/null &
+
+	log_debug "Restarting waybar"
+	pkill -x waybar 2>&1 >/dev/null
+
+	while pgrep -x waybar 2>&1 >/dev/null; do
+		sleep 0.01
+	done
+
+	waybar 2>&1 >/dev/null &
 
 	# Kill leftovers
 	log_debug "Killing any unclosed wofi instances"
@@ -71,6 +66,8 @@ full_restart()
 	$SCRIPTS_DIR/regenerate-symlinks.sh
 
 	restart_programs
+
+	on_theme_loaded
 }
 
 if (( $# != 1 )); then
@@ -80,10 +77,10 @@ fi
 
 if [[ "$1" == "full" ]]; then
 	full_restart
-	exit 0
+	exit $?
 elif [[ "$1" == "programs" ]]; then
 	restart_programs
-	exit 0
+	exit $?
 else
 	log_error "Unknown argument: '$1'"
 	exit 1

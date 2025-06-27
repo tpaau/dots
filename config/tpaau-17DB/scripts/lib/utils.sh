@@ -1,5 +1,20 @@
 source ~/.config/tpaau-17DB/scripts/lib/logger.sh
 
+# Exits with 0 if given argument is an integer and with 1 otherwise.
+#
+# Args:
+# 	$1: The value to evaluate
+is_int()
+{
+	local value="$1"
+	if [[ -z "$value" ]] || [[ ! "$value" =~ ^-?[0-9]+$ ]]; then
+		echo 0
+		return $?
+	fi
+	echo 1
+	return $?
+}
+
 # Used to clean cache and temporary files as well as directories.
 #
 # Args:
@@ -42,24 +57,6 @@ shorten_text()
 	else
 		echo "$text"
     fi
-}
-
-# Removes all files starting with `tmp-` under $TMP_DIR.
-#
-# * Takes no arguments.*
-remove_leftover_tmp()
-{
-	local -a tmp=()
-	mapfile -t tmp < <(find "$TMP_DIR" -name "tmp-*")
-
-	if (( ${#tmp[@]} == 0 )); then
-		log_debug "No leftover tmp files found"
-		return 0
-	else
-		log_warning "Removing leftover tmp files: ${tmp[*]}"
-		rm -- "${tmp[@]}"
-		return $?
-	fi
 }
 
 # Views logs from the given file in real time.
@@ -105,29 +102,4 @@ sanitize_string()
 run_step()
 {
     "$@" || status=1
-}
-
-# Finds all *.lock files in the dots root directory (TP) and removes them.
-#
-# Takes no arguments.
-remove_locks()
-{
-	local locks="$(find "$TP" -name "*.lock")"
-	if [[ ! -z "$locks" ]]; then
-		log_info "Some lock files are still present: '$locks'"
-		while IFS= read -r lock; do
-			rm "$lock"
-			local status=$?
-			if (( $status == 0 )); then
-				log_debug "Removed '$lock'"
-				return $status
-			else
-				log_error "Failed deleting '$lock'"
-				return $status
-			fi
-		done <<< "$locks"
-	else
-		log_debug "No leftover lock files found"
-		return 0
-	fi
 }

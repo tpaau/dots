@@ -12,10 +12,15 @@ CACHE_DIR="$TP/cache"
 mkdir -p "$CACHE_DIR/"
 
 # Directory containing temporary items
-TMP_DIR="$TP/tmp"
+TMP_DIR="/tmp/tpaau-17DB"
 mkdir -p "$TMP_DIR/"
+chmod -R 700 "$TMP_DIR/"
 
-POWERSAVE_STATUS="$TMP_DIR/powersave"
+# The output of '$(date +%Y-%m-%d)'
+CURRENT_DATE="$(date +%Y-%m-%d)"
+
+# File holding powersave mode state
+POWERSAVE_STATUS="$CACHE_DIR/powersave"
 
 # Directory containing wallpapers
 WALLPAPERS_DIR="$TP/wallpapers"
@@ -27,8 +32,7 @@ CURRENT_WALLPAPERS_DIR="$HOME/Pictures/wallpapers"
 CURRENT_WALLPAPER="$CURRENT_WALLPAPERS_DIR/current.png"
 
 # The current lockscreen wallpaper. If this file does not exist, screen lock
-# should fall back to background color defined in the current theme colors.css
-# file.
+# will fall back to background color of the current theme.
 CURRENT_LOCKSCREEN="$CURRENT_WALLPAPERS_DIR/lockscreen.png"
 
 # File containing the current colorscheme
@@ -48,7 +52,5 @@ SCRIPTS_DIR="$TP/scripts"
 
 # Directory containing various config files
 TP_CONF="$TP/config"
-
-CURRENT_DATE="$(date +%Y-%m-%d)"
 
 COVER_EXTRACTION_LOCK="$TMP_DIR/cover-extraction.lock"

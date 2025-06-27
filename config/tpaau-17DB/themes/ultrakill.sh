@@ -3,27 +3,27 @@
 source ~/.config/tpaau-17DB/scripts/lib/paths.sh
 
 # The name displayed in wofi
-NAME_PRETTY="TEMPLATE FILE, DO NOT SOURCE"
+NAME_PRETTY="ULTRAKILL"
 
 # Path to the wallpaper
-WALLPAPER="$WALLPAPERS_DIR/wallpaper.png"
+WALLPAPER="$WALLPAPERS_DIR/ultrakill-v1.png"
 
 # Path to the lockscreen wallpaper, usually the same as regular wallpaper
 # When set to an empty string, hyprlock will fall back to background color
-LOCKSCREEN="$WALLPAPERS_DIR/lockscreen.png"
+LOCKSCREEN="$WALLPAPERS_DIR/ultrakill-v1.png"
 
 # Path to the CSS colors file
-COLORS="$COLORS_DIR/style.css"
+COLORS="$COLORS_DIR/ultrakill.css"
 
 # The name of the kitty theme to apply
-KITTY_THEME="theme_name"
+KITTY_THEME="Black Metal"
 
 # Path to mako config file
 MAKO_CONF="$TP_CONF/mako/config"
 
 # Paths to waybar config files
 WAYBAR_CONF="$TP_CONF/waybar/config.jsonc"
-WAYBAR_CSS="$TP_CONF/waybar/floating-solid.css"
+WAYBAR_CSS="$TP_CONF/waybar/floating.css"
 
 # Paths to wlogout config files
 WLOGOUT_CONF="$TP_CONF/wlogout/layout"
@@ -43,7 +43,7 @@ WOFI_CSS="$TP_CONF/wofi/style.css"
 ON_INSTALL="notify-send -i $WALLPAPER 'Theme installed' 'Installed theme ${NAME_PRETTY}' -a '$0'"
 
 # Command to execute by bash when uninstalling the theme
-ON_UNINSTALL="notify-send -i $WALLPAPER 'Theme uninstalled' 'Uninstalled theme ${NAME_PRETTY}' -a '$0'"
+ON_UNINSTALL="eww close activate-linux"
 
 # Command to execute by bash when the theme is loaded (applied or reapplied)
-ON_LOAD="notify-send -i $WALLPAPER 'Theme loaded' 'Loaded theme ${NAME_PRETTY}' -a '$0'"
+ON_LOAD="eww open activate-linux"

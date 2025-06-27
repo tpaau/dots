@@ -1,14 +1,9 @@
 #!/usr/bin/env bash
 
-# This script is to be run at every startup. It ensures any leftovers from
-# previous boot are removed, essential variables and temporary files
-# regenerated, and the environment set up for action.
+# This script is to be run at every startup.
 
 source ~/.config/tpaau-17DB/scripts/lib/check-dependencies.sh
-source ~/.config/tpaau-17DB/scripts/lib/logger.sh
-source ~/.config/tpaau-17DB/scripts/lib/notifications.sh
-source ~/.config/tpaau-17DB/scripts/lib/locks.sh
-source ~/.config/tpaau-17DB/scripts/lib/utils.sh
+source ~/.config/tpaau-17DB/scripts/lib/themes.sh
 
 if (( $# != 0 )); then
 	log_warning "Any arguments passed to this script will be ignored"
@@ -16,16 +11,14 @@ fi
 
 status=0
 
-run_step $SCRIPTS_DIR/smenu-utils.sh regenerate-variables
-run_step remove_locks
-run_step remove_leftover_tmp
 run_step run_all_depchecks
+run_setp on_theme_loaded
 
 if (( $status == 0 )); then
 	log_debug "Executed successfully"
 	exit $status
 else
-	notify_err "Failed to execute all on-startup commands. Enable file logging, reboot your system and run \`./logs.sh\` for more info."
+	notify_err "Error" "Failed to execute all on-startup commands. Enable file logging, reboot your system and run \`./logs.sh\` for more info."
 	log_error "Failed to execute all the on-startup commands, see errors above"
 	exit $status
 fi

@@ -5,9 +5,6 @@
 #
 # Updates eww variables to reflect the changes in the media control widget.
 
-source ~/.config/tpaau-17DB/scripts/lib/paths.sh
-source ~/.config/tpaau-17DB/scripts/lib/logger.sh
-source ~/.config/tpaau-17DB/scripts/lib/utils.sh
 source ~/.config/tpaau-17DB/scripts/lib/covers.sh
 source ~/.config/tpaau-17DB/scripts/tunables/media-fetcher.sh
 
@@ -64,15 +61,15 @@ update_cover()
 # Reverts eww media-control widget to its default state.
 #
 # *Takes no arguments.*
-update_not_playing()
+update_stopped()
 {
-	eww update media-playing=false
-	eww update cover-path="$DEFAULT_COVER"
-	eww update track-title="Unknown"
-	eww update track-artist="Unknown"
-	eww update track-len="--:--"
-	eww update track-elapsed="--:--"
-	eww update track-elapsed-percent="0"
+	eww update media-status="Stopped" \
+		cover-path="$DEFAULT_COVER" \
+		track-title="Unknown" \
+		track-artist="Unknown" \
+		track-len="--:--" \
+		track-elapsed="--:--" \
+		track-elapsed-percent=0
 }
 
 # Formats given integer treated as the number of seconds into HH:MM:SS format.
@@ -106,15 +103,19 @@ watch() {
 	local prev_len=0
 
     while true; do
-		local update_diplay=false
-		local update_cover=false
 		IFS="$SEP" read -r title artist len pos_sec status <<< "$(playerctl metadata --format "{{title}}$SEP{{artist}}$SEP{{mpris:length}}$SEP{{position}}$SEP{{status}}")"
 		case $status in
-			Playing)
-				if [[ "$prev_status" != "pl" ]]; then
-					eww update media-playing=true
+			Playing|Paused)
+				local update_diplay=false
+				local update_cover=false
+				if [[ "$status" == "Playing" && "$prev_status" != "Playing" ]]; then
+					eww update media-status="Playing"
+					update_diplay=true
+				elif [[ "$status" == "Paused" && "$prev_status" != "Paused" ]]; then
+					echo "Paused"
+					eww update media-status="Paused"
 				fi
-				prev_status="pl"
+				prev_status="$status"
 				local pos_percent=$(track_percent "$pos_sec" "$len")
 				local pos_sec=$(( pos_sec / 1000000 ))
 
@@ -146,9 +147,10 @@ watch() {
 				
 				if (( len != prev_len )); then
 					eww update track-len=$(format_time_sec $((len / 1000000 )))
+					prev_len=len
 				fi
 
-				if [[ $update_diplay == true ]]; then
+				if [[ $update_diplay == true && "$status" == "Playing" ]]; then
 					echo "[$pos_percent%] $(shorten_text "$title - $artist" $MAX_OUTPUT_LENGTH)"
 				fi
 
@@ -156,19 +158,12 @@ watch() {
 					update_cover "$artist" "$title" &
 				fi
 				;;
-			Paused)
-				echo "Paused"
-				if [[ "$prev_status" != "pa" ]]; then
-					eww update media-playing=false
-				fi
-				prev_status="pa"
-				;;
 			*)
-				echo "Not playing"
-				if [[ "$prev_status" != "np" ]]; then
-					update_not_playing
+				if [[ "$prev_status" != "Stopped" ]]; then
+					echo "Stopped"
+					update_stopped
 				fi
-				prev_status="np"
+				prev_status="Stopped"
 				;;
 		esac
         sleep $FETCH_DELTA

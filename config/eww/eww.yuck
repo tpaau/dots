@@ -1,2 +1,4 @@
 (include "status-menu.yuck")
 (include "media-control.yuck")
+(include "notification-center.yuck")
+(include "activate-linux.yuck")
