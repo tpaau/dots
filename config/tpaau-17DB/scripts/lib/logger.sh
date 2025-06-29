@@ -1,4 +1,6 @@
-source ~/.config/tpaau-17DB/scripts/lib/paths.sh
+LOGGER_SOURCED=1
+
+if (( PATHS_SOURCED != 1 )); then source ~/.config/tpaau-17DB/scripts/lib/paths.sh ; fi
 source ~/.config/tpaau-17DB/scripts/tunables/logger.sh
 
 BOLD_WHITE="\033[1;37m"

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-source ~/.config/tpaau-17DB/scripts/lib/paths.sh
-source ~/.config/tpaau-17DB/scripts/lib/logger.sh
+if (( LOGGER_SOURCED != 1 )); then source ~/.config/tpaau-17DB/scripts/lib/logger.sh; fi
+if (( PATHS_SOURCED != 1 )); then source ~/.config/tpaau-17DB/scripts/lib/paths.sh; fi
 
 WIDGET_NAME=""
 

@@ -1,5 +1,7 @@
-source ~/.config/tpaau-17DB/scripts/lib/apply-colors.sh
-source ~/.config/tpaau-17DB/scripts/lib/utils.sh
+THEMES_SOURCED=1
+
+if (( APPLY_COLORS_SOURCED != 1 )); then source ~/.config/tpaau-17DB/scripts/lib/apply-colors.sh; fi
+if ((UTILS_SOURCED != 1 )); then source ~/.config/tpaau-17DB/scripts/lib/utils.sh; fi
 
 # Returns relative paths of all the theme files under THEMES_DIR.
 #
@@ -141,6 +143,19 @@ on_theme_loaded()
 	fi
 }
 
+setup_nvim_colorscheme()
+{
+	local colorscheme="$1"
+	if [[ -z "$colorscheme" ]]; then
+		source ~/.config/tpaau-17DB/scripts/tunables/nvim.sh
+		echo "$DEFAULT_NVIM_COLORSCHEME" > "$NVIM_COLORSCHEME_FILE"
+		return $?
+	else
+		echo "$colorscheme" > "$NVIM_COLORSCHEME_FILE"
+		return $?
+	fi
+}
+
 # Installs theme from its NAME_PRETTY but doesn't apply it.
 #
 # Args:
@@ -149,7 +164,7 @@ install_theme()
 {
 	# We run this in a subshell so the settings from the next theme won't get
 	# mixed with the settings of the current one
-	$(
+	(
 		if [[ -f "$CURRENT_THEME" ]]; then
 			local prev_theme="${THEMES_DIR}/$(name_pretty_to_path_relative "$(cat "$CURRENT_THEME")")"
 			run_hooks "$prev_theme" "on-uninstall"
@@ -179,6 +194,7 @@ install_theme()
 	run_step cp "$WOFI_CONF" "$CONF/wofi/config"
 	run_step cp "$WOFI_CSS" "$CONF/wofi/style.css"
 	run_step cp "$COLORS" "$CURRENT_COLORS"
+	run_step setup_nvim_colorscheme "$NVIM_COLORSCHEME"
 	if [[ -f "$CURRENT_LOCKSCREEN" ]]; then
 		rm "$CURRENT_LOCKSCREEN"
 	fi
@@ -239,6 +255,8 @@ apply_theme()
 	else
 		log_error "Can't run on-install hooks: '$CURRENT_THEME' is missing"
 	fi
+
+	notify-send -u low -i $WALLPAPER "Theme applied" "Applied theme ${NAME_PRETTY}" -a "tpaau-17DB script: $0"
 
 	return $status
 }

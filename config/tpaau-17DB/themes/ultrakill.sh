@@ -40,10 +40,13 @@ WOFI_CSS="$TP_CONF/wofi/style.css"
 # Leave them empty to do nothing
 
 # Command to execute by bash when installing the theme
-ON_INSTALL="notify-send -i $WALLPAPER 'Theme installed' 'Installed theme ${NAME_PRETTY}' -a '$0'"
+ON_INSTALL=""
 
 # Command to execute by bash when uninstalling the theme
-ON_UNINSTALL="eww close activate-linux"
+ON_UNINSTALL=""
 
 # Command to execute by bash when the theme is loaded (applied or reapplied)
-ON_LOAD="eww open activate-linux"
+ON_LOAD=""
+
+# Neovim colorscheme (requires the colorscheme to be installed)
+NVIM_COLORSCHEME="onedark_dark"

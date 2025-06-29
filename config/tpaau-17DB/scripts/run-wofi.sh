@@ -6,7 +6,7 @@
 # # ln -s /usr/bin/kitty /usr/bin/gnome-terminal
 # ```
 
-source ~/.config/tpaau-17DB/scripts/lib/logger.sh
+if (( LOGGER_SOURCED )); then source ~/.config/tpaau-17DB/scripts/lib/logger.sh; fi
 
 if [ $(pgrep wlogout) ]; then
 	log_info "wlogout already running, stopping"

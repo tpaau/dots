@@ -1,4 +1,8 @@
-source ~/.config/tpaau-17DB/scripts/lib/utils.sh
+LOCKS_SOURCED=1
+
+if (( PATHS_SOURCED != 1 )); then source ~/.config/tpaau-17DB/scripts/lib/paths.sh; fi
+if (( LOGGER_SOURCED != 1 )); then source ~/.config/tpaau-17DB/scripts/lib/logger.sh; fi
+if (( UTILS_SOURCED != 1 )); then source ~/.config/tpaau-17DB/scripts/lib/utils.sh; fi
 
 # Default timeout for file locks
 DEFAULT_LOCK_TIMEOUT=10

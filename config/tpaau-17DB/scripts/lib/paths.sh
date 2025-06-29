@@ -1,3 +1,5 @@
+PATHS_SOURCED=1
+
 # Directory containing various config files
 CONF="$HOME/.config"
 
@@ -21,6 +23,9 @@ CURRENT_DATE="$(date +%Y-%m-%d)"
 
 # File holding powersave mode state
 POWERSAVE_STATUS="$CACHE_DIR/powersave"
+
+# Neovim colorscheme for the current theme
+NVIM_COLORSCHEME_FILE="$CACHE_DIR/nvim-colorscheme"
 
 # Directory containing wallpapers
 WALLPAPERS_DIR="$TP/wallpapers"

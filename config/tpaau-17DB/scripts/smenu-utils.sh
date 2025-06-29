@@ -5,8 +5,9 @@
 # This script needs to be fast as it can potentially be run hundreds of times
 # a seconds when invoked from a slider.
 
-source ~/.config/tpaau-17DB/scripts/lib/smenu.sh
-source ~/.config/tpaau-17DB/scripts/lib/utils.sh
+if (( SMENU_SOURCED != 1 )); then source ~/.config/tpaau-17DB/scripts/lib/smenu.sh; fi
+if (( UTILS_SOURCED != 1 )); then source ~/.config/tpaau-17DB/scripts/lib/utils.sh; fi
+if (( LOGGER_SOURCED != 1 )); then source ~/.config/tpaau-17DB/scripts/lib/logger.sh; fi
 
 toggle_wifi()
 {
@@ -19,20 +20,6 @@ toggle_wifi()
 		eww update wifi-enabled=true
 		nmcli radio wifi on
 		log_debug "WiFi turned on"
-	fi
-}
-
-toggle_ether()
-{
-	local active=$(ether_active)
-	if (( active == 1 )); then
-		eww update ethernet-enabled=false
-		nmcli device disconnect "$ETHER_DEVICE"
-		log_debug "Ethernet turned off"
-	else
-		eww update ethernet-enabled=true
-		nmcli device connect "$ETHER_DEVICE"
-		log_debug "Ethernet turned on"
 	fi
 }
 
@@ -117,9 +104,6 @@ elif (( $# > 2 )); then
 else
 	if [[ "$1" == "toggle-wifi" ]]; then
 		toggle_wifi
-		exit $?
-	elif [[ "$1" == "toggle-ether" ]]; then
-		toggle_ether
 		exit $?
 	elif [[ "$1" == "toggle-bluetooth" ]]; then
 		toggle_bluetooth

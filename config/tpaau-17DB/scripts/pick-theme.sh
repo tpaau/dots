@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source ~/.config/tpaau-17DB/scripts/lib/themes.sh
+if (( THEMES_SOURCED != 1 )); then source ~/.config/tpaau-17DB/scripts/lib/themes.sh; fi
 
 if [[ $1 == true ]]; then
 	~/.config/tpaau-17DB/scripts/toggle-widget.sh status-menu

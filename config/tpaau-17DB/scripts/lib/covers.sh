@@ -1,7 +1,9 @@
-source ~/.config/tpaau-17DB/scripts/lib/paths.sh
-source ~/.config/tpaau-17DB/scripts/lib/logger.sh
-source ~/.config/tpaau-17DB/scripts/lib/utils.sh
-source ~/.config/tpaau-17DB/scripts/lib/locks.sh
+COVERS_SOURCED=1
+
+if (( PATHS_SOURCED != 1 )); then source ~/.config/tpaau-17DB/scripts/lib/paths.sh; fi
+if (( LOGGER_SOURCED != 1 )); then source ~/.config/tpaau-17DB/scripts/lib/logger.sh; fi
+if (( UTILS_SOURCED != 1 )); then source ~/.config/tpaau-17DB/scripts/lib/utils.sh; fi
+if (( LOCKS_SOURCED != 1 )); then source ~/.config/tpaau-17DB/scripts/lib/locks.sh; fi
 source ~/.config/tpaau-17DB/scripts/tunables/media-fetcher.sh
 
 # Default track cover used when cover extraction failed or no media is playing

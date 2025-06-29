@@ -3,6 +3,11 @@
 # This script is basically just a wrapper for playerctl, but a damn necessary
 # one. Without it, there would be countless race conditions in the shitty media
 # fetcher I made.
+#
+# Note the carefully placed `source` statements to save precious seconds.
+#
+# I look forward to deleting ts once I finish my customizable, memory-safe,
+# blazingly-fast media fetcher in rust.
 
 if (( $# != 1 )); then
 	source ~/.config/tpaau-17DB/scripts/lib/logger.sh

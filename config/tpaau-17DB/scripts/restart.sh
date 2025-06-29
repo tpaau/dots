@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
-source ~/.config/tpaau-17DB/scripts/lib/paths.sh
-source ~/.config/tpaau-17DB/scripts/lib/logger.sh
-source ~/.config/tpaau-17DB/scripts/lib/themes.sh
+if (( THEMES_SOURCED != 1 )); then source ~/.config/tpaau-17DB/scripts/lib/themes.sh; fi
+if (( NOTIFICATIONS_SOURCED != 1 )); then source ~/.config/tpaau-17DB/scripts/lib/notifications.sh; fi
 
 # Restarts various programs and utilities.
 #
@@ -11,44 +10,42 @@ restart_programs()
 {
 	log_debug "Restarting some programs"
 
-	log_debug "Reloading eww"
-	eww reload
+	(
+		log_debug "Restarting waybar"
+		pkill waybar
+		waybar
+	) &
 
-	log_debug "Restarting mako"
-	pkill -x mako 2>&1 >/dev/null
+	(
+		log_debug "Restarting hyprpaper"
+		pkill hyprpaper
+		hyprpaper
+	) &
 
-	while pgrep -x mako 2>&1 >/dev/null; do
-		sleep 0.01
-	done
+	(
+		log_debug "Reloading eww"
+		eww reload
+	) &
 
-	mako 2>&1 >/dev/null &
-
-	log_debug "Restarting hyprpaper"
-	while pgrep -x hyprpaper 2>&1 >/dev/null; do
-		pkill hyprpaper 2>&1 >/dev/null
-		sleep 0.01
-	done
-
-	hyprpaper 2>&1 >/dev/null &
-
-	log_debug "Reload hyprland"
-	hyprctl reload 2>&1 >/dev/null &
-
-	log_debug "Restarting waybar"
-	pkill -x waybar 2>&1 >/dev/null
-
-	while pgrep -x waybar 2>&1 >/dev/null; do
-		sleep 0.01
-	done
-
-	waybar 2>&1 >/dev/null &
+	(
+		log_debug "Reload hyprland"
+		hyprctl reload
+	) &
 
 	# Kill leftovers
-	log_debug "Killing any unclosed wofi instances"
-	pkill wofi 2>&1 >/dev/null
+	(
+		log_debug "Killing any unclosed wofi instances"
+		pkill wofi
 
-	log_debug "Killing any unclosed wlogout instances"
-	pkill wlogout 2>&1 >/dev/null
+		log_debug "Killing any unclosed wlogout instances"
+		pkill wlogout
+	) &
+
+	# mako mustn't be run asynchronously as it needs to notify user when the
+	# theme is reloaded
+	log_debug "Restarting mako"
+	pkill -x mako
+	mako &
 }
 
 # Reinstalls config files for the current theme and restart affected programs.
@@ -66,6 +63,8 @@ full_restart()
 	$SCRIPTS_DIR/regenerate-symlinks.sh
 
 	restart_programs
+
+	notify_low "Reloaded config" "Reapplied the current theme and restarted all relevant programs."
 
 	on_theme_loaded
 }

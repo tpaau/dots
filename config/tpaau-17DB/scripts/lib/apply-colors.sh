@@ -1,7 +1,9 @@
+APPLY_COLORS_SOURCED=1
+
+if (( PATHS_SOURCED != 1 )); then source ~/.config/tpaau-17DB/scripts/lib/paths.sh; fi
+
 apply_colors()
 {
-	source ~/.config/tpaau-17DB/scripts/lib/paths.sh
-
 	local input="$CURRENT_COLORS"
 	local tmp="$TMP_DIR/hypr_colors.conf"
 	local target="$HOME/.config/hypr/sources/colors.conf"

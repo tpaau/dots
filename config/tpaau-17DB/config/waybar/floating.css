@@ -35,7 +35,6 @@ window#waybar {
 }
 
 tooltip {
-    border: 2px solid @accent;
     background-color: @bg;
     border-radius: 12px;
 }
@@ -72,7 +71,7 @@ tooltip label {
 #workspaces button {
     padding: 0px 6px;
 	margin: 10 2px;
-    border-radius: 100%;
+	border-radius: 16px;
     background-color: @dr_fg;
     transition: all 0.2s linear;
 }

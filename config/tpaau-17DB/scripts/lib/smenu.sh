@@ -1,4 +1,22 @@
+SMENU_SOURCED=1
+
 CAFFEINE_COMMAND="systemd-inhibit sleep 250214400"
+
+# Returns the signal strength of the currently active Wi-Fi network.
+#
+# *Takes not arguments*
+wifi_strength()
+{
+	local out="$(nmcli -f ACTIVE,SIGNAL dev wifi)"
+	
+	echo "$out" | grep "^yes" 2>&1 >/dev/null
+	if (( $? == 0 )); then
+		echo "$out" | grep '^yes' | awk '{print $2}'
+		return $?
+	else
+		return 1
+	fi
+}
 
 # Returns whether wifi is enabled as exit status. Note that this only checks
 # if wifi is *enabled*, not *connected*.
@@ -7,13 +25,6 @@ CAFFEINE_COMMAND="systemd-inhibit sleep 250214400"
 wifi_active()
 {
 	nmcli radio wifi | grep -q "enabled" && echo 1 && exit 0
-	echo 0
-}
-
-# *Takes not arguments*
-ether_active()
-{
-	nmcli device status | grep -q "ethernet.*connected" && echo 1 && exit 0
 	echo 0
 }
 

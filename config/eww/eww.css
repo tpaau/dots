@@ -21,19 +21,20 @@
 }
 
 .styled-slider trough {
-  background-color: @br_bg;
-  background-image: none;
-  border-radius: 8px;
-  min-height: 16px;
+	background-color: @br_bg;
+	background-image: none;
+	border-radius: 8px;
+	min-height: 16px;
 }
 
 .styled-slider trough highlight {
 	border: none;
 	background-color: @fg;
-	border-radius: 8px;
+	border-radius: 16px;
 	background-image: none;
-	min-height: 10px;
-	min-width: 16px;
+	min-height: 16px;
+	min-width: 18px;
+	box-shadow: 0 0 0 12px @bg;
 }
 
 .styled-slider trough slider {
@@ -46,7 +47,7 @@
 	border-radius: 15px;
 	background-color: @br1_bg;
 	background-image: none;
-	transition: all 0.1s linear;
+	transition: all 0.2s ease;
 }
 
 .styled-button:hover {
@@ -80,21 +81,21 @@
 	border-radius: 128px;
 	background-color: @br1_bg;
 	background-image: none;
-	transition: all 0.1s linear;
+	transition: all 0.2s ease;
 }
 
 .status-button-inactive:hover,
 .left-status-button-inactive:hover,
 .right-status-button-inactive:hover {
 	background-color: @br2_bg;
-	transition: all 0.1s linear;
+	transition: all 0.2s ease;
 }
 
 .status-button-inactive:active,
 .left-status-button-inactive:active,
 .right-status-button-inactive:active {
 	background-color: @br3_bg;
-	transition: all 0.1s linear;
+	transition: all 0.2s ease;
 }
 
 .left-status-button-inactive,
@@ -127,7 +128,7 @@
 	border: 0px solid transparent;
 	background-color: @fg;
 	background-image: none;
-	transition: all 0.1s linear;
+	transition: all 0.2s ease;
 }
 
 .status-button-active:hover,
@@ -218,7 +219,7 @@
 	color: @fg;
 	margin: -4px;
 	border-radius: 100%;
-	transition: all 0.1s linear;
+	transition: all 0.2s ease;
 }
 
 .paused-button:hover,
@@ -229,6 +230,10 @@
 .paused-button:active,
 .playing-button:active {
 	background-color: @dr1_fg;
+}
+
+.paused-button {
+	border-radius: 22px;
 }
 
 .play-pause-icon {
@@ -249,7 +254,7 @@
 .brightness-icon,
 .speaker-icon,
 .mic-icon {
-	margin-left: 16px;
+	margin-left: 30px;
 	color: @br_bg;
 }
 

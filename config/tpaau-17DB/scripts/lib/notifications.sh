@@ -1,5 +1,7 @@
-source ~/.config/tpaau-17DB/scripts/lib/logger.sh
-source ~/.config/tpaau-17DB/scripts/lib/icons.sh
+NOTIFICATIONS_SOURCED=1
+
+if (( LOGGER_SOURCED != 1 )); then source ~/.config/tpaau-17DB/scripts/lib/logger.sh; fi
+if ((ICONS_SOURCED != 1 )); then source ~/.config/tpaau-17DB/scripts/lib/icons.sh; fi
 
 notify_err()
 {

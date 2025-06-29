@@ -1,8 +1,8 @@
-# 
+CHECK_DEPENDENCIES_SOURCED=1
 
-source ~/.config/tpaau-17DB/scripts/lib/paths.sh
-source ~/.config/tpaau-17DB/scripts/lib/logger.sh
-source ~/.config/tpaau-17DB/scripts/lib/notifications.sh
+if (( PATHS_SOURCED != 1 )); then source ~/.config/tpaau-17DB/scripts/lib/paths.sh; fi
+if ((LOGGER_SOURCED != 1 )); then source ~/.config/tpaau-17DB/scripts/lib/logger.sh; fi
+if ((NOTIFICATIONS_SOURCED != 1 )); then source ~/.config/tpaau-17DB/scripts/lib/notifications.sh; fi
 
 # Directory containing depcheck files, used for reducing the frequency of
 # dependency checks

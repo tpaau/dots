@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source ~/.config/tpaau-17DB/scripts/lib/logger.sh
+if ((LOGGER_SOURCED != 1 )); then source ~/.config/tpaau-17DB/scripts/lib/logger.sh; fi
 
 parse_notification()
 {

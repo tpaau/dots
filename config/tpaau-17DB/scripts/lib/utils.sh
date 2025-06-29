@@ -1,4 +1,6 @@
-source ~/.config/tpaau-17DB/scripts/lib/logger.sh
+UTILS_SOURCED=1
+
+if (( LOGGER_SOURCED != 1 )); then source ~/.config/tpaau-17DB/scripts/lib/logger.sh; fi
 
 # Exits with 0 if given argument is an integer and with 1 otherwise.
 #

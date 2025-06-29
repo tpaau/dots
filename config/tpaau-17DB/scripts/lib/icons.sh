@@ -1,3 +1,7 @@
+ICONS_SOURCED=1
+
+if (( PATHS_SOURCED != 1 )); then source ~/.config/tpaau-17DB/scripts/lib/paths.sh; fi
+
 # Base path for all my custom notifications
 CUSTOM_ICONS_PATH="$HOME/.config/tpaau-17DB/icons"
 

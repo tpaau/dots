@@ -1,0 +1,1 @@
+DEFAULT_NVIM_COLORSCHEME="habamax"

@@ -9,5 +9,4 @@ if (( $# > 0 )); then
 	sleep "$1"
 fi
 
-# Running multiple instances of hyprshot is fun
 pkill hyprshot || hyprshot --freeze -o ~/Pictures/Screenshots -m region -m eDP-1

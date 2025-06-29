@@ -5,7 +5,9 @@
 #
 # Updates eww variables to reflect the changes in the media control widget.
 
-source ~/.config/tpaau-17DB/scripts/lib/covers.sh
+if (( COVERS_SOURCED != 1 )); then source ~/.config/tpaau-17DB/scripts/lib/covers.sh; fi
+if (( LOGGER_SOURCED != 1 )); then source ~/.config/tpaau-17DB/scripts/lib/logger.sh; fi
+if (( PATHS_SOURCED != 1 )); then source ~/.config/tpaau-17DB/scripts/lib/paths.sh; fi
 source ~/.config/tpaau-17DB/scripts/tunables/media-fetcher.sh
 
 SEP=$'\x1e'
@@ -147,7 +149,7 @@ watch() {
 				
 				if (( len != prev_len )); then
 					eww update track-len=$(format_time_sec $((len / 1000000 )))
-					prev_len=len
+					prev_len=$len
 				fi
 
 				if [[ $update_diplay == true && "$status" == "Playing" ]]; then
