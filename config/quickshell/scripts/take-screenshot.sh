@@ -12,12 +12,17 @@ ensure_no_slurp() {
 
 take_screenshot()
 {
-	local immediate="$1"
-	if [[ "$immediate" != true ]]; then
+
+	local noselect=false
+	if [[ "$1" == "noselect" ]]; then
+		noselect=true
+	fi
+
+	if [[ "$noselect" != true ]]; then
 		ensure_no_slurp || return 1
 	fi
 
-	if [[ "$immediate" != true ]]; then
+	if [[ "$noselect" != true ]]; then
 		local geometry
 		geometry="$(slurp)" || return 1
 		if [[ "$geometry" == "selection cancelled" ]]; then
@@ -28,7 +33,7 @@ take_screenshot()
 	local output
 	output="$SCREENSHOT_OUTPUT_DIR/screenshot_$(date +%Y-%d-%m-%H%M%S).png" || return 1
 	touch "$output" || return 1
-	if [[ "$immediate" == true ]]; then
+	if [[ "$noselect" == true ]]; then
 		grim "$output" || return 1
 	else
 		grim -g "$geometry" "$output" || return 1
@@ -38,4 +43,3 @@ take_screenshot()
 }
 
 take_screenshot "$1"
-exit $?

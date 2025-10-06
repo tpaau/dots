@@ -2,11 +2,9 @@ pragma ComponentBehavior: Bound
 
 import QtQuick
 import QtQuick.Layouts
-import Quickshell.Widgets
 import Quickshell.Services.Notifications
 import qs.widgets
 import qs.config
-import qs.utils
 import qs.services
 
 Rectangle {
@@ -25,8 +23,8 @@ Rectangle {
 
 	readonly property int dragDismissThreshold: 200
 
-	readonly property color regularColor: Appearance.pallete.b3bg
-	readonly property color activeColor: Appearance.pallete.b5bg
+	readonly property color regularColor: Theme.pallete.bg.c4
+	readonly property color activeColor: Theme.pallete.bg.c6
 
 	required property NotificationWrapper wrapper
 	required property Notification notification
@@ -51,7 +49,7 @@ Rectangle {
 	clip: true
 
 	radius: Appearance.rounding.popout
-	color: Appearance.pallete.b2bg
+	color: Theme.pallete.bg.c3
 
 	property int timeSinceCreated
 	Component.onCompleted: {
@@ -186,7 +184,7 @@ Rectangle {
 			Rectangle {
 				id: notificationIconBG
 
-				color: Appearance.pallete.b4bg
+				color: Theme.pallete.bg.c5
 				implicitWidth: root.radius * 2
 				implicitHeight: root.radius * 2
 				radius: Math.min(width, height)
@@ -245,7 +243,7 @@ Rectangle {
 						top: parent.top
 					}
 
-					color: root.expanded ? Appearance.pallete.fg : "transparent"
+					color: root.expanded ? Theme.pallete.fg.c4 : "transparent"
 
 					Behavior on color {
 						ColorAnimation {
@@ -302,7 +300,7 @@ Rectangle {
 
 					visible: color != "transparent"
 					font.pixelSize: Appearance.font.size.small
-					color: root.expanded ? "transparent" : Appearance.pallete.fg
+					color: root.expanded ? "transparent" : Theme.pallete.fg.c4
 
 					anchors {
 						bottom: parent.bottom
@@ -347,7 +345,7 @@ Rectangle {
 
 				font.pixelSize: root.textSize
 
-				color: root.expanded ? Appearance.pallete.fg : "transparent"
+				color: root.expanded ? Theme.pallete.fg.c4 : "transparent"
 
 				Behavior on color {
 					ColorAnimation {

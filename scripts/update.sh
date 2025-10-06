@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-SWAY_DIR="$HOME/.config/sway"
+NIRI_DIR="$HOME/.config/niri"
 QUICKSHELL_DIR="$HOME/.config/quickshell"
 
 main() {
@@ -8,10 +8,10 @@ main() {
 
 	rm -r "config/" || return 2
 
-	mkdir -p "config/$(basename "$SWAY_DIR")" || return 2
+	mkdir -p "config/$(basename "$NIRI_DIR")" || return 2
 	mkdir -p "config/$(basename "$QUICKSHELL_DIR")" || return 2
 
-	cp -r "$SWAY_DIR"/* "config/$(basename "$SWAY_DIR")" || return 2
+	cp -r "$NIRI_DIR"/* "config/$(basename "$NIRI_DIR")" || return 2
 	cp -r "$QUICKSHELL_DIR"/* "config/$(basename "$QUICKSHELL_DIR")" || return 2
 
 	git status || return 1

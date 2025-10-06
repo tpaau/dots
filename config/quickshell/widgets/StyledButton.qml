@@ -4,13 +4,14 @@ import qs.config
 
 MouseArea {
 	id: root
+	clip: true
 
 	property alias rect: rect
 
-	property color disabledColor: Appearance.pallete.b4bg
-	property color regularColor: Appearance.pallete.b3bg
-	property color hoveredColor: Appearance.pallete.b5bg
-	property color pressedColor: Appearance.pallete.b7bg
+	property color disabledColor: Theme.pallete.bg.c5
+	property color regularColor: Theme.pallete.bg.c4
+	property color hoveredColor: Theme.pallete.bg.c6
+	property color pressedColor: Theme.pallete.bg.c8
 
 	property int margin: Appearance.spacing.small
 	property int marginHorizontal: 0

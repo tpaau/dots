@@ -4,6 +4,6 @@ import qs.config
 
 MultiEffect {
 	shadowEnabled: true
-	shadowColor: Appearance.pallete.shadow
+	shadowColor: Theme.pallete.shadow
 	blurMax: Appearance.shadows.blur
 }

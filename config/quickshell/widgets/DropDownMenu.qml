@@ -11,17 +11,19 @@ StyledButton {
 
 	implicitWidth: 150
 	implicitHeight: 30
+	clip: false
 
 	property bool expanded: false
 	onClicked: expanded = !expanded
 
+	property string noEntriesText: "No entries"
 	property string fallbackIcon
 	property bool textIcons: true
 	property bool duplicateEntries: false
 
 	property int largerRadius: Appearance.rounding.small
 	property int smallerRadius: Appearance.rounding.smaller / 2
-	property int animDur: Appearance.anims.durations.shortish
+	property int animDur: Appearance.anims.durations.shorter
 
 	property DropDownMenuEntry selected: {
 		if (root.entries.length > 0) {
@@ -53,7 +55,7 @@ StyledButton {
 	Component {
 		id: defaultEntry
 		DropDownMenuEntry {
-			name: "No entries"
+			name: root.noEntriesText
 		}
 	}
 
@@ -128,7 +130,7 @@ StyledButton {
 			id: dropDownWrapper
 			implicitWidth: root.implicitWidth
 			implicitHeight: root.expanded ?
-				layout.implicitHeight + root.height + layout.spacing : 0
+				layout.implicitHeight + root.height + layout.spacing : root.height
 			clip: true
 
 			Behavior on implicitHeight {
@@ -152,14 +154,14 @@ StyledButton {
 						required property int index
 						readonly property DropDownMenuEntry model: root.entries[index] ? 
 						root.entries[index] : null
-						visible: model != root.selected || root.duplicateEntries
+						visible: model?.index != root.selected?.index || root.duplicateEntries
 
 						property bool contactBottom: {
 							if (index < root.entries.length - 2) {
 								return true
 							}
 							else if (index != root.entries.length - 1) {
-								if (root.entries[index + 1] == root.selected) {
+								if (root.entries[index + 1]?.index == root.selected?.index) {
 									return false
 								}
 								return true

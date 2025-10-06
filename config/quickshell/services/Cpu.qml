@@ -12,7 +12,7 @@ Singleton {
 
 	Process {
 		id: cpuTempProc
-		command: [Quickshell.env("HOME") + "/.config/quickshell/scripts/cpu-temp.py"]
+		command: [Qt.resolvedUrl("../scripts/cpu-temp.py")]
 		running: true
 
 		stdout: SplitParser {
@@ -24,7 +24,7 @@ Singleton {
 
 	Process {
 		id: cpuPercentProc
-		command: [Quickshell.env("HOME") + "/.config/quickshell/scripts/cpu-usage.py"]
+		command: [Qt.resolvedUrl("../scripts/cpu-usage.py")]
 		running: true
 
 		stdout: SplitParser {

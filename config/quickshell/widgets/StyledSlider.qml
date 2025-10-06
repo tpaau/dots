@@ -6,9 +6,9 @@ import qs.config
 Slider {
 	id: root
 
-	property color backgroundColor: Appearance.pallete.b4bg
-	property color fillColorIdle: Appearance.pallete.fg
-	property color fillColorPressed: Appearance.pallete.b3fg
+	property color backgroundColor: Theme.pallete.bg.c5
+	property color fillColorIdle: Theme.pallete.fg.c4
+	property color fillColorPressed: Theme.pallete.fg.c7
 
 	property real gap: height
 

@@ -7,16 +7,16 @@ import QtQuick
 Singleton {
 	id: root
 
-	property string text
+	property int usage
 
 	Process {
-		id: mediaFetcherProc
-		command: [Quickshell.env("HOME") + "/.config/quickshell/scripts/media-fetcher.py"]
+		id: memProc
+		command: [Qt.resolvedUrl("../scripts/mem-usage.py")]
 		running: true
 
 		stdout: SplitParser {
 			onRead: function(data) {
-				root.text = data
+				root.usage = data
 			}
 		}
 	}

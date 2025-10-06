@@ -10,7 +10,7 @@ Item {
 	id: root
 
 	readonly property int radius: Appearance.rounding.window
-	readonly property color color: Appearance.pallete.bg
+	readonly property color color: Theme.pallete.bg.c1
 
 	Corner {
 		anchors {

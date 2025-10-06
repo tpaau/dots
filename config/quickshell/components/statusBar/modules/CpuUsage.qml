@@ -8,14 +8,15 @@ RowLayout {
 	spacing: 2
 
 	StyledIcon {
-		text: ""
+		text: ""
 		font.pixelSize: Appearance.icons.size.small
 	}
 
 	CircularProgressIndicator {
 		implicitHeight: parent.height - 4
 		strokeWidth: 5
+		indicatorColor: Theme.pallete.fg.c4
 		implicitWidth: height
-		progress: Memory.usage / 100
+		progress: Cpu.usage / 100
 	}
 }

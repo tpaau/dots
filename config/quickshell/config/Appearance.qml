@@ -3,7 +3,6 @@ pragma Singleton
 
 import Quickshell
 import QtQuick
-import qs.config.palletes
 
 Singleton {
 	id: root
@@ -11,7 +10,6 @@ Singleton {
 	readonly property QtObject rounding: Rounding {}
 	readonly property Spacing spacing: Spacing {}
 	readonly property Font font: Font {}
-	readonly property Pallete pallete: PalleteBlack {}
 	readonly property Anims anims: Anims {}
 	readonly property Borders borders: Borders {}
 	readonly property Misc misc: Misc {}
@@ -91,8 +89,8 @@ Singleton {
 
 	component Borders: QtObject {
 		readonly property int width: 2
-		readonly property color color: root.pallete.b2bg
-		readonly property color brighterColor: root.pallete.d1fg
+		readonly property color color: Theme.pallete.bg.c3
+		readonly property color brighterColor: Theme.pallete.fg.c3
 	}
 
 	component Misc: QtObject {

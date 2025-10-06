@@ -13,7 +13,7 @@ PanelWindow {
 	required property QuickSettings quickSettings
 	property real spacing: Appearance.spacing.normal
 
-	color: Appearance.pallete.bg
+	color: Theme.pallete.bg.c1
 
 	anchors {
 		top: true
@@ -58,7 +58,7 @@ PanelWindow {
 
 			Layout.alignment: Qt.AlignCenter
 
-			SwayWorkspaces {}
+			NiriWorkspaces {}
 		}
 
 		ModuleGroup {
@@ -66,9 +66,11 @@ PanelWindow {
 
 			Layout.alignment: Qt.AlignRight
 
-			// MemUsage {}
-			// CpuPercent {}
+			BluetoothIndicator {}
+			CaffeineIndicator {}
+			CpuUsage {}
 			// CpuTemp {}
+			MemUsage {}
 			Power {
 				implicitHeight: root.height * 0.75
 			}

@@ -108,7 +108,7 @@ Item {
 				}
 
 				SimpleSlider {
-					id: backlightSlider
+					id: brightnessSlider
 					implicitWidth: root.popoutWidth - 2 * root.rounding
 
 					anchors {
@@ -125,7 +125,7 @@ Item {
 					property bool ready: false
 					onValueChanged: {
 						if (ready) {
-							setBacklightProc.running = true
+							setBrightnessProc.running = true
 						}
 						else {
 							ready = true
@@ -133,9 +133,9 @@ Item {
 					}
 
 					Process {
-						id: setBacklightProc
+						id: setBrightnessProc
 						command: ["brightnessctl", "s",
-							Math.max(1, Math.round(backlightSlider.value * 100)) + "%"]
+							Math.max(1, Math.round(brightnessSlider.value * 100)) + "%"]
 					}
 
 					Process {
@@ -148,33 +148,33 @@ Item {
 							onStreamFinished: {
 								let value = parseInt(text.trim()) / 100
 								if (value <= 0.01) {
-									backlightSlider.value = 0
+									brightnessSlider.value = 0
 								}
 								else {
-									backlightSlider.value = value
+									brightnessSlider.value = value
 								}
 							}
 						}
 					}
 
 					StyledText {
-						anchors.centerIn: backlightSlider.handle
-						visible: backlightSlider.pressed
-						color: Appearance.pallete.b2bg
+						anchors.centerIn: brightnessSlider.handle
+						visible: brightnessSlider.pressed
+						color: Theme.pallete.bg.c3
 						text: {
-							let backlight = backlightSlider.value
-							Math.max(1, Math.round((backlight * 100))).toString()
+							let brightness = brightnessSlider.value
+							Math.max(1, Math.round((brightness * 100))).toString()
 						}
 					}
 
 					StyledIcon {
-						anchors.centerIn: backlightSlider.handle
-						visible: !backlightSlider.pressed
-						color: Appearance.pallete.b2bg
+						anchors.centerIn: brightnessSlider.handle
+						visible: !brightnessSlider.pressed
+						color: Theme.pallete.bg.c3
 						font.pixelSize: Appearance.icons.size.small
 						text: {
-							let backlight = backlightSlider.value
-							Icons.pickIcon(backlight, ["", "", "", "", "", "", ""])
+							let brightness = brightnessSlider.value
+							Icons.pickIcon(brightness, ["", "", "", "", "", "", ""])
 						}
 					}
 				}

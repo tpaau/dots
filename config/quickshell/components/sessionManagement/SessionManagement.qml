@@ -6,13 +6,14 @@ import Quickshell
 import Quickshell.Wayland
 import Quickshell.Widgets
 import Quickshell.Io
-import qs.config
 import qs.widgets
+import qs.config
+import qs.services
 
 Item {
 	id: root
 
-	readonly property color background: Appearance.pallete.bg
+	readonly property color background: Theme.pallete.bg.c1
 	property color dimColor: Qt.alpha(
 		background, 0.7)
 
@@ -93,7 +94,7 @@ Item {
 						activateButton(activeButton.goDown)
 					}
 					else if (event.key == Qt.Key_Return) {
-						activeButton.exec()
+						activeButton.clicked(null)
 					}
 				}
 			}
@@ -133,7 +134,7 @@ Item {
 
 					Component.onCompleted: fadeOffset = 0
 
-					color: Appearance.pallete.bg
+					color: Theme.pallete.bg
 					radius: Appearance.rounding.large
 					layer.enabled: true
 					layer.samples: Appearance.misc.layerSampling
@@ -152,7 +153,10 @@ Item {
 							id: topLeft
 							goRight: topRight
 							goDown: bottomLeft
-							command: "systemctl poweroff"
+							onClicked: {
+								Session.poweroff()
+								win.close()
+							}
 							icon: ""
 
 							focused: true
@@ -161,21 +165,30 @@ Item {
 							id: topRight
 							goLeft: topLeft
 							goDown: bottomRight
-							command: "systemctl reboot"
+							onClicked: {
+								Session.reboot()
+								win.close()
+							}
 							icon: ""
 						}
 						Button {
 							id: bottomLeft
 							goRight: bottomRight
 							goUp: topLeft
-							command: "~/.local/bin/lock-screen.sh"
+							onClicked: {
+								Session.lock()
+								win.close()
+							}
 							icon: ""
 						}
 						Button {
 							id: bottomRight
 							goLeft: bottomLeft
 							goUp: topRight
-							command: "swaymsg exit"
+							onClicked: {
+								Session.logout()
+								win.close()
+							}
 							icon: ""
 						}
 					}
@@ -190,7 +203,6 @@ Item {
 
 						property alias icon: styledIcon.text
 
-						required property string command
 						property bool focused: false
 
 						implicitWidth: root.buttonSize
@@ -198,21 +210,11 @@ Item {
 						rect.radius: root.buttonSize / 2
 
 						regularColor: focused ?
-							hoveredColor : Appearance.pallete.b2bg
-						hoveredColor: Appearance.pallete.b4bg
-						pressedColor: Appearance.pallete.b6bg
+							hoveredColor : Theme.pallete.bg.c3
+						hoveredColor: Theme.pallete.bg.c5
+						pressedColor: Theme.pallete.bg.c7
 
 						onEntered: contentItem.activateButton(this)
-						onClicked: exec()
-
-						readonly property Process process: Process {
-							command: ["sh", "-c", button.command]
-						}
-
-						function exec() {
-							process.startDetached();
-							win.close();
-						}
 
 						StyledIcon {
 							anchors.centerIn: parent

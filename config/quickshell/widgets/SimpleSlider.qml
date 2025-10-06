@@ -6,10 +6,10 @@ import qs.config
 Slider {
 	id: root
 
-	property color textColor: Appearance.pallete.b2bg
-	property color backgroundColor: Appearance.pallete.b2bg
-	property color fillColorIdle: Appearance.pallete.fg
-	property color fillColorPressed: Appearance.pallete.b3fg
+	property color textColor: Theme.pallete.bg.c3
+	property color backgroundColor: Theme.pallete.bg.c3
+	property color fillColorIdle: Theme.pallete.fg.c4
+	property color fillColorPressed: Theme.pallete.fg.c7
 
 	background: Rectangle {
 		color: root.backgroundColor

@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Shapes
-import QtQuick.Effects
 import Quickshell
 import qs.config
 import qs.widgets
@@ -14,7 +13,7 @@ PanelWindow {
 	readonly property ColumnLayout container: container
 
 	readonly property real spacing: Appearance.rounding.popout
-	readonly property color backgroundColor: Appearance.pallete.bg
+	readonly property color backgroundColor: Theme.pallete.bg.c1
 
 	color: "transparent"
 

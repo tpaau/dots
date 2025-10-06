@@ -141,7 +141,7 @@ Item {
 					StyledText {
 						anchors.centerIn: volumeSlider.handle
 						visible: volumeSlider.pressed
-						color: Appearance.pallete.b2bg
+						color: Theme.pallete.bg.c3
 						text: {
 							let defaultSink = Pipewire.defaultAudioSink
 							if (defaultSink == null) {
@@ -158,7 +158,7 @@ Item {
 					StyledIcon {
 						anchors.centerIn: volumeSlider.handle
 						visible: !volumeSlider.pressed
-						color: Appearance.pallete.b2bg
+						color: Theme.pallete.bg.c3
 						text: {
 							let defaultSink = Pipewire.defaultAudioSink
 							let volume = defaultSink?.audio.volume ?? 0

@@ -13,19 +13,19 @@ QSButton {
 	property alias primaryText: textPrimary.text
 	property alias secondaryText: textSecondary.text
 
-	disabledColor: Appearance.pallete.b1bg
-	regularColor: toggled ? Appearance.pallete.fg : Appearance.pallete.b3bg
-	hoveredColor: toggled ? Appearance.pallete.b2fg : Appearance.pallete.b5bg
-	pressedColor: toggled ? Appearance.pallete.b4fg : Appearance.pallete.b7bg
+	disabledColor: Theme.pallete.bg.c2
+	regularColor: toggled ? Theme.pallete.fg.c4 : Theme.pallete.bg.c4
+	hoveredColor: toggled ? Theme.pallete.fg.c6 : Theme.pallete.bg.c5
+	pressedColor: toggled ? Theme.pallete.fg.c8 : Theme.pallete.bg.c6
 
 	readonly property color contentColor: {
 		if (enabled) {
 			if (toggled) {
-				return Appearance.pallete.b2bg
+				return Theme.pallete.bg.c3
 			}
-			return Appearance.pallete.fg
+			return Theme.pallete.fg.c4
 		}
-		return Appearance.pallete.d3fg
+		return Theme.pallete.fg.c1
 	}
 
 	StyledIcon {

@@ -16,7 +16,7 @@ Rectangle {
 	implicitHeight: mainLayout.implicitHeight + 2 * radius
 	clip: true
 
-	color: Appearance.pallete.b2bg
+	color: Theme.pallete.bg.c3
 
 	ColumnLayout {
 		id: mainLayout
@@ -31,7 +31,7 @@ Rectangle {
 			implicitWidth: root.width - 2 * root.radius
 			implicitHeight: root.width - 2 * root.radius
 			radius: root.radius
-			color: Appearance.pallete.b3bg
+			color: Theme.pallete.bg.c4
 
 			StyledIcon {
 				anchors.centerIn: parent
@@ -65,6 +65,7 @@ Rectangle {
 				id: playerPicker
 				z: 2
 				Layout.alignment: Qt.AlignCenter
+				noEntriesText: "No players"
 				textIcons: false
 				fallbackIcon: ""
 				onSelectedChanged: if (Mpris.players.values.length > 0) {
@@ -107,7 +108,6 @@ Rectangle {
 				}
 				StyledText {
 					text: MediaControl.player?.trackArtist || "Unknown"
-					font.weight: Appearance.font.weight.light
 					font.pixelSize: Appearance.font.size.small
 					Layout.preferredWidth: mainLayout.width
 					elide: Text.ElideRight
@@ -124,22 +124,19 @@ Rectangle {
 				property real delta: 0
 
 				Binding {
-					id: playerBinding
 					target: seekSlider
 					property: "value"
 					when: !seekSlider.pressed
-					value: MediaControl.player ? MediaControl.player.position / MediaControl.player.length : 0
+					value: MediaControl.player ?
+						MediaControl.player.position / MediaControl.player.length : 0
 				}
 
-				onPressedChanged: {
-					if (!pressed) {
-						if (MediaControl.player
-							&& MediaControl.player.canSeek
-							&& MediaControl.player.positionSupported
-							&& MediaControl.player.lengthSupported) {
-							MediaControl.player.position = value * MediaControl.player.length
-						}
-					}
+				onPressedChanged: if (!pressed
+					&& MediaControl.player
+					&& MediaControl.player.canSeek
+					&& MediaControl.player.positionSupported
+					&& MediaControl.player.lengthSupported) {
+					MediaControl.player.position = value * MediaControl.player.length
 				}
 			}
 
@@ -170,10 +167,10 @@ Rectangle {
 					id: loopButton
 					Layout.preferredWidth: 35
 					Layout.preferredHeight: 35
-					disabledColor: Appearance.pallete.b2bg
-					regularColor: Appearance.pallete.b2bg
-					hoveredColor: Appearance.pallete.b3bg
-					pressedColor: Appearance.pallete.b4bg
+					disabledColor: Theme.pallete.bg.c3
+					regularColor: Theme.pallete.bg.c3
+					hoveredColor: Theme.pallete.bg.c3
+					pressedColor: Theme.pallete.bg.c3
 					enabled: MediaControl.player && MediaControl.player.loopSupported
 
 					onClicked: {
@@ -192,8 +189,8 @@ Rectangle {
 					StyledIcon {
 						color: loopButton.enabled ?
 							(MediaControl.player.loopState != MprisLoopState.None ? 
-								Appearance.pallete.b2fg
-									: Appearance.pallete.d2fg) : Appearance.pallete.d2fg
+								Theme.pallete.fg.c6
+									: Theme.pallete.fg.c2) : Theme.pallete.fg.c2
 						font.weight: MediaControl.player
 							? MediaControl.player.loopState != MprisLoopState.None
 							? Appearance.font.weight.heavy
@@ -219,7 +216,7 @@ Rectangle {
 
 					StyledIcon {
 						color: previousButton.enabled ?
-							Appearance.pallete.fg : Appearance.pallete.d2fg
+							Theme.pallete.fg.c4 : Theme.pallete.fg.c2
 						anchors.centerIn: parent
 						text: ""
 					}
@@ -234,9 +231,9 @@ Rectangle {
 						MediaControl.player &&
 						MediaControl.player.playbackState == MprisPlaybackState.Playing ?
 						Math.min(width, height) : Math.min(width, height) / 3
-					regularColor: Appearance.pallete.b1fg
-					hoveredColor: Appearance.pallete.d1fg
-					pressedColor: Appearance.pallete.d3fg
+					regularColor: Theme.pallete.fg.c4
+					hoveredColor: Theme.pallete.fg.c4
+					pressedColor: Theme.pallete.fg.c7
 
 					onClicked: {
 						if (MediaControl.player && MediaControl.player.canPause) {
@@ -248,7 +245,7 @@ Rectangle {
 						anchors.centerIn: parent
 						font.pixelSize: Appearance.icons.size.large
 						color: playPauseButton.enabled ?
-							Appearance.pallete.b2bg : Appearance.pallete.d2fg
+							Theme.pallete.bg.c3 : Theme.pallete.fg.c6
 						text: 
 							switch (MediaControl.player?.playbackState) {
 								case MprisPlaybackState.Playing:
@@ -269,7 +266,7 @@ Rectangle {
 
 					StyledIcon {
 						color: nextButton.enabled ?
-							Appearance.pallete.fg : Appearance.pallete.d2fg
+							Theme.pallete.fg.c4 : Theme.pallete.fg.c6
 						anchors.centerIn: parent
 						text: ""
 					}
@@ -278,10 +275,10 @@ Rectangle {
 					id: shuffleButton
 					Layout.preferredWidth: 35
 					Layout.preferredHeight: 35
-					disabledColor: Appearance.pallete.b2bg
-					regularColor: Appearance.pallete.b2bg
-					hoveredColor: Appearance.pallete.b3bg
-					pressedColor: Appearance.pallete.b4bg
+					disabledColor: Theme.pallete.bg.c3
+					regularColor: Theme.pallete.bg.c3
+					hoveredColor: Theme.pallete.bg.c4
+					pressedColor: Theme.pallete.bg.c5
 					enabled: MediaControl.player && MediaControl.player.shuffleSupported
 
 					onClicked: {
@@ -290,7 +287,7 @@ Rectangle {
 
 					StyledIcon {
 						color: shuffleButton ?
-							(MediaControl.player?.shuffle ? Appearance.pallete.b2fg : Appearance.pallete.fg) : Appearance.pallete.d2fg
+							(MediaControl.player?.shuffle ? Theme.pallete.fg.c6 : Theme.pallete.fg) : Theme.pallete.fg.c2
 						font.weight: MediaControl.player
 							? MediaControl.player.shuffle
 							? Appearance.font.weight.regular :

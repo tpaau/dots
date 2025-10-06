@@ -1,12 +1,12 @@
-import Quickshell.Io
 import qs.components.quickSettings
+import qs.services
 
 QSToggleButton {
 	id: caffeineButton
 	icon: ""
 	primaryText: "Caffeine"
-	secondaryText: if (caffeineProcess.running) {
-		if (caffeineProcess.runIndefinitely) {
+	secondaryText: if (Caffeine.running) {
+		if (Caffeine.runIndefinitely) {
 			return "On"
 		}
 		else {
@@ -17,15 +17,6 @@ QSToggleButton {
 		return "Off"
 	}
 
-	toggled: caffeineProcess.running
-	onClicked: caffeineProcess.running = !caffeineProcess.running
-
-	Process {
-		id: caffeineProcess
-
-		property bool runIndefinitely: true
-		property int lockTime: runIndefinitely ? 2147483647 : 1800
-
-		command: ["systemd-inhibit", "sleep", lockTime.toString()]
-	}
+	toggled: Caffeine.running
+	onClicked: Caffeine.running = !Caffeine.running
 }

@@ -3,7 +3,6 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
-import Quickshell.Io
 import qs.widgets
 import qs.widgets.mediaControl
 import qs.animations
@@ -87,15 +86,41 @@ PanelWindow {
 
 			MediaControl {}
 
-			GridLayout {
-				columns: 2
-				rows: 1
-				rowSpacing: root.radius
-				columnSpacing: rowSpacing
+			ColumnLayout {
+				id: grid
 				Layout.alignment: Qt.AlignTop
+				Layout.preferredHeight: parent.height
+				spacing: root.radius
 
-				QSBluetoothButton {}
-				CaffeineButton {}
+				GridLayout {
+					columns: 2
+					rowSpacing: root.radius
+					columnSpacing: rowSpacing
+					Layout.alignment: Qt.AlignTop
+
+					QSBluetoothButton {}
+					CaffeineButton {}
+				}
+
+				RowLayout {
+					Layout.alignment: Qt.AlignBottom
+					Layout.preferredWidth: parent.width
+
+					ActionButtons {
+						id: actionButtons
+						Layout.alignment: Qt.AlignRight
+					}
+				}
+			}
+
+		}
+
+		MouseArea {
+			anchors.fill: container
+			propagateComposedEvents: true
+			onPressed: (mouse) => {
+				mouse.accepted = false
+				actionButtons.closeDialogs()
 			}
 		}
 	}

@@ -10,7 +10,7 @@ ShapePath {
 	pathHints: ShapePath.PathFillOnRight
 		| ShapePath.PathSolid
 		| ShapePath.PathNonIntersecting
-	fillColor: Appearance.pallete.bg
+	fillColor: Theme.pallete.bg.c1
 	strokeWidth: -1
 	strokeColor: Appearance.borders.color
 }

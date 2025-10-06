@@ -10,7 +10,7 @@ Rectangle {
 	id: root
 
 	implicitWidth: needsAttention ? layout.width + 20 : layout.width
-	color: needsAttention ? Appearance.pallete.b4fg : Appearance.pallete.bg
+	color: needsAttention ? Theme.pallete.fg.c8 : Theme.pallete.bg.c1
 	radius: Math.min(width, height) / 2
 
 	readonly property UPowerDevice device: UPower.displayDevice
@@ -42,7 +42,7 @@ Rectangle {
 
 		StyledIcon {
 			id: icon
-			color: root.needsAttention ? Appearance.pallete.bg : Appearance.pallete.b4fg
+			color: root.needsAttention ? Theme.pallete.bg.c1 : Theme.pallete.fg.c8
 			Layout.topMargin: 2
 			text: {
 				if (UPower.displayDevice.ready) {
@@ -60,7 +60,7 @@ Rectangle {
 		}
 
 		StyledText {
-			color: root.needsAttention ? Appearance.pallete.bg : Appearance.pallete.b4fg
+			color: root.needsAttention ? Theme.pallete.bg.c1 : Theme.pallete.fg.c8
 			font.weight: Appearance.font.weight.heavy
 			text: root.device.ready ?
 				Math.round(root.device.percentage * 100).toString() + "%"

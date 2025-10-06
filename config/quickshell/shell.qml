@@ -4,24 +4,25 @@ import QtQuick
 import Quickshell
 import qs.components.statusBar
 import qs.components.volumeOsd
-import qs.components.backlightOsd
+import qs.components.brightnessOsd
 import qs.components.screenOverlay
 import qs.components.notificationDaemon
 import qs.components.quickSettings
 import qs.components.sessionManagement
+import qs.components.desktop
 
 ShellRoot {
 	id: root
 
 	readonly property QuickSettings settings: QuickSettings {}
-
 	StatusBar {
 		quickSettings: root.settings
 	}
 	ScreenOverlay {}
 	VolumeOsd {}
-	BacklightOsd {}
+	BrightnessOsd {}
 	// Launcher {}
     NotificationDaemon {}
 	SessionManagement {}
+	Desktop {}
 }
