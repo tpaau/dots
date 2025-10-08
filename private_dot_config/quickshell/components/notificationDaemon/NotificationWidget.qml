@@ -21,27 +21,18 @@ Rectangle {
 	readonly property int colorShiftDur: Appearance.anims.durations.shorter
 	readonly property int colorShiftEasing: Appearance.anims.easings.fade
 
-	readonly property int dragDismissThreshold: 200
-
-	readonly property color regularColor: Theme.pallete.bg.c4
-	readonly property color activeColor: Theme.pallete.bg.c6
-
 	required property NotificationWrapper wrapper
 	required property Notification notification
-
 	onNotificationChanged: if (!notification) dismiss()
 
-	property real desiredHeight:
-		expanded ? mainLayout.height + radius : titleLayout.height + radius
+	property real desiredHeight: expanded ?
+		mainLayout.height + radius : headLayout.height + radius
+
 	onDesiredHeightChanged: {
 		wrapper.calculateHeight()
 	}
 
 	property bool expanded: false
-	onExpandedChanged: {
-		wrapper.startNotificationResize(notification.id)
-		stopResizeTimer.start()
-	}
 
 	implicitWidth: 0
 
@@ -77,13 +68,14 @@ Rectangle {
 		NumberAnimation {
 			duration: root.expandContractDur
 			easing.type: root.expandContractEasing
-		}
-	}
-
-	Behavior on implicitWidth {
-		NumberAnimation {
-			duration: root.spawnDur
-			easing.type: root.expandContractEasing
+			onRunningChanged: {
+				if (running) {
+					root.wrapper.startNotificationResize(root.notification.id)
+				}
+				else {
+					root.wrapper.stopNotificationResize(root.notification.id)
+				}
+			}
 		}
 	}
 
@@ -109,9 +101,9 @@ Rectangle {
 		onClicked: root.expanded = !root.expanded
 		function determineColor(): color {
 			if (containsPress) {
-				return root.activeColor
+				return Theme.pallete.bg.c6
 			}
-			return root.regularColor
+			return Theme.pallete.bg.c4
 		}
 
 		Rectangle {
@@ -153,7 +145,8 @@ Rectangle {
 					prevX = root.x
 				}
 				else {
-					if (Math.abs(prevX - root.x) > root.dragDismissThreshold) {
+					if (Math.abs(prevX - root.x)
+						> Settings.notificationDragDismissThreshold) {
 						root.dismiss()
 					}
 					else {
@@ -177,7 +170,7 @@ Rectangle {
 		spacing: root.radius / 2
 
 		RowLayout {
-			id: titleLayout
+			id: headLayout
 
 			spacing: root.radius / 2
 
@@ -282,7 +275,6 @@ Rectangle {
 
 					StyledText {
 						id: separator
-
 						text: "●"
 						font.pixelSize: Appearance.font.size.small
 						Layout.bottomMargin: 2
@@ -290,14 +282,12 @@ Rectangle {
 
 					StyledText {
 						id: notificationTime
-
 						text: root.formatedTime
 					}
 				}
 
 				StyledText {
 					id: bodySummary
-
 					visible: color != "transparent"
 					font.pixelSize: Appearance.font.size.small
 					color: root.expanded ? "transparent" : Theme.pallete.fg.c4
@@ -365,7 +355,6 @@ Rectangle {
 
             RowLayout {
                 spacing: root.radius / 2
-
 				Layout.alignment: Layout.Center
 
 				Repeater {
@@ -373,7 +362,8 @@ Rectangle {
 
 					StyledButton {
 						required property int index
-						readonly property var action: root.notification?.actions[index]
+						readonly property NotificationAction action:
+							root.notification?.actions[index]
 
 						implicitHeight: root.radius
 						implicitWidth: buttonText.contentWidth + root.radius
@@ -387,7 +377,6 @@ Rectangle {
 						StyledText {
 							id: buttonText
 							anchors.centerIn: parent
-
 							font.pixelSize: root.textSize
 							Component.onCompleted: text = parent.action.text
 						}
