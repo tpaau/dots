@@ -1,0 +1,217 @@
+input {
+    keyboard {
+        xkb {
+            layout "pl"
+            options "caps:escape"
+        }
+        numlock
+    }
+
+    touchpad {
+        tap
+        natural-scroll
+    }
+
+    trackpoint {
+        accel-speed 0.1
+    }
+
+    warp-mouse-to-focus
+	focus-follows-mouse
+}
+
+output "eDP-1" {
+    scale 1.33
+}
+
+prefer-no-csd
+
+layout {
+    gaps 12
+    center-focused-column "never"
+
+    default-column-width { proportion 0.5; }
+
+    focus-ring {
+        off
+    }
+
+    border {
+        width 4
+        active-color "#ffffff"
+        inactive-color "#000000"
+        urgent-color "#c9c9c9"
+    }
+
+    shadow {
+        // on
+        softness 10
+        spread 5
+        offset x=0 y=5
+        color "#ff0000"
+    }
+}
+
+spawn-at-startup "qs"
+spawn-sh-at-startup "~/.config/quickshell/scripts/swayidle.sh"
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+animations {
+	workspace-switch {
+		duration-ms 200
+		curve "ease-out-expo"
+	}
+}
+
+window-rule {
+	geometry-corner-radius 12
+	clip-to-geometry true
+	open-maximized true
+}
+
+window-rule {
+	match app-id="Rofi"
+	open-floating true
+	open-maximized false
+}
+
+window-rule {
+	match app-id="kitty"
+	open-maximized false
+}
+
+window-rule {
+    match app-id=r#"^org\.keepassxc\.KeePassXC$"#
+    block-out-from "screencast"
+}
+
+workspace "one"
+workspace "two"
+workspace "three"
+workspace "four"
+workspace "five"
+workspace "six"
+workspace "seven"
+workspace "eight"
+workspace "nine"
+
+screenshot-path "~/Pictures/Screenshots/Screenshot_%Y-%m-%d-%H%M%S.png"
+
+binds {
+    Mod+Shift+Slash { show-hotkey-overlay; }
+
+    Mod+Q hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
+    Mod+Space hotkey-overlay-title="Open an application launcher: rofi" { spawn-sh "rofi -show drun"; }
+    Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
+    Mod+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "lock-screen.sh"; }
+    Mod+M { spawn-sh "qs ipc call sessionManagement open"; }
+    Mod+E { spawn-sh "pgrep -x hyprpicker && killall hyprpicker || hyprpicker -anr"; }
+	Print { screenshot; }
+	Shift+Print { screenshot-screen; }
+
+	Alt+Right { spawn-sh "qs ipc call mediaControl next"; }
+	Alt+Left { spawn-sh "qs ipc call mediaControl previous"; }
+	Alt+Space { spawn-sh "qs ipc call mediaControl togglePlaying"; }
+
+    XF86AudioRaiseVolume allow-when-locked=true {
+		spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+";
+	}
+    XF86AudioLowerVolume allow-when-locked=true {
+		spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-";
+	}
+    XF86AudioMute allow-when-locked=true {
+		spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+	}
+    XF86AudioMicMute allow-when-locked=true {
+		spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
+	}
+
+    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
+
+    Mod+O repeat=false { toggle-overview; }
+    Mod+X repeat=false { close-window; }
+
+    Mod+Left  { focus-column-left; }
+    Mod+Down  { focus-window-or-workspace-down; }
+    Mod+Up    { focus-window-or-workspace-up; }
+    Mod+Right { focus-column-right; }
+    Mod+H     { focus-column-left; }
+    Mod+J     { focus-window-or-workspace-down; }
+    Mod+K     { focus-window-or-workspace-up; }
+    Mod+L     { focus-column-right; }
+
+    Mod+Shift+Left  { move-column-left; }
+    Mod+Shift+Down  { move-window-down; }
+    Mod+Shift+Up    { move-window-up; }
+    Mod+Shift+Right { move-column-right; }
+    Mod+Shift+H     { move-column-left; }
+    Mod+Shift+J     { move-window-down; }
+    Mod+Shift+K     { move-window-up; }
+    Mod+Shift+L     { move-column-right; }
+
+    Mod+WheelScrollDown      cooldown-ms=150 { focus-workspace-down; }
+    Mod+WheelScrollUp        cooldown-ms=150 { focus-workspace-up; }
+    Mod+Ctrl+WheelScrollDown cooldown-ms=150 { move-column-to-workspace-down; }
+    Mod+Ctrl+WheelScrollUp   cooldown-ms=150 { move-column-to-workspace-up; }
+
+    Mod+WheelScrollRight      { focus-column-right; }
+    Mod+WheelScrollLeft       { focus-column-left; }
+    Mod+Ctrl+WheelScrollRight { move-column-right; }
+    Mod+Ctrl+WheelScrollLeft  { move-column-left; }
+
+    Mod+1 { focus-workspace "one"; }
+    Mod+2 { focus-workspace "two"; }
+    Mod+3 { focus-workspace "three"; }
+    Mod+4 { focus-workspace "four"; }
+    Mod+5 { focus-workspace "five"; }
+    Mod+6 { focus-workspace "six"; }
+    Mod+7 { focus-workspace "seven"; }
+    Mod+8 { focus-workspace "eight"; }
+    Mod+9 { focus-workspace "nine"; }
+    Mod+Shift+1 { move-column-to-workspace "one"; }
+    Mod+Shift+2 { move-column-to-workspace "two"; }
+    Mod+Shift+3 { move-column-to-workspace "three"; }
+    Mod+Shift+4 { move-column-to-workspace "four"; }
+    Mod+Shift+5 { move-column-to-workspace "five"; }
+    Mod+Shift+6 { move-column-to-workspace "six"; }
+    Mod+Shift+7 { move-column-to-workspace "seven"; }
+    Mod+Shift+8 { move-column-to-workspace "eight"; }
+    Mod+Shift+9 { move-column-to-workspace "nine"; }
+
+    Mod+F { maximize-column; }
+    Mod+Shift+F { fullscreen-window; }
+
+    Mod+Minus { set-column-width "-10%"; }
+    Mod+Equal { set-column-width "+10%"; }
+
+    Mod+Shift+Minus { set-window-height "-10%"; }
+    Mod+Shift+Equal { set-window-height "+10%"; }
+
+    Mod+V       { toggle-window-floating; }
+    Mod+Shift+V { switch-focus-between-floating-and-tiling; }
+
+    // Applications such as remote-desktop clients and software KVM switches may
+    // request that niri stops processing the keyboard shortcuts defined here
+    // so they may, for example, forward the key presses as-is to a remote machine.
+    // It's a good idea to bind an escape hatch to toggle the inhibitor,
+    // so a buggy application can't hold your session hostage.
+    //
+    // The allow-inhibiting=false property can be applied to other binds as well,
+    // which ensures niri always processes them, even when an inhibitor is active.
+    Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+
+    Mod+Shift+P { power-off-monitors; }
+}
+
+overview {
+	backdrop-color "#101010"
+}
+
+cursor {
+	xcursor-theme "Bibata-Modern-Classic"
+    hide-when-typing
+}
