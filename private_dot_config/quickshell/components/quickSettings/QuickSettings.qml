@@ -126,8 +126,7 @@ PanelWindow {
 	}
 
 	HoverHandler {
-		onHoveredChanged: if (!hovered) {
-			root.opened = false
-		}
+		id: hoverHandler
+		onHoveredChanged: if (!hovered) root.close()
 	}
 }

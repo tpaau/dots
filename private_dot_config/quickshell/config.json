@@ -1,0 +1,13 @@
+{
+    "inlineJson": {
+        "a": "b"
+    },
+    "myStringProperty": "Hello!",
+    "stringList": [
+        "default",
+        "value"
+    ],
+    "subObject": {
+        "subObjectProperty": "default value"
+    }
+}

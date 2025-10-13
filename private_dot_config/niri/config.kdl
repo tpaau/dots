@@ -73,7 +73,7 @@ window-rule {
 }
 
 window-rule {
-	match app-id="Rofi"
+	match app-id="Rofi|org.gnome.Nautilus"
 	open-floating true
 	open-maximized false
 }

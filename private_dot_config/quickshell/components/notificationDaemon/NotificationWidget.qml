@@ -1,104 +1,88 @@
-pragma ComponentBehavior: Bound
-
 import QtQuick
 import QtQuick.Layouts
 import Quickshell.Services.Notifications
+import Quickshell.Widgets
 import qs.widgets
 import qs.config
 import qs.services
 
-Rectangle {
+Item {
 	id: root
 
-	readonly property int textSize: Appearance.font.size.small
+	required property NotificationMeta notif
+	required property int spacing
 
-	readonly property int expandContractEasing: Appearance.anims.easings.popout
-	readonly property int expandContractDur: Appearance.anims.durations.notificationExpand
-	readonly property int xRestoreEasing: Appearance.anims.easings.popout
-	readonly property int xRestoreDur: Appearance.anims.durations.longish
-	readonly property int spawnDur: Appearance.anims.durations.normal
+	readonly property real contentFadeMult: 1.5
+	readonly property int transitionDur: Appearance.anims.durations.shorter
 
-	readonly property int colorShiftDur: Appearance.anims.durations.shorter
-	readonly property int colorShiftEasing: Appearance.anims.easings.fade
-
-	required property NotificationWrapper wrapper
-	required property Notification notification
-	onNotificationChanged: if (!notification) dismiss()
-
-	property real desiredHeight: expanded ?
-		mainLayout.height + radius : headLayout.height + radius
-
-	onDesiredHeightChanged: {
-		wrapper.calculateHeight()
-	}
-
-	property bool expanded: false
-
-	implicitWidth: 0
-
-	implicitHeight: desiredHeight
-	clip: true
-
-	radius: Appearance.rounding.popout
-	color: Theme.pallete.bg.c3
-
-	property int timeSinceCreated
+	property bool open: false
 	Component.onCompleted: {
-		timeSinceCreated = Time.unix
-		implicitWidth = Notifications.width
-	}
-
-	property string formatedTime:
-		Time.formatTimeElapsed(Math.floor((Time.unix - timeSinceCreated) / 60))
-
-	Timer {
-		id: stopResizeTimer
-		interval: root.expandContractDur
-		onTriggered: root.wrapper.stopNotificationResize(root.notification.id)
+		open = true
 	}
 
 	function dismiss() {
-		destroy()
-		wrapper.notificationClosed(this)
-		notification?.dismiss()
+		if (x >= 0) x = width + spacing
+		else x = -width
 	}
 
-	Layout.alignment: Qt.AlignRight
+	onXChanged: {
+		if (!mouseArea.containsPress
+		&& (x >= width + spacing || x <= -width)) {
+			open = false
+		}
+	}
+
+	readonly property int desiredHeight:
+		notif.expanded ?
+		headLayout.height + rootLayout.spacing + bodyLayout.height + spacing
+		: headLayout.height + spacing
+
+	onNotifChanged: if (!notif) dismiss()
+
+	implicitWidth: Config.notifications.width
+	implicitHeight: open ? desiredHeight + spacing : 0
+	onImplicitHeightChanged: if (!open && implicitHeight <= 0) {
+		root.destroy()
+		notif.data?.dismiss()
+	}
+
 	Behavior on implicitHeight {
 		NumberAnimation {
-			duration: root.expandContractDur
-			easing.type: root.expandContractEasing
-			onRunningChanged: {
-				if (running) {
-					root.wrapper.startNotificationResize(root.notification.id)
-				}
-				else {
-					root.wrapper.stopNotificationResize(root.notification.id)
-				}
-			}
+			id: heightAnim
+			duration: root.transitionDur
+			easing.bezierCurve: Appearance.anims.easings.popout
 		}
 	}
 
 	Behavior on x {
 		NumberAnimation {
-			id: xRestoreAnimation
-			duration: root.xRestoreDur
-			easing.type: root.xRestoreEasing
+			id: xRestoreAnim
+			duration: root.transitionDur
+			easing.type: Appearance.anims.easings.fadeOut
 		}
 	}
 
 	MouseArea {
-		anchors.fill: parent
+		id: mouseArea
+		visible: root.open
+
+		anchors {
+			fill: parent
+			topMargin: root.spacing / 2
+			bottomMargin: root.spacing / 2
+		}
 
 		property real initialX
 		property real prevX
+		readonly property real dragDelta: Math.abs(prevX - root.x)
+		onDragDeltaChanged: overlayRect.opacity = dragDelta / width * root.contentFadeMult
+
 		Component.onCompleted: {
-			prevX = root.x
-			initialX = root.x
+			prevX = x
+			initialX = x
 		}
 
-		hoverEnabled: true
-		onClicked: root.expanded = !root.expanded
+		onClicked: root.notif.expanded = !root.notif.expanded
 		function determineColor(): color {
 			if (containsPress) {
 				return Theme.pallete.bg.c6
@@ -106,37 +90,8 @@ Rectangle {
 			return Theme.pallete.bg.c4
 		}
 
-		Rectangle {
-			id: expandButton
-
-			implicitWidth: root.radius
-			implicitHeight: root.radius
-			radius: Math.min(width, height)
-			color: parent.determineColor()
-
-			anchors {
-				top: parent.top
-				right: parent.right
-				topMargin: root.radius / 2
-				rightMargin: root.radius / 2
-			}
-
-			Behavior on color {
-				ColorAnimation {
-					duration: Appearance.anims.durations.button
-					easing.type: Appearance.anims.easings.button
-				}
-			}
-
-			StyledIcon {
-				anchors.centerIn: parent
-				font.pixelSize: Appearance.icons.size.small
-				text: root.expanded ? "" : ""
-			}
-		}
-
 		drag {
-			target: xRestoreAnimation.running ? null : root
+			target: xRestoreAnim.running ? null : root
 			axis: Drag.XAxis
 			smoothed: true
 
@@ -145,8 +100,7 @@ Rectangle {
 					prevX = root.x
 				}
 				else {
-					if (Math.abs(prevX - root.x)
-						> Settings.notificationDragDismissThreshold) {
+					if (dragDelta > Config.notificationDragDismissThreshold) {
 						root.dismiss()
 					}
 					else {
@@ -155,230 +109,233 @@ Rectangle {
 				}
 			}
 		}
-	}
 
-	ColumnLayout {
-		id: mainLayout
-
-		anchors {
-			top: parent.top
-			left: parent.left
-			right: parent.right
-			margins: root.radius / 2
+		Rectangle {
+			id: overlayRect
+			anchors.fill: wrapper
+			color: Theme.pallete.bg.c3
+			radius: Appearance.rounding.small
+			opacity: 0
+			z: 1
 		}
 
-		spacing: root.radius / 2
-
-		RowLayout {
-			id: headLayout
-
-			spacing: root.radius / 2
+		ClippingRectangle {
+			id: wrapper
+			anchors {
+				fill: parent
+				leftMargin:
+					Math.max(mouseArea.prevX - root.x, 0)
+			}
+			clip: true
+			color: Theme.pallete.bg.c3
+			radius: Appearance.rounding.small
 
 			Rectangle {
-				id: notificationIconBG
+				color: Theme.pallete.bg.c3
+				implicitWidth: root.width
+				implicitHeight: rootLayout.height + root.spacing
 
-				color: Theme.pallete.bg.c5
-				implicitWidth: root.radius * 2
-				implicitHeight: root.radius * 2
-				radius: Math.min(width, height)
-
-				StyledIcon {
-					anchors.centerIn: parent
-					font.pixelSize: Appearance.icons.size.large
-					text: root.notification
-						&& root.notification.urgency == NotificationUrgency.Critical ?
-						"" : ""
-				}
-			}
-
-			Rectangle {
-				id: headerContainer
-
-				implicitHeight: root.expanded ?
-					headerContainer.height : notificationIconBG.height - root.radius / 2
-				implicitWidth: root.width - notificationIconBG.width - 2 * root.radius - expandButton.width
-				color: root.color
-
-				Behavior on implicitHeight {
-					NumberAnimation {
-						duration: root.colorShiftDur
-						easing.type: root.colorShiftEasing
-					}
-				}
-
-				StyledText {
-					id: shortSummary
-
-					anchors.left: parent.left
-					y: root.expanded ? headerContainer.height / 2 : 0
-					font.weight: Appearance.font.weight.heavy
-
-					Behavior on y {
-						NumberAnimation {
-							duration: root.expandContractDur
-							easing.type: root.expandContractEasing
-						}
-					}
-
-					text: root.notification && root.notification.summary != "" ?
-						root.notification.summary
-						: Notifications.defaultSummary
-
-					Layout.preferredWidth: Math.min(headerContainer.width - (timeLayout.width + root.radius / 2), contentWidth)
-					elide: Text.ElideRight
-				}
-
-				StyledText {
-					id: appName
-
+				ColumnLayout {
+					id: rootLayout
 					anchors {
-						left: parent.left
-						top: parent.top
+						fill: parent
+						margins: root.spacing / 2
 					}
+					spacing: root.spacing / 2
 
-					color: root.expanded ? Theme.pallete.fg.c4 : "transparent"
+					RowLayout {
+						id: headLayout
+						spacing: root.spacing / 2
+						Layout.alignment: Qt.AlignTop
 
-					Behavior on color {
-						ColorAnimation {
-							duration: root.colorShiftDur
-							easing.type: root.colorShiftEasing
+						Rectangle {
+							id: notifIcon
+							implicitWidth: 45
+							implicitHeight: 45
+							radius: Math.min(width, height) / 2
+							color: Theme.pallete.bg.c5
+
+							StyledIcon {
+								anchors.centerIn: parent
+								text: root.notif.data &&
+									root.notif.data.urgency
+									== NotificationUrgency.Critical ?
+									"" : ""
+								font.pixelSize: Appearance.icons.size.larger
+							}
+						}
+
+						Item {
+							id: notifTextHeadWrapper
+							Layout.fillWidth: true
+							implicitHeight: notifIcon.height
+
+							ColumnLayout {
+								width: parent.width
+								height: parent.height
+								Item {
+									id: topTextObj
+									implicitWidth: parent.width
+									Layout.fillHeight: true
+									opacity: 0.4
+								}
+								Item {
+									id: bottomTextObj
+									implicitWidth: parent.width
+									Layout.fillHeight: true
+									opacity: 0.4
+								}
+							}
+
+							StyledText {
+								id: summaryText
+								width: root.notif.expanded ?
+									parent.width
+									: parent.width - elapsedTimer.width
+								elide: Text.ElideRight
+								text: root.notif.data
+									&& root.notif.data.summary != "" ?
+									root.notif.data.summary
+									: Config.notifications.fallbackSummary
+								font.weight: Appearance.font.weight.heavy
+								y: root.notif.expanded ?
+									bottomTextObj.y : topTextObj.y
+
+								Behavior on y {
+									NumberAnimation {
+										duration: root.transitionDur
+										easing.type:
+											Appearance.anims.easings.popout
+									}
+								}
+
+								Behavior on width {
+									NumberAnimation {
+										duration: root.transitionDur
+										easing.type:
+											Appearance.anims.easings.popout
+									}
+								}
+							}
+
+							StyledText {
+								id: appNameText
+
+								text: root.notif.data
+									&& root.notif.data.appName != "" ?
+									root.notif.data.appName
+									: Config.notifications.fallbackAppName
+								opacity: root.notif.expanded ? 1 : 0
+								y: topTextObj.y
+
+								Behavior on opacity {
+									NumberAnimation {
+										duration: root.transitionDur
+										easing.type:
+											Appearance.anims.easings.fade
+									}
+								}
+							}
+
+							Item {
+								id: elapsedTimer
+								y: topTextObj.y
+								x: root.notif.expanded ?
+									appNameText.contentWidth
+									: summaryText.contentWidth
+								implicitWidth: layout.width + root.spacing / 2
+
+								Behavior on x {
+									NumberAnimation {
+										duration: root.transitionDur
+										easing.type:
+											Appearance.anims.easings.popout
+									}
+								}
+
+								RowLayout {
+									id: layout
+									anchors {
+										fill: parent
+										leftMargin: root.spacing / 2
+									}
+									implicitWidth: elapsedTimerSep.contentWidth
+										+ spacing
+										+ elapsedTimerText.contentWidth
+
+									StyledIcon {
+										id: elapsedTimerSep
+										text: "●"
+										font.pixelSize:
+											Appearance.icons.size.smaller
+									}
+									StyledText {
+										id: elapsedTimerText
+										font.pixelSize:
+											Appearance.font.size.small
+										text: Time.formatTimeElapsed(
+											Math.floor((Time.unix
+											- root.notif.creationTime) / 60))
+									}
+								}
+							}
+
+							StyledText {
+								width: parent.width
+								elide: Text.ElideRight
+								font.pixelSize: Appearance.font.size.small
+								text: root.notif.data
+									&& root.notif.data.body != "" ?
+									root.notif.data.body
+									: Config.notifications.fallbackBody
+								opacity: root.notif.expanded ? 0 : 1
+								y: bottomTextObj.y
+
+								Behavior on opacity {
+									NumberAnimation {
+										duration: root.transitionDur
+										easing.type:
+											Appearance.anims.easings.fade
+									}
+								}
+							}
+						}
+
+						Rectangle {
+							radius: Appearance.rounding.normal
+							implicitWidth: radius * 2
+							implicitHeight: radius * 2
+							color: mouseArea.determineColor()
+							Layout.alignment: Qt.AlignTop
+
+							StyledIcon {
+								anchors.centerIn: parent
+								text: root.notif.expanded ?  "" : ""
+							}
 						}
 					}
 
-					text: root.notification && root.notification.appName != "" ?
-						root.notification.appName
-						: Notifications.defaultAppName
+					ColumnLayout {
+						id: bodyLayout
+						spacing: root.spacing / 2
+						opacity: root.notif.expanded ? 1 : 0
+						Layout.preferredWidth: parent.width
 
-					Layout.preferredWidth: Math.min(headerContainer.width - (timeLayout.width + root.radius / 2), contentWidth)
-					elide: Text.ElideRight
-				}
-
-				RowLayout {
-					id: timeLayout
-
-					anchors.top: parent.top
-					x: {
-						if (root.expanded) {
-							return appName.width + root.radius / 2
-						}
-						else {
-							return shortSummary.width + root.radius / 2
-						}
-					}
-
-					Behavior on x {
-						NumberAnimation {
-							duration: root.expandContractDur
-							easing.type: root.expandContractEasing
-						}
-					}
-
-					StyledText {
-						id: separator
-						text: "●"
-						font.pixelSize: Appearance.font.size.small
-						Layout.bottomMargin: 2
-					}
-
-					StyledText {
-						id: notificationTime
-						text: root.formatedTime
-					}
-				}
-
-				StyledText {
-					id: bodySummary
-					visible: color != "transparent"
-					font.pixelSize: Appearance.font.size.small
-					color: root.expanded ? "transparent" : Theme.pallete.fg.c4
-
-					anchors {
-						bottom: parent.bottom
-						left: parent.left
-					}
-					
-					Behavior on color {
-						ColorAnimation {
-							duration: root.colorShiftDur
-							easing.type: root.colorShiftEasing
-						}
-					}
-
-					width: headerContainer.width
-					elide: Text.ElideRight
-					textFormat: Text.MarkdownText
-					text: {
-						const maxLength = 32
-						let originalText = root.notification
-							&& root.notification.body != "" ?
-							root.notification.body
-							: Notifications.defaultBody
-
-						let text = originalText.substring(0, maxLength)
-						if (originalText.length > maxLength) {
-							text += "…"
-						}
-
-						return text
-					}
-				}
-			}
-		}
-
-		ColumnLayout {
-			id: bodyLayout
-
-			spacing: root.radius / 2
-
-			StyledText {
-				id: fullSummary
-
-				font.pixelSize: root.textSize
-
-				color: root.expanded ? Theme.pallete.fg.c4 : "transparent"
-
-				Behavior on color {
-					ColorAnimation {
-						duration: root.colorShiftDur
-						easing.type: root.colorShiftEasing
-					}
-				}
-
-				Layout.preferredWidth: mainLayout.width
-                wrapMode: Text.WordWrap
-                elide: Text.ElideRight
-				textFormat: Text.MarkdownText
-				text: root.notification && root.notification.body != "" ?
-					root.notification.body
-					: Notifications.defaultBody
-            }
-
-            RowLayout {
-                spacing: root.radius / 2
-				Layout.alignment: Layout.Center
-
-				Repeater {
-					model: root.notification?.actions
-
-					StyledButton {
-						required property int index
-						readonly property NotificationAction action:
-							root.notification?.actions[index]
-
-						implicitHeight: root.radius
-						implicitWidth: buttonText.contentWidth + root.radius
-						rect.radius: Math.min(width, height)
-
-						onClicked: {
-							root.destroy()
-							action.invoke()
+						Behavior on opacity {
+							NumberAnimation {
+								duration: root.transitionDur
+								easing.type:
+									Appearance.anims.easings.fade
+							}
 						}
 
 						StyledText {
-							id: buttonText
-							anchors.centerIn: parent
-							font.pixelSize: root.textSize
-							Component.onCompleted: text = parent.action.text
+							wrapMode: Text.WordWrap
+							Layout.preferredWidth: parent.width
+							text: root.notif.data
+								&& root.notif.data.body != "" ?
+								root.notif.data.body
+								: Config.notifications.fallbackBody
 						}
 					}
 				}

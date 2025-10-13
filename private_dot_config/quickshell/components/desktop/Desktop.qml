@@ -20,7 +20,7 @@ PanelWindow {
 
 	Image {
 		anchors.centerIn: parent
-		source: Settings.wallpaper.source
+		source: Config.wallpaper.source
 		fillMode: Image.PreserveAspectFit
 	}
 
