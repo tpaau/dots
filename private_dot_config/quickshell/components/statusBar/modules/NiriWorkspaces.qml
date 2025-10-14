@@ -3,7 +3,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
 import qs.config
-import qs.services
+import qs.services.niri
 
 RowLayout {
 	id: root
@@ -20,21 +20,24 @@ RowLayout {
 	Repeater {
 		model: Math.max(0, Niri.workspaces.length - 1)
 
-		Workspace {
+		WorkspaceItem {
 			Layout.alignment: Qt.AlignCenter
 		}
 	}
 
-	component Workspace: Rectangle {
+	component WorkspaceItem: Rectangle {
+		id: workspaceItem
 		required property int index
-		readonly property NiriWorkspace workspace: Niri.workspaces[index]
+		readonly property Workspace workspace: Niri.workspaces[index]
+		readonly property bool active: workspace.isFocused
 
 		radius: Math.min(width, height) / 2
 
-		implicitWidth: workspace.isFocused ? root.widthActive : root.widthInactive
-		implicitHeight: workspace.isFocused ? root.heightActive : root.heightInactive
+		implicitWidth: active ? root.widthActive : root.widthInactive
+		implicitHeight: active ? root.heightActive : root.heightInactive
 
-		color: workspace.isFocused ? root.colorFocused : root.colorUnfocused
+		color: active ? root.colorFocused
+		: workspace.containsWindow ? root.colorUnfocused : root.colorInactive
 
 		Behavior on implicitWidth {
 			NumberAnimation {

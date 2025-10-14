@@ -11,7 +11,7 @@ PanelWindow {
 	id: root
 
 	required property QuickSettings quickSettings
-	property real spacing: Appearance.spacing.normal
+	property real spacing: Appearance.spacing.large
 
 	color: Theme.pallete.bg.c1
 
@@ -63,14 +63,14 @@ PanelWindow {
 
 		ModuleGroup {
 			id: modulesRight
-
 			Layout.alignment: Qt.AlignRight
 
 			BluetoothIndicator {}
 			CaffeineIndicator {}
 			CpuUsage {}
-			// CpuTemp {}
+			CpuTemp {}
 			MemUsage {}
+			// Privacy {}
 			Power {
 				implicitHeight: root.height * 0.75
 			}

@@ -197,7 +197,7 @@ Item {
 									&& root.notif.data.summary != "" ?
 									root.notif.data.summary
 									: Config.notifications.fallbackSummary
-								font.weight: Appearance.font.weight.heavy
+								font.weight: Theme.font.weight.heavy
 								y: root.notif.expanded ?
 									bottomTextObj.y : topTextObj.y
 
@@ -266,13 +266,14 @@ Item {
 									StyledIcon {
 										id: elapsedTimerSep
 										text: "●"
+										Layout.bottomMargin: 2
 										font.pixelSize:
 											Appearance.icons.size.smaller
 									}
 									StyledText {
 										id: elapsedTimerText
 										font.pixelSize:
-											Appearance.font.size.small
+											Theme.font.size.small
 										text: Time.formatTimeElapsed(
 											Math.floor((Time.unix
 											- root.notif.creationTime) / 60))
@@ -283,7 +284,7 @@ Item {
 							StyledText {
 								width: parent.width
 								elide: Text.ElideRight
-								font.pixelSize: Appearance.font.size.small
+								font.pixelSize: Theme.font.size.small
 								text: root.notif.data
 									&& root.notif.data.body != "" ?
 									root.notif.data.body

@@ -1,11 +1,15 @@
 import QtQuick
 import QtQuick.Layouts
 import qs.widgets
+import qs.services
+import qs.config
 
 RowLayout {
-	spacing: 0
+	spacing: 2
+
 	StyledIcon {
-		text: ""
+		text: ""
+		font.pixelSize: Appearance.icons.size.small
 	}
 
 	StyledText {

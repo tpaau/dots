@@ -98,8 +98,8 @@ Rectangle {
 			ColumnLayout {
 				StyledText {
 					text: MediaControl.player?.trackTitle || "Unknown"
-					font.pixelSize: Appearance.font.size.large
-					font.weight: Appearance.font.weight.heavy
+					font.pixelSize: Theme.font.size.large
+					font.weight: Theme.font.weight.heavy
 					Layout.preferredWidth: mainLayout.width
 					elide: Text.ElideRight
 					Component.onCompleted: {
@@ -108,7 +108,7 @@ Rectangle {
 				}
 				StyledText {
 					text: MediaControl.player?.trackArtist || "Unknown"
-					font.pixelSize: Appearance.font.size.small
+					font.pixelSize: Theme.font.size.small
 					Layout.preferredWidth: mainLayout.width
 					elide: Text.ElideRight
 					Component.onCompleted: {
@@ -146,13 +146,13 @@ Rectangle {
 				StyledText {
 					text: MediaControl.player ?
 						Utils.formatHMS(MediaControl.player.position) : "--:--"
-					font.pixelSize: Appearance.font.size.smaller
+					font.pixelSize: Theme.font.size.smaller
 					Layout.alignment: Qt.AlignLeft
 				}
 				StyledText {
 					text: MediaControl.player ?
 						Utils.formatHMS(MediaControl.player.length) : "--:--"
-					font.pixelSize: Appearance.font.size.smaller
+					font.pixelSize: Theme.font.size.smaller
 					Layout.alignment: Qt.AlignRight
 				}
 			}
@@ -193,9 +193,9 @@ Rectangle {
 									: Theme.pallete.fg.c2) : Theme.pallete.fg.c2
 						font.weight: MediaControl.player
 							? MediaControl.player.loopState != MprisLoopState.None
-							? Appearance.font.weight.heavy
-							: Appearance.font.weight.light
-							: Appearance.font.weight.light
+							? Theme.font.weight.heavy
+							: Theme.font.weight.light
+							: Theme.font.weight.light
 						anchors.centerIn: parent
 						text: MediaControl.player
 							&& MediaControl.player.loopState != MprisLoopState.Track ?
@@ -290,8 +290,8 @@ Rectangle {
 							(MediaControl.player?.shuffle ? Theme.pallete.fg.c6 : Theme.pallete.fg.c4) : Theme.pallete.fg.c2
 						font.weight: MediaControl.player
 							? MediaControl.player.shuffle
-							? Appearance.font.weight.regular :
-							Appearance.font.weight.light : Appearance.font.weight.light
+							? Theme.font.weight.regular :
+							Theme.font.weight.light : Theme.font.weight.light
 						anchors.centerIn: parent
 						text: ""
 					}

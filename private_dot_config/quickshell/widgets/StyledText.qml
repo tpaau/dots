@@ -3,8 +3,8 @@ import qs.config
 
 Text {
 	color: Theme.pallete.fg.c4
-	font.weight: Appearance.font.weight.regular
-	font.family: Appearance.font.family.regular
-	font.pixelSize: Appearance.font.size.normal
+	font.weight: Theme.font.weight.regular
+	font.family: Theme.font.family.regular
+	font.pixelSize: Theme.font.size.normal
 	fontSizeMode: Text.FixedSize
 }

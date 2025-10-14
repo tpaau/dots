@@ -61,7 +61,6 @@ Rectangle {
 
 		StyledText {
 			color: root.needsAttention ? Theme.pallete.bg.c1 : Theme.pallete.fg.c8
-			font.weight: Appearance.font.weight.heavy
 			text: root.device.ready ?
 				Math.round(root.device.percentage * 100).toString() + "%"
 				: "0%"

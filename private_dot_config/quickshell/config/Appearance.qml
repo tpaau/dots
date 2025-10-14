@@ -9,7 +9,6 @@ Singleton {
 
 	readonly property QtObject rounding: Rounding {}
 	readonly property Spacing spacing: Spacing {}
-	readonly property Font font: Font {}
 	readonly property Anims anims: Anims {}
 	readonly property Borders borders: Borders {}
 	readonly property Misc misc: Misc {}
@@ -32,31 +31,6 @@ Singleton {
 		readonly property int normal: 12
         readonly property int large: 16
         readonly property int larger: 20
-	}
-
-	component Font: QtObject {
-		readonly property FontFamily family: FontFamily {}
-		readonly property FontWeight weight: FontWeight {}
-		readonly property FontSize size: FontSize {}
-	}
-
-	component FontFamily: QtObject {
-		readonly property string regular: "Noto Sans"
-		readonly property string monospace: "Noto Sans Mono"
-	}
-
-	component FontWeight: QtObject {
-		readonly property int heavy: 650
-		readonly property int regular: 500
-		readonly property int light: 300
-	}
-
-	component FontSize: QtObject {
-		readonly property int smaller: 12
-		readonly property int small: 14
-		readonly property int normal: 16
-		readonly property int large: 18
-		readonly property int larger: 20
 	}
 
 	component AnimEasing: QtObject {
