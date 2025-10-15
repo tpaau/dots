@@ -21,7 +21,7 @@ Singleton {
 	}
 
 	component FontWeight: QtObject {
-		readonly property int heavy: 650
+		readonly property int heavy: 600
 		readonly property int regular: 500
 		readonly property int light: 300
 	}

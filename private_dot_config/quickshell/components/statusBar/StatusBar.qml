@@ -11,17 +11,17 @@ PanelWindow {
 	id: root
 
 	required property QuickSettings quickSettings
-	property real spacing: Appearance.spacing.large
 
-	color: Theme.pallete.bg.c1
+	readonly property real spacing: Appearance.spacing.large
 
 	anchors {
 		top: true
 		left: true
 		right: true
 	}
-
 	implicitHeight: Appearance.misc.statusBarHeight
+
+	color: Theme.pallete.bg.c1
 
 	MouseArea {
 		anchors {
@@ -65,8 +65,8 @@ PanelWindow {
 			id: modulesRight
 			Layout.alignment: Qt.AlignRight
 
-			BluetoothIndicator {}
 			CaffeineIndicator {}
+			BluetoothIndicator {}
 			CpuUsage {}
 			CpuTemp {}
 			MemUsage {}

@@ -10,23 +10,28 @@ Singleton {
 	readonly property string scriptsDir: Qt.resolvedUrl("../scripts/")
 	readonly property string configFile: Qt.resolvedUrl("../config.json")
 
-	property int notificationDragDismissThreshold: 100
+	readonly property Wallpaper wallpaper: Wallpaper {}
 
-	property Wallpaper wallpaper: Wallpaper {}
-
-	property Notifications notifications: Notifications {}
+	readonly property Notifications notifications: Notifications {}
+	readonly property Input input: Input {}
 
 	component Wallpaper: QtObject {
 		readonly property string source: Qt.resolvedUrl("../assets/wallpapers/overlord-wallpaper2.png")
 	}
 
 	component Notifications: QtObject {
-		readonly property int maxVisible: 5
 		readonly property int width: 400
+		readonly property int maxWrapperHeight: 600
+		readonly property int dragDismissThreshold: 100
 		readonly property string fallbackAppName: "Unknown App"
 		readonly property string fallbackSummary: "Notification"
 		readonly property string fallbackBody: "No information provided."
 	}
+
+	component Input: QtObject {
+		readonly property real scrollSensitivityMult: 0.5
+	}
+
 
 	Component.onCompleted: {
 		fileView.adapter.myStringProperty = "Hello!"

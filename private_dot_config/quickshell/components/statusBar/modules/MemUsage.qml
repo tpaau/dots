@@ -5,7 +5,7 @@ import qs.services
 import qs.config
 
 RowLayout {
-	spacing: 2
+	spacing: Appearance.spacing.small
 
 	StyledIcon {
 		text: ""

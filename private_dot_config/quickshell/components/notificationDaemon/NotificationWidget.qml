@@ -16,8 +16,24 @@ Item {
 	readonly property int transitionDur: Appearance.anims.durations.shorter
 
 	property bool open: false
+	property string summary: Config.notifications.fallbackSummary
+	property string body: Config.notifications.fallbackBody
+	property string appName: Config.notifications.fallbackAppName
+	property int urgency: NotificationUrgency.Normal
 	Component.onCompleted: {
 		open = true
+		if (notif.data) {
+			if (notif.data.summary != "") {
+				summary = notif.data.summary
+			}
+			if (notif.data.body != "") {
+				body = notif.data.body
+			}
+			if (notif.data.appName != "") {
+				appName = notif.data.appName
+			}
+			urgency = notif.data.urgency
+		}
 	}
 
 	function dismiss() {
@@ -37,12 +53,18 @@ Item {
 		headLayout.height + rootLayout.spacing + bodyLayout.height + spacing
 		: headLayout.height + spacing
 
-	onNotifChanged: if (!notif) dismiss()
+	Connections {
+		target: root.notif
+		function onDataChanged() {
+			if (!root.notif.data) root.dismiss()
+		}
+	}
+
+	signal dismissed(NotificationMeta meta)
 
 	implicitWidth: Config.notifications.width
 	implicitHeight: open ? desiredHeight + spacing : 0
 	onImplicitHeightChanged: if (!open && implicitHeight <= 0) {
-		root.destroy()
 		notif.data?.dismiss()
 	}
 
@@ -75,7 +97,7 @@ Item {
 		property real initialX
 		property real prevX
 		readonly property real dragDelta: Math.abs(prevX - root.x)
-		onDragDeltaChanged: overlayRect.opacity = dragDelta / width * root.contentFadeMult
+		onDragDeltaChanged: contentRect.opacity = 1 - dragDelta / width * root.contentFadeMult
 
 		Component.onCompleted: {
 			prevX = x
@@ -100,7 +122,7 @@ Item {
 					prevX = root.x
 				}
 				else {
-					if (dragDelta > Config.notificationDragDismissThreshold) {
+					if (dragDelta > Config.notifications.dragDismissThreshold) {
 						root.dismiss()
 					}
 					else {
@@ -108,15 +130,6 @@ Item {
 					}
 				}
 			}
-		}
-
-		Rectangle {
-			id: overlayRect
-			anchors.fill: wrapper
-			color: Theme.pallete.bg.c3
-			radius: Appearance.rounding.small
-			opacity: 0
-			z: 1
 		}
 
 		ClippingRectangle {
@@ -131,6 +144,7 @@ Item {
 			radius: Appearance.rounding.small
 
 			Rectangle {
+				id: contentRect
 				color: Theme.pallete.bg.c3
 				implicitWidth: root.width
 				implicitHeight: rootLayout.height + root.spacing
@@ -157,8 +171,7 @@ Item {
 
 							StyledIcon {
 								anchors.centerIn: parent
-								text: root.notif.data &&
-									root.notif.data.urgency
+								text: root.urgency
 									== NotificationUrgency.Critical ?
 									"" : ""
 								font.pixelSize: Appearance.icons.size.larger
@@ -193,10 +206,7 @@ Item {
 									parent.width
 									: parent.width - elapsedTimer.width
 								elide: Text.ElideRight
-								text: root.notif.data
-									&& root.notif.data.summary != "" ?
-									root.notif.data.summary
-									: Config.notifications.fallbackSummary
+								text: root.summary
 								font.weight: Theme.font.weight.heavy
 								y: root.notif.expanded ?
 									bottomTextObj.y : topTextObj.y
@@ -221,10 +231,7 @@ Item {
 							StyledText {
 								id: appNameText
 
-								text: root.notif.data
-									&& root.notif.data.appName != "" ?
-									root.notif.data.appName
-									: Config.notifications.fallbackAppName
+								text: root.appName
 								opacity: root.notif.expanded ? 1 : 0
 								y: topTextObj.y
 
@@ -285,10 +292,9 @@ Item {
 								width: parent.width
 								elide: Text.ElideRight
 								font.pixelSize: Theme.font.size.small
-								text: root.notif.data
-									&& root.notif.data.body != "" ?
-									root.notif.data.body
-									: Config.notifications.fallbackBody
+								text: root.body
+								height: bottomTextObj.height
+								maximumLineCount: 1
 								opacity: root.notif.expanded ? 0 : 1
 								y: bottomTextObj.y
 
@@ -333,10 +339,7 @@ Item {
 						StyledText {
 							wrapMode: Text.WordWrap
 							Layout.preferredWidth: parent.width
-							text: root.notif.data
-								&& root.notif.data.body != "" ?
-								root.notif.data.body
-								: Config.notifications.fallbackBody
+							text: root.body
 						}
 					}
 				}

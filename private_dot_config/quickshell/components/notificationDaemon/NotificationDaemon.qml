@@ -3,11 +3,13 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Shapes
 import QtQuick.Layouts
+import QtQuick.Controls
 import Quickshell
 import Quickshell.Services.Notifications
 import qs.widgets
 import qs.widgets.popout.shapes
 import qs.config
+import qs.utils
 import qs.services
 
 PanelWindow {
@@ -85,25 +87,33 @@ PanelWindow {
 
 		property bool isOpen: false
 		height:
-			isOpen ? layout.height + 2 * root.spacing : 0
+			isOpen ? Math.min(layout.height + 2 * root.spacing,
+			Config.notifications.maxWrapperHeight) : 0
 
 		antialiasing: true
 		layer.enabled: true
 		layer.samples: Appearance.misc.layerSampling
 		layer.effect: StyledShadow {}
 
-		ColumnLayout {
-			id: layout
-			spacing: 0
-
+		ScrollView {
+			id: scroll
 			anchors {
-				right: parent.right
-				top: parent.top
+				fill: parent
 				topMargin: root.spacing / 2
+				leftMargin: 2 * root.spacing
 				rightMargin: root.spacing
+				bottomMargin: 2 * root.spacing
 			}
 
-			onHeightChanged: shape.isOpen = height > 0
+			implicitWidth: layout.width
+			implicitHeight: Utils.clamp(layout.height, 0,
+				Config.notifications.maxWrapperHeight)
+
+			contentChildren: [ColumnLayout {
+				id: layout
+				spacing: 0
+				onHeightChanged: shape.isOpen = height > 0
+			}]
 		}
 
 		BasePopoutShape {

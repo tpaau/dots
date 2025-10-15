@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Controls
+import Quickshell.Widgets
 import qs.animations
 import qs.config
 
@@ -12,42 +13,68 @@ Slider {
 
 	property real gap: height
 
-	background: Rectangle {
-		color: root.backgroundColor
-
-		topRightRadius: Math.abs(height / 2)
-		bottomRightRadius: topRightRadius
-		topLeftRadius: Math.abs(height / 4)
-		bottomLeftRadius: topLeftRadius
-
+	background: ClippingRectangle {
+		id: background
 		anchors {
 			right: parent.right
 			top: parent.top
 			bottom: parent.bottom
 		}
 
-		width: parent.width - root.visualPosition * root.width - root.gap * 2/3
+		color: "transparent"
+		radius: height / 4
+
+		width: Math.max(
+			parent.width - root.visualPosition * root.width - root.gap * 2/3, 0)
+
+		Rectangle {
+			anchors {
+				top: parent.top
+				right: parent.right
+				bottom: parent.bottom
+			}
+			topLeftRadius: height / 4
+			bottomLeftRadius: topLeftRadius
+			topRightRadius: height / 2
+			bottomRightRadius: topRightRadius
+			implicitWidth: Math.max(parent.width, topLeftRadius + topRightRadius)
+
+			color: root.backgroundColor
+			radius: height / 2
+		}
 	}
 
-	Rectangle {
+	ClippingRectangle {
 		id: fill
-		color: root.pressed ? root.fillColorPressed : root.fillColorIdle
-
-		topLeftRadius: Math.abs(height / 2)
-		bottomLeftRadius: topLeftRadius
-		topRightRadius: Math.abs(height / 4)
-		bottomRightRadius: topRightRadius
-
 		anchors {
 			left: parent.left
 			top: parent.top
 			bottom: parent.bottom
 		}
 
-		width: root.visualPosition * root.width - root.gap  / 3
+		color: "transparent"
+		radius: height / 4
 
-		Behavior on color {
-			ColorTransition {}
+		width: Math.max(root.visualPosition * root.width - root.gap  / 3, 0)
+
+		Rectangle {
+			anchors {
+				top: parent.top
+				bottom: parent.bottom
+				left: parent.left
+			}
+			topLeftRadius: height / 2
+			bottomLeftRadius: topLeftRadius
+			topRightRadius: height / 4
+			bottomRightRadius: topRightRadius
+			implicitWidth: Math.max(parent.width, topLeftRadius + topRightRadius)
+
+			color: root.pressed ? root.fillColorPressed : root.fillColorIdle
+			radius: height / 2
+
+			Behavior on color {
+				ColorTransition {}
+			}
 		}
 	}
 
