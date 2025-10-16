@@ -8,7 +8,6 @@ import qs.widgets
 import qs.utils
 import qs.animations
 import qs.widgets.popout
-import qs.widgets.popout.shapes
 
 Item {
 	id: root

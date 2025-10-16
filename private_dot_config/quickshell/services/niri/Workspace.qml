@@ -1,7 +1,7 @@
 import QtQuick
 
 QtObject {
-	required property int aid
+	required property int workspaceId
 	required property int idx
 	required property string name
 	required property string output
@@ -9,4 +9,5 @@ QtObject {
 	required property bool isActive
 	required property bool isFocused
 	required property int activeWindowID
+	property bool containsWindow
 }

@@ -21,7 +21,6 @@ ShellRoot {
 	ScreenOverlay {}
 	VolumeOsd {}
 	BrightnessOsd {}
-	// Launcher {}
     NotificationDaemon {}
 	SessionManagement {}
 	Desktop {}

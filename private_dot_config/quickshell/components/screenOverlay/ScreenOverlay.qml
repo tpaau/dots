@@ -3,7 +3,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Shapes
 import Quickshell
-import qs.widgets.popout.shapes
+import qs.widgets.popout
 import qs.config
 
 Item {

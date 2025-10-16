@@ -7,7 +7,6 @@ import qs.widgets
 import qs.widgets.mediaControl
 import qs.animations
 import qs.widgets.popout
-import qs.widgets.popout.shapes
 import qs.config
 
 PanelWindow {

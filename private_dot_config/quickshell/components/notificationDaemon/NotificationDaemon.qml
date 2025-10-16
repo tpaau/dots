@@ -8,7 +8,7 @@ import QtQuick.Effects
 import Quickshell
 import Quickshell.Services.Notifications
 import qs.widgets
-import qs.widgets.popout.shapes
+import qs.widgets.popout
 import qs.config
 import qs.utils
 import qs.services

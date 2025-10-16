@@ -7,7 +7,6 @@ import qs.config
 import qs.widgets
 import qs.animations
 import qs.widgets.popout
-import qs.widgets.popout.shapes
 import qs.utils
 
 Item {
