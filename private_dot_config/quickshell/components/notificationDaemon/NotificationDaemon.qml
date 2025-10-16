@@ -4,6 +4,7 @@ import QtQuick
 import QtQuick.Shapes
 import QtQuick.Layouts
 import QtQuick.Controls
+import QtQuick.Effects
 import Quickshell
 import Quickshell.Services.Notifications
 import qs.widgets
@@ -97,12 +98,27 @@ PanelWindow {
 
 		ScrollView {
 			id: scroll
+
 			anchors {
 				fill: parent
 				topMargin: root.spacing / 2
 				leftMargin: 2 * root.spacing
 				rightMargin: root.spacing
 				bottomMargin: 2 * root.spacing
+			}
+
+			contentItem.layer.enabled: true
+			contentItem.layer.effect: MultiEffect {
+				maskEnabled: true
+				maskSpreadAtMin: 1
+				maskThresholdMin: 0.5
+				maskSource: Rectangle {
+					parent: scroll
+					visible: false
+					radius: Appearance.rounding.small
+					layer.enabled: true
+					anchors.fill: scroll
+				}
 			}
 
 			implicitWidth: layout.width
