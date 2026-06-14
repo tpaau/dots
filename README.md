@@ -12,12 +12,8 @@ My custom desktop shell made with Quickshell for Niri.
 </div>
 
 > [!WARNING]
-> This project is early development, and I do not provide an installation
-> method yet. You can still [try it](#try-it) though!
->
-> If you want to get updates on the state of the project, and to let
-> me know that you *do* want to see this shell released, consider
-> starring this repo!
+> This project is no longer maintained, and I have no plans to resume its development. Learn why
+> [here](https://tpaau.dev/projects/tpaau-shell).
 
 ## Table of contents
 - [Screenshots](#screenshots)
